@@ -1,8 +1,8 @@
 import 'dart:math';
-import 'package:chords/widgets/score_row.dart';
+import 'package:chords/widgets/sheet_row.dart';
 import 'package:flutter/material.dart';
 
-import 'package:chords/screens/score_page.dart';
+import 'package:chords/screens/sheet_page.dart';
 
 class ScoreSection extends StatelessWidget {
   final String label;

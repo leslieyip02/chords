@@ -1,4 +1,4 @@
-import 'package:chords/widgets/score_section.dart';
+import 'package:chords/widgets/sheet_section.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,9 +17,9 @@ class ChordsPage extends StatelessWidget {
         margin: const EdgeInsets.all(16.0),
         padding: const EdgeInsets.all(16.0),
         // debug purposes
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.redAccent, width: 5),
-        ),
+        // decoration: BoxDecoration(
+        //   border: Border.all(color: Colors.redAccent, width: 5),
+        // ),
         child: SingleChildScrollView(
             child: Column(
           children: sections.entries
