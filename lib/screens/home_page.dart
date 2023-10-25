@@ -1,3 +1,4 @@
+import 'package:chords/screens/score_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chords/screens/favorites_page.dart';
@@ -21,6 +22,9 @@ class _HomePageState extends State<HomePage> {
       case 1:
         page = FavoritesPage();
         break;
+      case 2:
+        page = ChordsPage();
+        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -40,6 +44,10 @@ class _HomePageState extends State<HomePage> {
                   NavigationRailDestination(
                     icon: Icon(Icons.favorite),
                     label: Text('Favorites'),
+                  ),
+                  NavigationRailDestination(
+                    icon: Icon(Icons.library_music_rounded),
+                    label: Text('Chords'),
                   ),
                 ],
                 selectedIndex: selectedIndex,
