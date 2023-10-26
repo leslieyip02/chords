@@ -1,8 +1,10 @@
 import 'package:chords/widgets/chord_card.dart';
 import 'package:flutter/material.dart';
 
+import 'package:chords/models/chord.dart';
+
 class Bar extends StatelessWidget {
-  final List<String> chords;
+  final List<Chord> chords;
 
   const Bar({
     super.key,
@@ -14,14 +16,14 @@ class Bar extends StatelessWidget {
     return Expanded(
         flex: 2,
         child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.redAccent, width: 1),
-            ),
+            // decoration: BoxDecoration(
+            //   border: Border.all(color: Colors.redAccent, width: 1),
+            // ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                for (var chord in chords) Chord(value: chord),
-              ],
-            )));
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            for (var chord in chords) ChordCard(chord: chord),
+          ],
+        )));
   }
 }

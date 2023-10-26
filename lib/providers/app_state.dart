@@ -20,44 +20,6 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Map<String, List<List<String>>> sections = {
-    'A': [
-      ['Am', 'D7'],
-      ['Gmaj7'],
-      ['Am', 'D7'],
-      ['Am7'],
-      ['D7'],
-      ['Gmaj7'],
-    ],
-    'B': [
-      ['Am', 'D7'],
-      ['Gmaj7'],
-      ['Am', 'D7'],
-      ['Am7'],
-    ],
-    'Intro': [
-      ['Am7'],
-      ['D7'],
-      ['Am7'],
-      ['D7'],
-    ],
-    'Verse': [
-      ['Am7'],
-      ['D7'],
-      ['Gm7', 'G#+'],
-      ['Am7'],
-      ['Gm7', 'C7'],
-      ['Fmaj7', 'E7'],
-      ['Am7'],
-      ['D7'],
-    ],
-    'Chorus': [
-      ['Cmaj7'],
-      ['Fmaj7'],
-      ['Cmaj7'],
-      ['Fmaj7'],
-      ['Cmaj7'],
-      ['E7'],
-    ],
-  };
+  // var song = 'blue_bossa.txt';
+  var song = 'black_orpheus.txt';
 }

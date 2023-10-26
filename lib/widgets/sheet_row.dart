@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'package:chords/models/chord.dart';
 import 'package:chords/widgets/bar.dart';
 import 'package:chords/widgets/bar_line.dart';
 
 class ScoreRow extends StatelessWidget {
-  final List<List<String>> bars;
+  final List<List<Chord>> bars;
 
   const ScoreRow({
     super.key,

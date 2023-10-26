@@ -1,11 +1,11 @@
 enum NoteValue { A, B, C, D, E, F, G }
 
 class Note {
-  final NoteValue noteValue;
+  final NoteValue value;
   final bool isSharp;
   final bool isFlat;
 
-  Note(this.noteValue, this.isSharp, this.isFlat);
+  Note(this.value, this.isSharp, this.isFlat);
 
   factory Note.fromString(String notation) {
     int index = notation.codeUnitAt(0) - 65;
@@ -23,34 +23,34 @@ class Note {
   Note transposeUp() {
     if (isFlat) {
       return Note(
-        noteValue,
+        value,
         false,
         false,
       );
     } else if (!isSharp) {
-      if (noteValue == NoteValue.B || noteValue == NoteValue.E) {
+      if (value == NoteValue.B || value == NoteValue.E) {
         return Note(
-          NoteValue.values[(noteValue.index + 1) % NoteValue.values.length],
+          NoteValue.values[(value.index + 1) % NoteValue.values.length],
           false,
           false,
         );
       } else {
         return Note(
-          noteValue,
+          value,
           true,
           false,
         );
       }
     } else {
-      if (noteValue == NoteValue.B || noteValue == NoteValue.E) {
+      if (value == NoteValue.B || value == NoteValue.E) {
         return Note(
-          NoteValue.values[(noteValue.index + 1) % NoteValue.values.length],
+          NoteValue.values[(value.index + 1) % NoteValue.values.length],
           true,
           false,
         );
       } else {
         return Note(
-          NoteValue.values[(noteValue.index + 1) % NoteValue.values.length],
+          NoteValue.values[(value.index + 1) % NoteValue.values.length],
           false,
           false,
         );
@@ -61,34 +61,34 @@ class Note {
   Note transposeDown() {
     if (isSharp) {
       return Note(
-        noteValue,
+        value,
         false,
         false,
       );
     } else if (!isFlat) {
-      if (noteValue == NoteValue.C || noteValue == NoteValue.F) {
+      if (value == NoteValue.C || value == NoteValue.F) {
         return Note(
-          NoteValue.values[(noteValue.index - 1) % NoteValue.values.length],
+          NoteValue.values[(value.index - 1) % NoteValue.values.length],
           false,
           false,
         );
       } else {
         return Note(
-          noteValue,
+          value,
           false,
           true,
         );
       }
     } else {
-      if (noteValue == NoteValue.C || noteValue == NoteValue.F) {
+      if (value == NoteValue.C || value == NoteValue.F) {
         return Note(
-          NoteValue.values[(noteValue.index - 1) % NoteValue.values.length],
+          NoteValue.values[(value.index - 1) % NoteValue.values.length],
           false,
           true,
         );
       } else {
         return Note(
-          NoteValue.values[(noteValue.index - 1) % NoteValue.values.length],
+          NoteValue.values[(value.index - 1) % NoteValue.values.length],
           false,
           false,
         );
@@ -100,28 +100,28 @@ class Note {
     if (isSharp) {
       // e.g. A# -> Bb
       return Note(
-        NoteValue.values[(noteValue.index + 1) % NoteValue.values.length],
+        NoteValue.values[(value.index + 1) % NoteValue.values.length],
         false,
-        !(noteValue == NoteValue.B || noteValue == NoteValue.E),
+        !(value == NoteValue.B || value == NoteValue.E),
       );
     } else if (isFlat) {
       // e.g. Bb -> A#
       return Note(
-        NoteValue.values[(noteValue.index - 1) % NoteValue.values.length],
-        !(noteValue == NoteValue.C || noteValue == NoteValue.F),
+        NoteValue.values[(value.index - 1) % NoteValue.values.length],
+        !(value == NoteValue.C || value == NoteValue.F),
         false,
       );
-    } else if (noteValue == NoteValue.B || noteValue == NoteValue.E) {
+    } else if (value == NoteValue.B || value == NoteValue.E) {
       // e.g. B -> Cb
       return Note(
-        NoteValue.values[(noteValue.index + 1) % NoteValue.values.length],
+        NoteValue.values[(value.index + 1) % NoteValue.values.length],
         false,
         true,
       );
-    } else if (noteValue == NoteValue.C || noteValue == NoteValue.F) {
+    } else if (value == NoteValue.C || value == NoteValue.F) {
       // e.g. C -> B#
       return Note(
-        NoteValue.values[(noteValue.index - 1) % NoteValue.values.length],
+        NoteValue.values[(value.index - 1) % NoteValue.values.length],
         true,
         false,
       );
@@ -131,7 +131,7 @@ class Note {
 
   @override
   String toString() {
-    String notation = String.fromCharCode(noteValue.index + 65);
+    String notation = String.fromCharCode(value.index + 65);
     if (isSharp) {
       notation += '#';
     } else if (isFlat) {
@@ -140,3 +140,35 @@ class Note {
     return notation;
   }
 }
+
+/*
+print(Note.fromString('A').transposeUp());
+print(Note.fromString('A').transposeUp().transposeUp());
+print(Note.fromString('A').transposeUp().transposeUp().transposeUp());
+print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp());
+print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
+print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
+print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
+print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
+print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
+print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
+print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
+print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
+print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
+print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
+
+print(Note.fromString('A').transposeDown());
+print(Note.fromString('A').transposeDown().transposeDown());
+print(Note.fromString('A').transposeDown().transposeDown().transposeDown());
+print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown());
+print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
+print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
+print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
+print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
+print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
+print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
+print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
+print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
+print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
+print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
+*/

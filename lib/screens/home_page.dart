@@ -1,4 +1,4 @@
-import 'package:chords/screens/score_page.dart';
+import 'package:chords/screens/sheet_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chords/screens/favorites_page.dart';

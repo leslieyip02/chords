@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Chord extends StatelessWidget {
-  final String value;
+import 'package:chords/models/chord.dart';
 
-  const Chord({
+class ChordCard extends StatelessWidget {
+  final Chord chord;
+
+  const ChordCard({
     super.key,
-    required this.value,
+    required this.chord,
   });
 
   @override
@@ -20,10 +22,13 @@ class Chord extends StatelessWidget {
         // width: 100,
         child: Card(
           color: theme.colorScheme.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Text(
-              value,
+              chord.note.toString(),
               style: style,
               textScaleFactor: 0.5,
             ),
