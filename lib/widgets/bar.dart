@@ -14,16 +14,11 @@ class Bar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: 2,
-      child: Container(
-        // decoration: BoxDecoration(
-        //   border: Border.all(color: Colors.redAccent, width: 1),
-        // ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            for (var chord in chords) ChordCard(chord: chord),
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          for (var chord in chords) ChordCard(chord: chord),
+        ],
       ),
     );
   }

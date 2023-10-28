@@ -6,7 +6,7 @@ import 'package:chords/models/sheet.dart';
 import 'package:chords/providers/app_state.dart';
 
 class SheetPage extends StatelessWidget {
-  static const int barsPerRow = 4;
+  static const int maxBarsPerRow = 4;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +21,7 @@ class SheetPage extends StatelessWidget {
         if (!snapshot.hasData) {
           return Text('woops');
         }
+
         Sheet sheet = Sheet.fromString(snapshot.data as String);
         List<Widget> sections = sheet.sections
             .map((section) => SheetSection(section: section))
@@ -30,11 +31,14 @@ class SheetPage extends StatelessWidget {
           builder: (context, constraints) {
             return Container(
               height: double.infinity,
-              margin: const EdgeInsets.all(16.0),
-              padding: const EdgeInsets.all(16.0),
-              // debug purposes
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.redAccent, width: 5),
+              margin: EdgeInsets.only(
+                left: 16.0,
+                right: 16.0,
+              ),
+              padding: EdgeInsets.only(
+                top: 16.0,
+                left: 16.0,
+                right: 16.0,
               ),
               child: SingleChildScrollView(
                 child: Column(

@@ -1,68 +1,39 @@
 import 'package:chords/screens/sheet_page.dart';
 import 'package:flutter/material.dart';
 
-// import 'package:chords/screens/favorites_page.dart';
-// import 'package:chords/screens/generator_page.dart';
-
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  var selectedIndex = 0;
-
   @override
   Widget build(BuildContext context) {
-    // Widget page;
-    // switch (selectedIndex) {
-    //   case 0:
-    //     page = GeneratorPage();
-    //     break;
-    //   case 1:
-    //     page = FavoritesPage();
-    //     break;
-    //   case 2:
-    //     page = SheetPage();
-    //     break;
-    //   default:
-    //     throw UnimplementedError('no widget for $selectedIndex');
-    // }
+    final theme = Theme.of(context);
 
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
-        body: Row(
+        body: Column(
           children: [
-            // SafeArea(
-            //   child: NavigationRail(
-            //     extended: constraints.maxWidth >= 600,
-            //     destinations: [
-            //       NavigationRailDestination(
-            //         icon: Icon(Icons.home),
-            //         label: Text('Home'),
-            //       ),
-            //       NavigationRailDestination(
-            //         icon: Icon(Icons.favorite),
-            //         label: Text('Favorites'),
-            //       ),
-            //       NavigationRailDestination(
-            //         icon: Icon(Icons.library_music_rounded),
-            //         label: Text('Chords'),
-            //       ),
-            //     ],
-            //     selectedIndex: selectedIndex,
-            //     onDestinationSelected: (value) {
-            //       setState(() {
-            //         selectedIndex = value;
-            //       });
-            //     },
-            //   ),
-            // ),
             Expanded(
               child: Container(
-                color: Theme.of(context).colorScheme.primaryContainer,
+                color: theme.primaryColorLight,
                 child: SheetPage(),
-                // child: page,
+              ),
+            ),
+            SafeArea(
+              child: BottomNavigationBar(
+                backgroundColor: theme.canvasColor,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.library_music_rounded),
+                    label: 'Sheet',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.manage_search),
+                    label: 'Search',
+                  ),
+                ],
               ),
             ),
           ],

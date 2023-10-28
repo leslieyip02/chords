@@ -23,8 +23,8 @@ class SheetRow extends StatelessWidget {
     return Container(
       height: SheetRow.rowHeight,
       margin: EdgeInsets.only(
-        top: 5,
-        bottom: 5,
+        top: 5.0,
+        bottom: 5.0,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

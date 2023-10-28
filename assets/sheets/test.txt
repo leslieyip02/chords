@@ -1,0 +1,9 @@
+Am Am7/G Am | F#m7b5 B7b9 Am Em  | Em Em7/D | Cmaj7        |
+Am Am7/G Am | Em                 | Em Em7/D | Cmaj7        |
+Em          | Em A7b5 Em Bm7b5b9 | Em Em7/D | Cmaj7        |
+Am Em Bm    | Em A7b5 Em Bm7b5b9 | Em Em7/D | Cmaj7        |
+Am Em Bm Gm | Em A7b5            | Em Em7/D | Cmaj7        |
+Am Em       | Em A7b5            | Em Em7/D | Cmaj7 Am B G |
+Am Em       | Em A7b5            | Em Em7/D | Cmaj7        |
+Em          | Em                 | Em       | Em           |
+Em7         | Em                 | Em       |

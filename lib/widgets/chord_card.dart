@@ -29,14 +29,14 @@ class ChordCard extends StatelessWidget {
       child: Card(
         color: theme.colorScheme.primary,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         child: ConstrainedBox(
           constraints: BoxConstraints(
             minHeight: SheetRow.rowHeight,
           ),
           child: Padding(
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.all(10.0),
             child: FittedBox(
               alignment: Alignment.centerLeft,
               fit: BoxFit.scaleDown,
@@ -46,19 +46,14 @@ class ChordCard extends StatelessWidget {
                     chord.note.value.name,
                     style: style,
                   ),
-                  SizedBox(width: 2),
+                  SizedBox(width: 2.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        // decoration: BoxDecoration(
-                        //   border: Border.all(color: Colors.redAccent, width: 5),
-                        // ),
-                        child: Text(
-                          accidental,
-                          style: style,
-                          textScaleFactor: 0.8,
-                        ),
+                      Text(
+                        accidental,
+                        style: style,
+                        textScaleFactor: 0.8,
                       ),
                       Text(
                         chord.quality,

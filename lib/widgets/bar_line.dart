@@ -10,8 +10,12 @@ class BarLine extends StatelessWidget {
     return Expanded(
       flex: 0,
       child: Container(
-        width: 2,
-        height: 80,
+        width: 2.0,
+        height: 80.0,
+        margin: EdgeInsets.only(
+          left: 4.0,
+          right: 4.0,
+        ),
         color: Colors.black,
       ),
     );
