@@ -11,7 +11,7 @@ class BarLine extends StatelessWidget {
       flex: 0,
       child: Container(
         width: 2,
-        height: 50,
+        height: 80,
         color: Colors.black,
       ),
     );

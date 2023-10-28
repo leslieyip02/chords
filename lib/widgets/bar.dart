@@ -1,6 +1,5 @@
 import 'package:chords/widgets/chord_card.dart';
 import 'package:flutter/material.dart';
-
 import 'package:chords/models/chord.dart';
 
 class Bar extends StatelessWidget {
@@ -14,16 +13,18 @@ class Bar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        flex: 2,
-        child: Container(
-            // decoration: BoxDecoration(
-            //   border: Border.all(color: Colors.redAccent, width: 1),
-            // ),
-            child: Row(
+      flex: 2,
+      child: Container(
+        // decoration: BoxDecoration(
+        //   border: Border.all(color: Colors.redAccent, width: 1),
+        // ),
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             for (var chord in chords) ChordCard(chord: chord),
           ],
-        )));
+        ),
+      ),
+    );
   }
 }

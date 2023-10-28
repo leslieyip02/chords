@@ -1,15 +1,14 @@
 import 'dart:math';
 import 'package:chords/widgets/sheet_row.dart';
 import 'package:flutter/material.dart';
-
 import 'package:chords/models/chord.dart';
 import 'package:chords/models/section.dart';
 import 'package:chords/screens/sheet_page.dart';
 
-class ScoreSection extends StatelessWidget {
+class SheetSection extends StatelessWidget {
   final Section section;
 
-  const ScoreSection({
+  const SheetSection({
     super.key,
     required this.section,
   });
@@ -17,38 +16,39 @@ class ScoreSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<List<List<Chord>>> rows = [];
-    for (int i = 0; i < section.bars.length; i += ChordsPage.barsPerRow) {
+    for (int i = 0; i < section.bars.length; i += SheetPage.barsPerRow) {
       int start = i;
-      int end = min(i + ChordsPage.barsPerRow, section.bars.length);
+      int end = min(i + SheetPage.barsPerRow, section.bars.length);
       rows.add(section.bars.sublist(start, end));
     }
 
     return Container(
-        margin: EdgeInsets.only(
-          top: 20,
-          bottom: 20,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                color: Colors.white,
-              ),
-              child: Text(
-                section.label,
-                textScaleFactor: 2.0,
-                textAlign: TextAlign.center,
-              ),
+      margin: EdgeInsets.only(
+        top: 20,
+        bottom: 20,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              color: Colors.white,
             ),
-            SizedBox(
-              height: 10,
+            child: Text(
+              section.label,
+              textScaleFactor: 2.0,
+              textAlign: TextAlign.center,
             ),
-            for (var row in rows) ScoreRow(bars: row),
-          ],
-        ));
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          for (var row in rows) SheetRow(bars: row),
+        ],
+      ),
+    );
   }
 }
 

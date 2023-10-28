@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:chords/models/chord.dart';
+import 'package:chords/widgets/sheet_row.dart';
 
 class ChordCard extends StatelessWidget {
   final Chord chord;
@@ -17,22 +17,62 @@ class ChordCard extends StatelessWidget {
       color: theme.colorScheme.onPrimary,
     );
 
+    String accidental = '';
+    if (chord.note.isSharp) {
+      accidental = '#';
+    } else if (chord.note.isFlat) {
+      accidental = 'b';
+    }
+
     return Expanded(
-        flex: 1,
-        // width: 100,
-        child: Card(
-          color: theme.colorScheme.primary,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
+      flex: 1,
+      child: Card(
+        color: theme.colorScheme.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+        ),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: SheetRow.rowHeight,
           ),
           child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Text(
-              chord.note.toString(),
-              style: style,
-              textScaleFactor: 0.5,
+            padding: EdgeInsets.all(10),
+            child: FittedBox(
+              alignment: Alignment.centerLeft,
+              fit: BoxFit.scaleDown,
+              child: Row(
+                children: [
+                  Text(
+                    chord.note.value.name,
+                    style: style,
+                  ),
+                  SizedBox(width: 2),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        // decoration: BoxDecoration(
+                        //   border: Border.all(color: Colors.redAccent, width: 5),
+                        // ),
+                        child: Text(
+                          accidental,
+                          style: style,
+                          textScaleFactor: 0.8,
+                        ),
+                      ),
+                      Text(
+                        chord.quality,
+                        style: style,
+                        textScaleFactor: 0.5,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:chords/models/chord.dart';
 import 'package:chords/widgets/bar.dart';
 import 'package:chords/widgets/bar_line.dart';
 
-class ScoreRow extends StatelessWidget {
+class SheetRow extends StatelessWidget {
+  static const double rowHeight = 100.0;
   final List<List<Chord>> bars;
 
-  const ScoreRow({
+  const SheetRow({
     super.key,
     required this.bars,
   });
@@ -21,6 +21,7 @@ class ScoreRow extends StatelessWidget {
     }
 
     return Container(
+      height: SheetRow.rowHeight,
       margin: EdgeInsets.only(
         top: 5,
         bottom: 5,
@@ -28,9 +29,6 @@ class ScoreRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: contents,
-        // children: [
-        //   for (var bar in bars) Bar(chords: bar),
-        // ],
       ),
     );
   }

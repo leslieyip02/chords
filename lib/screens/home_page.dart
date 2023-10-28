@@ -1,8 +1,8 @@
 import 'package:chords/screens/sheet_page.dart';
 import 'package:flutter/material.dart';
 
-import 'package:chords/screens/favorites_page.dart';
-import 'package:chords/screens/generator_page.dart';
+// import 'package:chords/screens/favorites_page.dart';
+// import 'package:chords/screens/generator_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,54 +14,55 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget page;
-    switch (selectedIndex) {
-      case 0:
-        page = GeneratorPage();
-        break;
-      case 1:
-        page = FavoritesPage();
-        break;
-      case 2:
-        page = ChordsPage();
-        break;
-      default:
-        throw UnimplementedError('no widget for $selectedIndex');
-    }
+    // Widget page;
+    // switch (selectedIndex) {
+    //   case 0:
+    //     page = GeneratorPage();
+    //     break;
+    //   case 1:
+    //     page = FavoritesPage();
+    //     break;
+    //   case 2:
+    //     page = SheetPage();
+    //     break;
+    //   default:
+    //     throw UnimplementedError('no widget for $selectedIndex');
+    // }
 
     return LayoutBuilder(builder: (context, constraints) {
       return Scaffold(
         body: Row(
           children: [
-            SafeArea(
-              child: NavigationRail(
-                extended: constraints.maxWidth >= 600,
-                destinations: [
-                  NavigationRailDestination(
-                    icon: Icon(Icons.home),
-                    label: Text('Home'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.favorite),
-                    label: Text('Favorites'),
-                  ),
-                  NavigationRailDestination(
-                    icon: Icon(Icons.library_music_rounded),
-                    label: Text('Chords'),
-                  ),
-                ],
-                selectedIndex: selectedIndex,
-                onDestinationSelected: (value) {
-                  setState(() {
-                    selectedIndex = value;
-                  });
-                },
-              ),
-            ),
+            // SafeArea(
+            //   child: NavigationRail(
+            //     extended: constraints.maxWidth >= 600,
+            //     destinations: [
+            //       NavigationRailDestination(
+            //         icon: Icon(Icons.home),
+            //         label: Text('Home'),
+            //       ),
+            //       NavigationRailDestination(
+            //         icon: Icon(Icons.favorite),
+            //         label: Text('Favorites'),
+            //       ),
+            //       NavigationRailDestination(
+            //         icon: Icon(Icons.library_music_rounded),
+            //         label: Text('Chords'),
+            //       ),
+            //     ],
+            //     selectedIndex: selectedIndex,
+            //     onDestinationSelected: (value) {
+            //       setState(() {
+            //         selectedIndex = value;
+            //       });
+            //     },
+            //   ),
+            // ),
             Expanded(
               child: Container(
                 color: Theme.of(context).colorScheme.primaryContainer,
-                child: page,
+                child: SheetPage(),
+                // child: page,
               ),
             ),
           ],
