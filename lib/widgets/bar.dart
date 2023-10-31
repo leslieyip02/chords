@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:chords/models/chord.dart';
 
 class Bar extends StatelessWidget {
-  final List<Chord> chords;
-
   const Bar({
     super.key,
     required this.chords,
   });
+
+  final List<Chord> chords;
 
   @override
   Widget build(BuildContext context) {

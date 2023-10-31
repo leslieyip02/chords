@@ -3,12 +3,12 @@ import 'package:chords/models/chord.dart';
 import 'package:chords/widgets/sheet_row.dart';
 
 class ChordCard extends StatelessWidget {
-  final Chord chord;
-
   const ChordCard({
     super.key,
     required this.chord,
   });
+
+  final Chord chord;
 
   @override
   Widget build(BuildContext context) {

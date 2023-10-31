@@ -4,13 +4,13 @@ import 'package:chords/widgets/bar.dart';
 import 'package:chords/widgets/bar_line.dart';
 
 class SheetRow extends StatelessWidget {
-  static const double rowHeight = 100.0;
-  final List<List<Chord>> bars;
-
   const SheetRow({
     super.key,
     required this.bars,
   });
+
+  static const double rowHeight = 100.0;
+  final List<List<Chord>> bars;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:chords/providers/app_state.dart';
 import 'package:chords/screens/home_page.dart';
 
