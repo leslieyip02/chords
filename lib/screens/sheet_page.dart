@@ -20,7 +20,7 @@ class _SheetPageState extends State<SheetPage> {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AppState>();
-    var song = appState.song;
+    var songPath = appState.songPath;
 
     final theme = Theme.of(context);
 
@@ -32,7 +32,7 @@ class _SheetPageState extends State<SheetPage> {
     }
 
     return FutureBuilder<String>(
-      future: rootBundle.loadString('assets/sheets/$song'),
+      future: rootBundle.loadString(songPath),
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (!snapshot.hasData) {
           return Text('woops');
@@ -42,27 +42,24 @@ class _SheetPageState extends State<SheetPage> {
 
         return LayoutBuilder(
           builder: (context, constraints) {
-            return Padding(
-              padding: EdgeInsets.zero,
-              child: Scaffold(
-                body: SheetContainer(sheet: sheet),
-                bottomNavigationBar: BottomNavigationBar(
-                  backgroundColor: theme.canvasColor,
-                  items: [
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.arrow_circle_left_outlined),
-                      label: 'Back',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.settings),
-                      label: 'Options',
-                    ),
-                  ],
-                  currentIndex: currentIndex,
-                  selectedItemColor: theme.colorScheme.primary,
-                  unselectedItemColor: theme.colorScheme.primary,
-                  onTap: navigationBarOnTap,
-                ),
+            return Scaffold(
+              body: SheetContainer(sheet: sheet),
+              bottomNavigationBar: BottomNavigationBar(
+                backgroundColor: theme.canvasColor,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.arrow_circle_left_outlined),
+                    label: 'Back',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.settings),
+                    label: 'Options',
+                  ),
+                ],
+                currentIndex: currentIndex,
+                selectedItemColor: theme.colorScheme.primary,
+                unselectedItemColor: theme.colorScheme.primary,
+                onTap: navigationBarOnTap,
               ),
             );
           },
