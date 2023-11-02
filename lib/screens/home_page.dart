@@ -9,12 +9,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return Scaffold(
-        body: Center(
-          child: SheetSelector(),
-        ),
-      );
-    });
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Scaffold(
+          body: Center(
+            child: SheetSelector(),
+          ),
+        );
+      },
+    );
   }
 }

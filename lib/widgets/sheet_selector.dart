@@ -1,79 +1,79 @@
 import 'dart:convert';
+import 'package:chords/widgets/shakeable_container.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:chords/providers/app_state.dart';
 import 'package:chords/screens/sheet_page.dart';
 
-class SheetSelector extends StatelessWidget {
-  static const String pathDoesNotExist = '';
+class SheetSelector extends StatefulWidget {
+  @override
+  State<SheetSelector> createState() => _SheetSelectorState();
+}
 
-  const SheetSelector({
-    super.key,
-  });
-
-  void selectSheet(String path, BuildContext context) {
-    if (path != SheetSelector.pathDoesNotExist) {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => SheetPage()));
-    }
-  }
+class _SheetSelectorState extends State<SheetSelector> {
+  final shakeableContainerKey = GlobalKey<ShakeableContainerState>();
+  late List<String> paths;
 
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<AppState>();
+    final appState = context.watch<AppState>();
+
+    void selectSheet(String path) {
+      if (paths.contains(path)) {
+        appState.setSheetPath(path);
+        Navigator.push(context, MaterialPageRoute(builder: (_) => SheetPage()));
+      } else {
+        shakeableContainerKey.currentState?.shake();
+      }
+    }
 
     return FutureBuilder<String>(
       future: DefaultAssetBundle.of(context).loadString('AssetManifest.json'),
-      builder: (context, AsyncSnapshot<String> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if (!snapshot.hasData) {
           return Text('woops');
         }
 
-        final Map<String, dynamic> pathMap =
-            jsonDecode(snapshot.data as String);
-        final List<String> paths = pathMap.keys
+        Map<String, dynamic> pathMap = jsonDecode(snapshot.data as String);
+        paths = pathMap.keys
             .where((path) => path.startsWith('assets/sheets'))
             .toList();
 
-        return SearchAnchor(
-          builder: (BuildContext context, SearchController controller) {
-            return SearchBar(
-              controller: controller,
-              padding: MaterialStatePropertyAll<EdgeInsets>(
-                  EdgeInsets.symmetric(horizontal: 16.0)),
-              onTap: () => controller.openView(),
-              onChanged: (_) => controller.openView(),
-              onSubmitted: (selectedPath) {
-                selectSheet(
-                    paths.contains(selectedPath)
-                        ? selectedPath
-                        : SheetSelector.pathDoesNotExist,
-                    context);
-              },
-              leading: Icon(Icons.search),
-              trailing: [
-                Tooltip(
-                  message: 'Search',
-                  child: IconButton(
-                    onPressed: () => selectSheet(appState.sheetPath, context),
-                    icon: Icon(Icons.arrow_circle_right_outlined),
+        return ShakeableContainer(
+          key: shakeableContainerKey,
+          child: SearchAnchor(
+            viewConstraints: BoxConstraints(maxHeight: 300.0),
+            builder: (BuildContext context, SearchController controller) {
+              return SearchBar(
+                controller: controller,
+                padding: MaterialStatePropertyAll<EdgeInsets>(
+                    EdgeInsets.symmetric(horizontal: 16.0)),
+                onTap: () => controller.openView(),
+                onChanged: (_) => controller.openView(),
+                onSubmitted: (selectedPath) => selectSheet(selectedPath),
+                leading: Icon(Icons.search),
+                trailing: [
+                  Tooltip(
+                    message: 'Search',
+                    child: IconButton(
+                      onPressed: () => selectSheet(controller.value.text),
+                      icon: Icon(Icons.arrow_circle_right_outlined),
+                    ),
                   ),
+                ],
+              );
+            },
+            suggestionsBuilder:
+                (BuildContext context, SearchController controller) {
+              return paths.map(
+                (path) => ListTile(
+                  leading: Icon(Icons.music_note),
+                  title: Text(path),
+                  onTap: () => controller.closeView(path),
                 ),
-              ],
-            );
-          },
-          suggestionsBuilder:
-              (BuildContext context, SearchController controller) {
-            return paths.map(
-              (path) => ListTile(
-                leading: Icon(Icons.music_note),
-                title: Text(path),
-                onTap: () {
-                  appState.setSongPath(path);
-                  controller.closeView(path);
-                },
-              ),
-            );
-          },
+              );
+            },
+          ),
         );
       },
     );
