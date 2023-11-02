@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:chords/widgets/sheet_selector.dart';
 
 class AppState extends ChangeNotifier {
-  var songPath = '';
+  var sheetPath = SheetSelector.pathDoesNotExist;
 
   void setSongPath(String path) {
-    songPath = path;
+    sheetPath = path;
   }
 }

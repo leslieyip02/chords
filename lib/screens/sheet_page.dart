@@ -20,11 +20,11 @@ class _SheetPageState extends State<SheetPage> {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AppState>();
-    var songPath = appState.songPath;
+    var songPath = appState.sheetPath;
 
     final theme = Theme.of(context);
 
-    void navigationBarOnTap(int index) {
+    void selectNavigationItem(int index) {
       if (index == SheetPage.navigateBack) {
         Navigator.pop(context);
       }
@@ -59,7 +59,7 @@ class _SheetPageState extends State<SheetPage> {
                 currentIndex: currentIndex,
                 selectedItemColor: theme.colorScheme.primary,
                 unselectedItemColor: theme.colorScheme.primary,
-                onTap: navigationBarOnTap,
+                onTap: selectNavigationItem,
               ),
             );
           },
