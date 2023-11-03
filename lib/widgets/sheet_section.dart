@@ -65,25 +65,23 @@ class SheetSection extends StatelessWidget {
     List<List<List<Chord>>> rows = distributeRows();
 
     return Container(
-      margin: EdgeInsets.only(
-        top: 20.0,
-        bottom: 20.0,
-      ),
+      margin: EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: EdgeInsets.all(5.0),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              color: Colors.white,
+          if (section.label != null)
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                color: Colors.white,
+              ),
+              child: Text(
+                section.label as String,
+                textScaleFactor: 2.0,
+                textAlign: TextAlign.center,
+              ),
             ),
-            child: Text(
-              section.label,
-              textScaleFactor: 2.0,
-              textAlign: TextAlign.center,
-            ),
-          ),
           SizedBox(height: 10.0),
           for (var row in rows) SheetRow(bars: row),
         ],

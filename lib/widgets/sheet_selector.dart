@@ -41,38 +41,41 @@ class _SheetSelectorState extends State<SheetSelector> {
 
         return ShakeableContainer(
           key: shakeableContainerKey,
-          child: SearchAnchor(
-            viewConstraints: BoxConstraints(maxHeight: 300.0),
-            builder: (BuildContext context, SearchController controller) {
-              return SearchBar(
-                controller: controller,
-                padding: MaterialStatePropertyAll<EdgeInsets>(
-                    EdgeInsets.symmetric(horizontal: 16.0)),
-                onTap: () => controller.openView(),
-                onChanged: (_) => controller.openView(),
-                onSubmitted: (selectedPath) => selectSheet(selectedPath),
-                leading: Icon(Icons.search),
-                trailing: [
-                  Tooltip(
-                    message: 'Search',
-                    child: IconButton(
-                      onPressed: () => selectSheet(controller.value.text),
-                      icon: Icon(Icons.arrow_circle_right_outlined),
+          child: Container(
+            margin: EdgeInsets.all(64.0),
+            child: SearchAnchor(
+              viewConstraints: BoxConstraints(maxHeight: 300.0),
+              builder: (BuildContext context, SearchController controller) {
+                return SearchBar(
+                  controller: controller,
+                  padding: MaterialStatePropertyAll<EdgeInsets>(
+                      EdgeInsets.symmetric(horizontal: 16.0)),
+                  onTap: () => controller.openView(),
+                  onChanged: (_) => controller.openView(),
+                  onSubmitted: (selectedPath) => selectSheet(selectedPath),
+                  leading: Icon(Icons.search),
+                  trailing: [
+                    Tooltip(
+                      message: 'Search',
+                      child: IconButton(
+                        onPressed: () => selectSheet(controller.value.text),
+                        icon: Icon(Icons.arrow_circle_right_outlined),
+                      ),
                     ),
+                  ],
+                );
+              },
+              suggestionsBuilder:
+                  (BuildContext context, SearchController controller) {
+                return paths.map(
+                  (path) => ListTile(
+                    leading: Icon(Icons.music_note),
+                    title: Text(path),
+                    onTap: () => controller.closeView(path),
                   ),
-                ],
-              );
-            },
-            suggestionsBuilder:
-                (BuildContext context, SearchController controller) {
-              return paths.map(
-                (path) => ListTile(
-                  leading: Icon(Icons.music_note),
-                  title: Text(path),
-                  onTap: () => controller.closeView(path),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         );
       },

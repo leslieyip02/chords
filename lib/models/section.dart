@@ -1,14 +1,27 @@
 import 'package:chords/models/chord.dart';
 
 class Section {
-  final String label;
+  static const String labelLabel = 'section:';
+
+  final String? label;
   final List<List<Chord>> bars;
 
   Section(this.label, this.bars);
 
   factory Section.fromString(String notation) {
+    String? label;
     List<List<Chord>> bars = [];
-    for (String line in notation.split('\n')) {
+    List<String> lines = notation.trim().split('\n');
+    if (lines.isEmpty) {
+      throw ArgumentError('$notation is not a valid section');
+    }
+
+    if (lines[0].startsWith(Section.labelLabel)) {
+      label = lines[0].substring(Section.labelLabel.length).trim();
+      lines.removeAt(0);
+    }
+
+    for (String line in lines) {
       for (String bar in line.split('|')) {
         bar = bar.trim();
         if (bar.isNotEmpty) {
@@ -16,6 +29,6 @@ class Section {
         }
       }
     }
-    return Section('Section', bars);
+    return Section(label, bars);
   }
 }

@@ -46,19 +46,19 @@ class ChordCard extends StatelessWidget {
                     chord.note.value.name,
                     style: style,
                   ),
-                  SizedBox(width: 2.0),
+                  SizedBox(width: 4.0),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         accidental,
                         style: style,
-                        textScaleFactor: 0.8,
+                        textScaleFactor: 0.6,
                       ),
                       Text(
                         chord.quality,
                         style: style,
-                        textScaleFactor: 0.5,
+                        textScaleFactor: 0.6,
                       ),
                     ],
                   ),

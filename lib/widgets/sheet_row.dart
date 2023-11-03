@@ -9,7 +9,7 @@ class SheetRow extends StatelessWidget {
     required this.bars,
   });
 
-  static const double rowHeight = 100.0;
+  static const double rowHeight = 80.0;
   final List<List<Chord>> bars;
 
   @override
@@ -22,10 +22,7 @@ class SheetRow extends StatelessWidget {
 
     return Container(
       height: SheetRow.rowHeight,
-      margin: EdgeInsets.only(
-        top: 5.0,
-        bottom: 5.0,
-      ),
+      margin: EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: contents,
