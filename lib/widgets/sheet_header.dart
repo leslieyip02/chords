@@ -22,12 +22,17 @@ class SheetHeader extends StatelessWidget {
               if (sheet.title != null)
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 4.0),
-                  child: Text(sheet.title as String,
-                      style: theme.textTheme.displayLarge),
+                  child: Text(
+                    sheet.title as String,
+                    style: theme.textTheme.displayLarge,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               if (sheet.composer != null)
-                Text(sheet.composer as String,
-                    style: theme.textTheme.titleSmall),
+                Text(
+                  sheet.composer as String,
+                  style: theme.textTheme.titleSmall,
+                ),
             ],
           ),
         );
