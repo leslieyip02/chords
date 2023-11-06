@@ -62,6 +62,8 @@ class SheetSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     List<List<List<Chord>>> rows = distributeRows();
 
     return Container(
@@ -71,18 +73,19 @@ class SheetSection extends StatelessWidget {
         children: [
           if (section.label != null)
             Container(
-              padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                color: Colors.white,
+                border: Border.all(color: theme.primaryColor),
+                borderRadius: BorderRadius.all(Radius.circular(4.0)),
               ),
+              padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
               child: Text(
                 section.label as String,
-                textScaleFactor: 2.0,
+                style: TextStyle(color: theme.primaryColor),
                 textAlign: TextAlign.center,
+                textScaleFactor: 2.0,
               ),
             ),
-          SizedBox(height: 10.0),
+          SizedBox(height: 4.0),
           for (var row in rows) SheetRow(bars: row),
         ],
       ),

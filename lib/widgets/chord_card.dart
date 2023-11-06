@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:chords/main.dart';
 import 'package:chords/models/chord.dart';
 import 'package:chords/widgets/sheet_row.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ChordCard extends StatefulWidget {
   static List<ColorScheme> cardColorSchemes = [
-    ColorScheme.fromSeed(seedColor: Colors.red, primary: Colors.red),
-    ColorScheme.fromSeed(seedColor: Colors.orange, primary: Colors.orange),
-    ColorScheme.fromSeed(seedColor: Colors.amber, primary: Colors.amber),
-    ColorScheme.fromSeed(seedColor: Colors.green, primary: Colors.green),
-    ColorScheme.fromSeed(seedColor: Colors.blue),
-    ColorScheme.fromSeed(seedColor: Colors.indigo, primary: Colors.indigo),
-    ColorScheme.fromSeed(seedColor: Colors.purple, primary: Colors.purple),
+    ColorScheme.fromSeed(seedColor: Colors.red, primary: Color(0xFFF92672)),
+    ColorScheme.fromSeed(seedColor: Colors.orange, primary: Color(0xFFFD971F)),
+    ColorScheme.fromSeed(seedColor: Colors.yellow, primary: Color(0xFFF4DF8B)),
+    ColorScheme.fromSeed(seedColor: Colors.green, primary: Color(0xFFA6E22E)),
+    ColorScheme.fromSeed(seedColor: Colors.blue, primary: Color(0xFF66D9EF)),
+    App.colorScheme,
+    ColorScheme.fromSeed(seedColor: Colors.indigo, primary: Color(0xFFAE81FF)),
   ];
 
   const ChordCard({
@@ -42,9 +43,6 @@ class _ChordCardState extends State<ChordCard> {
       textStyle: theme.textTheme.displayMedium,
       color: colorScheme?.onPrimary,
     );
-    // final style = theme.textTheme.displayMedium!.copyWith(
-    //   color: colorScheme?.onPrimary,
-    // );
 
     String accidental = '';
     if (widget.chord.note.isSharp) {

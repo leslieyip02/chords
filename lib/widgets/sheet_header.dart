@@ -12,6 +12,12 @@ class SheetHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final titleStyle = theme.textTheme.displayLarge!.copyWith(
+      color: theme.primaryColor,
+    );
+    final subtitleStyle = theme.textTheme.titleSmall!.copyWith(
+      color: theme.colorScheme.secondary,
+    );
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -24,14 +30,14 @@ class SheetHeader extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 4.0),
                   child: Text(
                     sheet.title as String,
-                    style: theme.textTheme.displayLarge,
+                    style: titleStyle,
                     textAlign: TextAlign.center,
                   ),
                 ),
               if (sheet.composer != null)
                 Text(
                   sheet.composer as String,
-                  style: theme.textTheme.titleSmall,
+                  style: subtitleStyle,
                 ),
             ],
           ),

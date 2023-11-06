@@ -13,8 +13,6 @@ class SheetContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     List<Widget> sections = sheet.sections
         .map((section) => SheetSection(section: section))
         .toList();
@@ -22,7 +20,6 @@ class SheetContainer extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Container(
-          // color: theme.secondaryHeaderColor,
           height: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: SingleChildScrollView(

@@ -8,6 +8,11 @@ void main() {
 }
 
 class App extends StatelessWidget {
+  static ColorScheme colorScheme = ColorScheme.fromSeed(
+    seedColor: Colors.lightBlue,
+    primary: Color(0xFF66A4EF),
+  );
+
   const App({super.key});
 
   @override
@@ -18,7 +23,7 @@ class App extends StatelessWidget {
         title: 'Chords',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+          colorScheme: colorScheme,
         ),
         home: HomePage(),
       ),
