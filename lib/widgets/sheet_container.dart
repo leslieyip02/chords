@@ -22,7 +22,7 @@ class SheetContainer extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Container(
-          color: theme.primaryColorLight,
+          // color: theme.secondaryHeaderColor,
           height: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: SingleChildScrollView(

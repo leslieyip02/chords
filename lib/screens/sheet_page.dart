@@ -45,7 +45,7 @@ class _SheetPageState extends State<SheetPage> {
             return Scaffold(
               body: SheetContainer(sheet: sheet),
               bottomNavigationBar: BottomNavigationBar(
-                backgroundColor: theme.canvasColor,
+                // backgroundColor: theme.canvasColor,
                 items: [
                   BottomNavigationBarItem(
                     icon: Icon(Icons.arrow_circle_left_outlined),
