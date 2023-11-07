@@ -21,7 +21,8 @@ class _SheetSelectorState extends State<SheetSelector> {
     void selectSheet(String path) {
       if (paths.contains(path)) {
         appState.setSheetPath(path);
-        Navigator.push(context, MaterialPageRoute(builder: (_) => SheetPage()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => SheetPage(songPath: path)));
       } else {
         shakeableContainerKey.currentState?.shake();
       }

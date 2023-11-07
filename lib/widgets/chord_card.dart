@@ -58,16 +58,21 @@ class _ChordCardState extends State<ChordCard> {
           showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-              title: Text('Choose a color:'),
+              surfaceTintColor: theme.canvasColor,
+              title: Text(
+                'Choose a color:',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.titleMedium,
+              ),
               content: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   for (var cardColorScheme in ChordCard.cardColorSchemes)
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 4.0),
+                      margin: EdgeInsets.symmetric(horizontal: 8.0),
                       child: MaterialButton(
                         minWidth: 40.0,
-                        height: 64.0,
+                        height: 48.0,
                         onPressed: () {
                           setState(() {
                             colorScheme = cardColorScheme;

@@ -31,4 +31,13 @@ class Section {
     }
     return Section(label, bars);
   }
+
+  Section transpose(int steps) {
+    for (var bar in bars) {
+      for (var chord in bar) {
+        chord.transpose(steps);
+      }
+    }
+    return this;
+  }
 }

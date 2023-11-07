@@ -3,7 +3,7 @@ import 'package:chords/models/note.dart';
 // enum ChordQuality { major, dominant, minor, halfDiminished, diminished, other };
 
 class Chord {
-  final Note note;
+  Note note;
   final String quality;
   // final ChordQuality quality;
 
@@ -17,5 +17,10 @@ class Chord {
     }
     Note note = Note.fromString(match?.group(1) as String);
     return Chord(note, match?.group(2) ?? '');
+  }
+
+  Chord transpose(int steps) {
+    note = note.transpose(steps);
+    return this;
   }
 }

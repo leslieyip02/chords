@@ -34,4 +34,11 @@ class Sheet {
     List<Section> sections = divided.map(Section.fromString).toList();
     return Sheet(title, composer, sections);
   }
+
+  Sheet transpose(int steps) {
+    for (var section in sections) {
+      section.transpose(steps);
+    }
+    return this;
+  }
 }

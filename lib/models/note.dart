@@ -20,6 +20,16 @@ class Note {
     );
   }
 
+  Note transpose(int steps) {
+    if (steps == 0) {
+      return this;
+    }
+
+    return steps > 0
+        ? transposeUp().transpose(steps - 1)
+        : transposeDown().transpose(steps + 1);
+  }
+
   Note transposeUp() {
     if (isFlat) {
       return Note(
