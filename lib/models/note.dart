@@ -149,36 +149,10 @@ class Note {
     }
     return notation;
   }
+
+  @override
+  int get hashCode => Object.hash(value, isSharp, isFlat);
+
+  @override
+  bool operator ==(Object other) => hashCode == other.hashCode;
 }
-
-/*
-print(Note.fromString('A').transposeUp());
-print(Note.fromString('A').transposeUp().transposeUp());
-print(Note.fromString('A').transposeUp().transposeUp().transposeUp());
-print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp());
-print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
-print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
-print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
-print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
-print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
-print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
-print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
-print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
-print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
-print(Note.fromString('A').transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp().transposeUp());
-
-print(Note.fromString('A').transposeDown());
-print(Note.fromString('A').transposeDown().transposeDown());
-print(Note.fromString('A').transposeDown().transposeDown().transposeDown());
-print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown());
-print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
-print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
-print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
-print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
-print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
-print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
-print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
-print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
-print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
-print(Note.fromString('A').transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown().transposeDown());
-*/
