@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:chords/main.dart';
 import 'package:chords/models/chord.dart';
+import 'package:chords/widgets/shakeable_container.dart';
 import 'package:chords/widgets/sheet_row.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ChordCard extends StatefulWidget {
   static List<ColorScheme> cardColorSchemes = [
@@ -27,6 +28,7 @@ class ChordCard extends StatefulWidget {
 }
 
 class _ChordCardState extends State<ChordCard> {
+  final shakeableContainerKey = GlobalKey<ShakeableContainerState>();
   ColorScheme? colorScheme;
   Color? color;
 
@@ -60,29 +62,61 @@ class _ChordCardState extends State<ChordCard> {
             builder: (BuildContext context) => AlertDialog(
               surfaceTintColor: theme.canvasColor,
               title: Text(
-                'Choose a color:',
+                'Edit:',
                 textAlign: TextAlign.center,
                 style: theme.textTheme.titleMedium,
               ),
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  for (var cardColorScheme in ChordCard.cardColorSchemes)
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: MaterialButton(
-                        minWidth: 40.0,
-                        height: 48.0,
-                        onPressed: () {
-                          setState(() {
-                            colorScheme = cardColorScheme;
-                            color = cardColorScheme.primary;
-                          });
+                  ShakeableContainer(
+                    key: shakeableContainerKey,
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 200),
+                      child: TextField(
+                        style: style.copyWith(
+                          color: colorScheme?.primary,
+                        ),
+                        textAlign: TextAlign.center,
+                        onSubmitted: (notation) {
+                          try {
+                            widget.chord.update(notation);
+                            setState(() {});
+                          } on ArgumentError {
+                            shakeableContainerKey.currentState?.shake();
+                          }
                         },
-                        color: cardColorScheme.primary,
-                        shape: CircleBorder(),
+                        controller: TextEditingController.fromValue(
+                          TextEditingValue(text: widget.chord.toString()),
+                        ),
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
                       ),
                     ),
+                  ),
+                  SizedBox(height: 16.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      for (var cardColorScheme in ChordCard.cardColorSchemes)
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: MaterialButton(
+                            minWidth: 40.0,
+                            height: 48.0,
+                            onPressed: () {
+                              setState(() {
+                                colorScheme = cardColorScheme;
+                                color = cardColorScheme.primary;
+                              });
+                            },
+                            color: cardColorScheme.primary,
+                            shape: CircleBorder(),
+                          ),
+                        ),
+                    ],
+                  ),
                 ],
               ),
               actions: [

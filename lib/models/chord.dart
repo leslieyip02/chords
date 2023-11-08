@@ -4,7 +4,7 @@ import 'package:chords/models/note.dart';
 
 class Chord {
   Note note;
-  final String quality;
+  String quality;
   // final ChordQuality quality;
 
   Chord(this.note, this.quality);
@@ -22,5 +22,20 @@ class Chord {
   Chord transpose(int steps) {
     note = note.transpose(steps);
     return this;
+  }
+
+  void update(String notation) {
+    RegExp parser = RegExp(r'([A-G][#b]?)(.*)?');
+    RegExpMatch? match = parser.firstMatch(notation.trim());
+    if (match?.group(1) == null) {
+      throw ArgumentError('$notation is not a valid chord');
+    }
+    note = Note.fromString(match?.group(1) as String);
+    quality = match?.group(2) ?? '';
+  }
+
+  @override
+  String toString() {
+    return note.toString() + quality;
   }
 }

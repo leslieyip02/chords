@@ -105,35 +105,6 @@ class _SheetPageState extends State<SheetPage> {
                             ]),
                           ],
                         ),
-                        //   child: Column(
-                        //     mainAxisAlignment: MainAxisAlignment.center,
-                        //     children: [
-                        //       Row(
-                        //         mainAxisAlignment: MainAxisAlignment.center,
-                        //         children: [
-                        //           IconButton(
-                        //             onPressed: () => setState(() {
-                        //               sheet = sheet?.transpose(-1);
-                        //             }),
-                        //             icon: Icon(Icons.remove),
-                        //             tooltip: 'Flatten',
-                        //           ),
-                        //           Text(
-                        //             'Transpose',
-                        //             textAlign: TextAlign.center,
-                        //             style: theme.textTheme.titleMedium,
-                        //           ),
-                        //           IconButton(
-                        //             onPressed: () => setState(() {
-                        //               sheet = sheet?.transpose(1);
-                        //             }),
-                        //             icon: Icon(Icons.add),
-                        //             tooltip: 'Sharpen',
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ],
-                        //   ),
                       ),
                     );
                   },
