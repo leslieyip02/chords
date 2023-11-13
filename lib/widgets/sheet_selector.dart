@@ -6,6 +6,9 @@ import 'package:chords/providers/app_state.dart';
 import 'package:chords/screens/sheet_page.dart';
 
 class SheetSelector extends StatefulWidget {
+  static const String pathPrefix = 'assets/sheets/';
+  static const String pathSuffix = '.txt';
+
   @override
   State<SheetSelector> createState() => _SheetSelectorState();
 }
@@ -19,6 +22,13 @@ class _SheetSelectorState extends State<SheetSelector> {
     final appState = context.watch<AppState>();
 
     void selectSheet(String path) {
+      path = path.toLowerCase().replaceAll(' ', '_');
+      if (!path.startsWith(SheetSelector.pathPrefix)) {
+        path = SheetSelector.pathPrefix + path;
+      }
+      if (!path.endsWith(SheetSelector.pathSuffix)) {
+        path = path + SheetSelector.pathSuffix;
+      }
       if (paths.contains(path)) {
         appState.setSheetPath(path);
         Navigator.push(context,
@@ -37,7 +47,7 @@ class _SheetSelectorState extends State<SheetSelector> {
 
         Map<String, dynamic> pathMap = jsonDecode(snapshot.data as String);
         paths = pathMap.keys
-            .where((path) => path.startsWith('assets/sheets'))
+            .where((path) => path.startsWith(SheetSelector.pathPrefix))
             .toList();
 
         return ShakeableContainer(
@@ -68,13 +78,20 @@ class _SheetSelectorState extends State<SheetSelector> {
               },
               suggestionsBuilder:
                   (BuildContext context, SearchController controller) {
-                return paths.map(
-                  (path) => ListTile(
+                return paths.map((path) {
+                  String title = path
+                      .replaceAll(SheetSelector.pathPrefix, '')
+                      .replaceAll(SheetSelector.pathSuffix, '')
+                      .split('_')
+                      .map((word) =>
+                          '${word[0].toUpperCase()}${word.substring(1)}')
+                      .join(' ');
+                  return ListTile(
                     leading: Icon(Icons.music_note),
-                    title: Text(path),
-                    onTap: () => controller.closeView(path),
-                  ),
-                );
+                    title: Text(title),
+                    onTap: () => controller.closeView(title),
+                  );
+                });
               },
             ),
           ),
