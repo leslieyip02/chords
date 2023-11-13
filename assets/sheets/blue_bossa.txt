@@ -2,7 +2,7 @@ info:
 title: Blue Bossa
 composer: Kenny Dorham
 -----
-Am    | Am     | Dm7    | G7         |
-Bm7b5 | E7#5#9 | Am     | Am         |
-Cm7   | F7     | Bbmaj7 | Bbmaj7     |
-Bm7b5 | E7#5#9 | Am     | Bm7b5 E7#5 |
+Cm7  | Cm7  | Fm7   | Fm7      |
+Dø7  | G7b9 | Cm7   | Cm7      |
+Ebm7 | Ab7  | Dmaj7 | Dmaj7    |
+Dø7  | G7b9 | Cm7   | Dø7 G7b9 |
