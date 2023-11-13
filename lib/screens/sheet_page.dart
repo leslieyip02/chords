@@ -7,6 +7,8 @@ class SheetPage extends StatefulWidget {
   static const int maxBarsPerRow = 4;
   static const int navigateBack = 0;
   static const int navigateOptions = 1;
+  static const int ebInstrument = -3;
+  static const int bbInstrument = 2;
 
   const SheetPage({
     super.key,
@@ -21,6 +23,8 @@ class SheetPage extends StatefulWidget {
 
 class _SheetPageState extends State<SheetPage> {
   int currentIndex = 0;
+  double currentSlider = 0.0;
+  int currentTranpose = 0;
   Sheet? sheet;
 
   @override
@@ -66,47 +70,55 @@ class _SheetPageState extends State<SheetPage> {
                 showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context) {
-                    return Container(
-                      height: 200,
-                      color: theme.cardColor,
-                      padding: EdgeInsets.symmetric(horizontal: 32.0),
-                      child: Center(
-                        child: Table(
-                          columnWidths: {
-                            0: FlexColumnWidth(2),
-                            1: FlexColumnWidth(1),
-                          },
+                    return StatefulBuilder(builder: (context, nestedSetState) {
+                      String sliderLabel = currentSlider.toInt().toString();
+                      if (currentSlider > 0) {
+                        sliderLabel = '+$sliderLabel';
+                      }
+                      if (currentSlider == SheetPage.ebInstrument) {
+                        sliderLabel += ' (Eb)';
+                      } else if (currentSlider == SheetPage.bbInstrument) {
+                        sliderLabel += ' (Bb)';
+                      }
+                      // hack to add spacing
+                      sliderLabel = '   $sliderLabel   ';
+
+                      return Container(
+                        height: 200,
+                        color: theme.cardColor,
+                        padding: EdgeInsets.symmetric(horizontal: 32.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            TableRow(children: [
-                              Text(
-                                'Transpose',
-                                textAlign: TextAlign.left,
-                                style: theme.textTheme.titleMedium,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  IconButton(
-                                    onPressed: () => setState(() {
-                                      sheet = sheet?.transpose(-1);
-                                    }),
-                                    icon: Icon(Icons.arrow_drop_down),
-                                    tooltip: 'Flatten',
-                                  ),
-                                  IconButton(
-                                    onPressed: () => setState(() {
-                                      sheet = sheet?.transpose(1);
-                                    }),
-                                    icon: Icon(Icons.arrow_drop_up),
-                                    tooltip: 'Sharpen',
-                                  ),
-                                ],
-                              ),
-                            ]),
+                            Text(
+                              'Transpose',
+                              textAlign: TextAlign.left,
+                              style: theme.textTheme.titleMedium,
+                            ),
+                            SizedBox(height: 32),
+                            Slider(
+                              value: currentSlider,
+                              min: -6,
+                              max: 6,
+                              divisions: 12,
+                              label: sliderLabel,
+                              onChanged: (value) {
+                                nestedSetState(() {
+                                  currentSlider = value;
+                                });
+                              },
+                              onChangeEnd: (value) {
+                                setState(() {
+                                  sheet = sheet?.transpose(
+                                      value.toInt() - currentTranpose);
+                                  currentTranpose = value.toInt();
+                                });
+                              },
+                            ),
                           ],
                         ),
-                      ),
-                    );
+                      );
+                    });
                   },
                 );
               }
