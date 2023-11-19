@@ -9,6 +9,8 @@ class SheetPage extends StatefulWidget {
   static const int navigateOptions = 1;
   static const int ebInstrument = -3;
   static const int bbInstrument = 2;
+  static const double minSlider = -6.0;
+  static const double maxSlider = 6.0;
 
   const SheetPage({
     super.key,
@@ -90,16 +92,52 @@ class _SheetPageState extends State<SheetPage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'Transpose',
-                              textAlign: TextAlign.left,
-                              style: theme.textTheme.titleMedium,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    if (currentSlider > SheetPage.minSlider) {
+                                      setState(() {
+                                        sheet = sheet?.transpose(-1);
+                                        currentTranpose--;
+                                      });
+                                      nestedSetState(() {
+                                        currentSlider--;
+                                      });
+                                    }
+                                  },
+                                  icon: Icon(Icons.arrow_left_sharp),
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Transpose',
+                                    textAlign: TextAlign.center,
+                                    style: theme.textTheme.titleMedium,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    if (currentSlider < SheetPage.maxSlider) {
+                                      setState(() {
+                                        sheet = sheet?.transpose(1);
+                                        currentTranpose++;
+                                      });
+                                      nestedSetState(() {
+                                        currentSlider++;
+                                      });
+                                    }
+                                  },
+                                  icon: Icon(Icons.arrow_right_sharp),
+                                ),
+                              ],
                             ),
                             SizedBox(height: 32),
                             Slider(
                               value: currentSlider,
-                              min: -6,
-                              max: 6,
+                              min: SheetPage.minSlider,
+                              max: SheetPage.maxSlider,
                               divisions: 12,
                               label: sliderLabel,
                               onChanged: (value) {
