@@ -26,6 +26,7 @@ class App extends StatelessWidget {
           colorScheme: colorScheme,
         ),
         home: HomePage(),
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

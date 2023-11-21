@@ -50,118 +50,116 @@ class _SheetPageState extends State<SheetPage> {
       builder: (context, constraints) {
         return Scaffold(
           body: SheetContainer(sheet: sheet as Sheet),
-          bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: theme.secondaryHeaderColor,
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.arrow_circle_left_outlined),
-                label: 'Back',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'Options',
-              ),
-            ],
-            currentIndex: currentIndex,
-            selectedItemColor: theme.primaryColor,
-            unselectedItemColor: theme.primaryColor,
-            onTap: (index) {
-              if (index == SheetPage.navigateBack) {
-                Navigator.pop(context);
-              } else if (index == SheetPage.navigateOptions) {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return StatefulBuilder(builder: (context, nestedSetState) {
-                      String sliderLabel = currentSlider.toInt().toString();
-                      if (currentSlider > 0) {
-                        sliderLabel = '+$sliderLabel';
-                      }
-                      if (currentSlider == SheetPage.ebInstrument) {
-                        sliderLabel += ' (Eb)';
-                      } else if (currentSlider == SheetPage.bbInstrument) {
-                        sliderLabel += ' (Bb)';
-                      }
-                      // hack to add spacing
-                      sliderLabel = '   $sliderLabel   ';
+          appBar: AppBar(
+            // backgroundColor: theme.highlightColor,
+            leading: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              return IconButton(
+                icon: Icon(Icons.arrow_back),
+                tooltip: "Back",
+                onPressed: () => Navigator.pop(context),
+              );
+            }),
+            actions: [
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 16.0),
+                child: IconButton(
+                  icon: Icon(Icons.more_vert),
+                  tooltip: "Transpose",
+                  onPressed: () => showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return StatefulBuilder(
+                          builder: (context, nestedSetState) {
+                        String sliderLabel = currentSlider.toInt().toString();
+                        if (currentSlider > 0) {
+                          sliderLabel = '+$sliderLabel';
+                        }
+                        if (currentSlider == SheetPage.ebInstrument) {
+                          sliderLabel += ' (Eb)';
+                        } else if (currentSlider == SheetPage.bbInstrument) {
+                          sliderLabel += ' (Bb)';
+                        }
+                        // hack to add spacing
+                        sliderLabel = '   $sliderLabel   ';
 
-                      return Container(
-                        height: 200,
-                        color: theme.cardColor,
-                        padding: EdgeInsets.symmetric(horizontal: 32.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    if (currentSlider > SheetPage.minSlider) {
-                                      setState(() {
-                                        sheet = sheet?.transpose(-1);
-                                        currentTranpose--;
-                                      });
-                                      nestedSetState(() {
-                                        currentSlider--;
-                                      });
-                                    }
-                                  },
-                                  icon: Icon(Icons.arrow_left_sharp),
-                                ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'Transpose',
-                                    textAlign: TextAlign.center,
-                                    style: theme.textTheme.titleMedium,
+                        return Container(
+                          height: 200,
+                          color: theme.cardColor,
+                          padding: EdgeInsets.symmetric(horizontal: 32.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      if (currentSlider > SheetPage.minSlider) {
+                                        setState(() {
+                                          sheet = sheet?.transpose(-1);
+                                          currentTranpose--;
+                                        });
+                                        nestedSetState(() {
+                                          currentSlider--;
+                                        });
+                                      }
+                                    },
+                                    icon: Icon(Icons.arrow_left_sharp),
                                   ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    if (currentSlider < SheetPage.maxSlider) {
-                                      setState(() {
-                                        sheet = sheet?.transpose(1);
-                                        currentTranpose++;
-                                      });
-                                      nestedSetState(() {
-                                        currentSlider++;
-                                      });
-                                    }
-                                  },
-                                  icon: Icon(Icons.arrow_right_sharp),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 32),
-                            Slider(
-                              value: currentSlider,
-                              min: SheetPage.minSlider,
-                              max: SheetPage.maxSlider,
-                              divisions: 12,
-                              label: sliderLabel,
-                              onChanged: (value) {
-                                nestedSetState(() {
-                                  currentSlider = value;
-                                });
-                              },
-                              onChangeEnd: (value) {
-                                setState(() {
-                                  sheet = sheet?.transpose(
-                                      value.toInt() - currentTranpose);
-                                  currentTranpose = value.toInt();
-                                });
-                              },
-                            ),
-                          ],
-                        ),
-                      );
-                    });
-                  },
-                );
-              }
-              setState(() => currentIndex = index);
-            },
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Transpose',
+                                      textAlign: TextAlign.center,
+                                      style: theme.textTheme.titleMedium,
+                                    ),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      if (currentSlider < SheetPage.maxSlider) {
+                                        setState(() {
+                                          sheet = sheet?.transpose(1);
+                                          currentTranpose++;
+                                        });
+                                        nestedSetState(() {
+                                          currentSlider++;
+                                        });
+                                      }
+                                    },
+                                    icon: Icon(Icons.arrow_right_sharp),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 32),
+                              Slider(
+                                value: currentSlider,
+                                min: SheetPage.minSlider,
+                                max: SheetPage.maxSlider,
+                                divisions: 12,
+                                label: sliderLabel,
+                                onChanged: (value) {
+                                  nestedSetState(() {
+                                    currentSlider = value;
+                                  });
+                                },
+                                onChangeEnd: (value) {
+                                  setState(() {
+                                    sheet = sheet?.transpose(
+                                        value.toInt() - currentTranpose);
+                                    currentTranpose = value.toInt();
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      });
+                    },
+                  ),
+                ),
+              )
+            ],
           ),
         );
       },
