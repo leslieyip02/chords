@@ -8,9 +8,13 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  static ColorScheme colorScheme = ColorScheme.fromSeed(
-    seedColor: Colors.lightBlue,
-    primary: Color(0xFF66A4EF),
+  static ColorScheme colorScheme = ColorScheme.dark(
+    primary: Color(0xFFAE81FF),
+    secondary: Color.fromARGB(255, 200, 200, 200),
+    surface: Color.fromARGB(255, 40, 40, 40),
+    onSurface: Color.fromARGB(255, 200, 200, 200),
+    outline: Color.fromARGB(255, 200, 200, 200),
+    onBackground: Color.fromARGB(255, 225, 225, 225),
   );
 
   const App({super.key});

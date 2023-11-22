@@ -74,15 +74,14 @@ class SheetSection extends StatelessWidget {
           if (section.label != null)
             Container(
               decoration: BoxDecoration(
-                border: Border.all(color: theme.primaryColor),
+                border: Border.all(color: theme.colorScheme.outline),
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
               ),
               padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
               child: Text(
                 section.label as String,
-                style: TextStyle(color: theme.primaryColor),
+                style: TextStyle(color: theme.colorScheme.onSurface),
                 textAlign: TextAlign.center,
-                textScaleFactor: 2.0,
               ),
             ),
           SizedBox(height: 4.0),

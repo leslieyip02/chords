@@ -1,3 +1,5 @@
+import 'package:chords/main.dart';
+import 'package:chords/widgets/chord_card.dart';
 import 'package:flutter/material.dart';
 
 class BarLine extends StatelessWidget {
@@ -12,11 +14,8 @@ class BarLine extends StatelessWidget {
       child: Container(
         width: 2.0,
         height: double.infinity,
-        margin: EdgeInsets.only(
-          left: 4.0,
-          right: 4.0,
-        ),
-        color: Colors.black,
+        margin: EdgeInsets.symmetric(horizontal: ChordCard.margin),
+        color: App.colorScheme.outline,
       ),
     );
   }

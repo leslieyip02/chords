@@ -12,13 +12,17 @@ class Bar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> contents = [ChordCard(chord: chords[0])];
+    for (int i = 1; i < chords.length; i++) {
+      contents.add(SizedBox(width: ChordCard.margin));
+      contents.add(ChordCard(chord: chords[i]));
+    }
+
     return Expanded(
       flex: 2,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          for (var chord in chords) ChordCard(chord: chord),
-        ],
+        children: contents,
       ),
     );
   }

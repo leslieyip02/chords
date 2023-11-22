@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:chords/main.dart';
 import 'package:chords/models/chord.dart';
 import 'package:chords/widgets/shakeable_container.dart';
 import 'package:chords/widgets/sheet_row.dart';
 
 class ChordCard extends StatefulWidget {
   static List<ColorScheme> cardColorSchemes = [
-    ColorScheme.fromSeed(seedColor: Colors.red, primary: Color(0xFFF92672)),
-    ColorScheme.fromSeed(seedColor: Colors.orange, primary: Color(0xFFFD971F)),
-    ColorScheme.fromSeed(seedColor: Colors.yellow, primary: Color(0xFFF4DF8B)),
-    ColorScheme.fromSeed(seedColor: Colors.green, primary: Color(0xFFA6E22E)),
-    ColorScheme.fromSeed(seedColor: Colors.blue, primary: Color(0xFF66D9EF)),
-    App.colorScheme,
-    ColorScheme.fromSeed(seedColor: Colors.indigo, primary: Color(0xFFAE81FF)),
+    ColorScheme.dark(primary: Color(0xFFF92672), surface: Color(0xFFF92672)),
+    ColorScheme.dark(primary: Color(0xFFFD971F), surface: Color(0xFFFD971F)),
+    ColorScheme.dark(primary: Color(0xFFF4DF8B), surface: Color(0xFFF4DF8B)),
+    ColorScheme.dark(primary: Color(0xFFA6E22E), surface: Color(0xFFA6E22E)),
+    ColorScheme.dark(primary: Color(0xFF66D9EF), surface: Color(0xFF66D9EF)),
+    ColorScheme.dark(primary: Color(0xFF66A4EF), surface: Color(0xFF66A4EF)),
+    ColorScheme.dark(primary: Color(0xFFAE81FF), surface: Color(0xFFAE81FF)),
   ];
+  static const double margin = 6.0;
 
   const ChordCard({
     super.key,
@@ -38,12 +38,12 @@ class _ChordCardState extends State<ChordCard> {
     if (colorScheme == null) {
       setState(() {
         colorScheme = theme.colorScheme;
-        color = theme.colorScheme.primary;
+        color = theme.colorScheme.surface;
       });
     }
     final style = GoogleFonts.barlowCondensed(
       textStyle: theme.textTheme.displayMedium,
-      color: colorScheme?.onPrimary,
+      color: colorScheme?.onSurface,
     );
 
     String accidental = '';
@@ -60,7 +60,7 @@ class _ChordCardState extends State<ChordCard> {
           showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-              surfaceTintColor: theme.canvasColor,
+              surfaceTintColor: theme.colorScheme.surface,
               title: Text(
                 'Edit:',
                 textAlign: TextAlign.center,
@@ -74,9 +74,7 @@ class _ChordCardState extends State<ChordCard> {
                     child: ConstrainedBox(
                       constraints: BoxConstraints(maxWidth: 200),
                       child: TextField(
-                        style: style.copyWith(
-                          color: colorScheme?.primary,
-                        ),
+                        style: style,
                         textAlign: TextAlign.center,
                         onSubmitted: (notation) {
                           try {
@@ -108,10 +106,10 @@ class _ChordCardState extends State<ChordCard> {
                             onPressed: () {
                               setState(() {
                                 colorScheme = cardColorScheme;
-                                color = cardColorScheme.primary;
+                                color = cardColorScheme.surface;
                               });
                             },
-                            color: cardColorScheme.primary,
+                            color: cardColorScheme.surface,
                             shape: CircleBorder(),
                           ),
                         ),
@@ -135,12 +133,13 @@ class _ChordCardState extends State<ChordCard> {
         onHover: (mouseEnter) {
           setState(() {
             color = mouseEnter
-                ? colorScheme?.secondary
-                : color = colorScheme?.primary;
+                ? colorScheme?.surface.withAlpha(120)
+                : colorScheme?.surface;
           });
         },
         child: Card(
-          margin: EdgeInsets.symmetric(horizontal: 1.0),
+          // margin: EdgeInsets.symmetric(horizontal: 1.0),
+          margin: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4.0)),
           ),

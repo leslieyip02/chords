@@ -13,10 +13,10 @@ class SheetHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final titleStyle = theme.textTheme.displaySmall!.copyWith(
-      color: theme.primaryColor,
+      color: theme.colorScheme.onBackground,
     );
     final subtitleStyle = theme.textTheme.titleSmall!.copyWith(
-      color: theme.colorScheme.secondary,
+      color: theme.colorScheme.primary,
     );
 
     return LayoutBuilder(

@@ -1,3 +1,4 @@
+import 'package:chords/widgets/chord_card.dart';
 import 'package:flutter/material.dart';
 import 'package:chords/models/chord.dart';
 import 'package:chords/widgets/bar.dart';
@@ -22,7 +23,7 @@ class SheetRow extends StatelessWidget {
 
     return Container(
       height: SheetRow.rowHeight,
-      margin: EdgeInsets.symmetric(vertical: 8.0),
+      margin: EdgeInsets.symmetric(vertical: ChordCard.margin / 2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: contents,

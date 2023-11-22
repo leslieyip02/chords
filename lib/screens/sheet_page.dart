@@ -51,7 +51,7 @@ class _SheetPageState extends State<SheetPage> {
         return Scaffold(
           body: SheetContainer(sheet: sheet as Sheet),
           appBar: AppBar(
-            // backgroundColor: theme.highlightColor,
+            backgroundColor: theme.colorScheme.background,
             leading: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
               return IconButton(
@@ -136,7 +136,10 @@ class _SheetPageState extends State<SheetPage> {
                                 value: currentSlider,
                                 min: SheetPage.minSlider,
                                 max: SheetPage.maxSlider,
-                                divisions: 12,
+                                divisions: (SheetPage.minSlider.abs() +
+                                        SheetPage.maxSlider)
+                                    .round(),
+                                inactiveColor: theme.colorScheme.outline,
                                 label: sliderLabel,
                                 onChanged: (value) {
                                   nestedSetState(() {
