@@ -1,5 +1,5 @@
-import "package:flutter_test/flutter_test.dart";
-import "package:chords/models/note.dart";
+import 'package:flutter_test/flutter_test.dart';
+import 'package:chords/models/note.dart';
 
 void main() {
   test('Transpose up', () {
