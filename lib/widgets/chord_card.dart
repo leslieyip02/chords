@@ -29,21 +29,21 @@ class ChordCard extends StatefulWidget {
 
 class _ChordCardState extends State<ChordCard> {
   final shakeableContainerKey = GlobalKey<ShakeableContainerState>();
-  ColorScheme? colorScheme;
+  ColorScheme? cardColorScheme;
   Color? color;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    if (colorScheme == null) {
+    if (cardColorScheme == null) {
       setState(() {
-        colorScheme = theme.colorScheme;
+        cardColorScheme = theme.colorScheme;
         color = theme.colorScheme.surface;
       });
     }
     final style = GoogleFonts.barlowCondensed(
       textStyle: theme.textTheme.displayMedium,
-      color: colorScheme?.onSurface,
+      color: cardColorScheme?.onSurface,
     );
 
     String accidental = '';
@@ -60,60 +60,63 @@ class _ChordCardState extends State<ChordCard> {
           showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-              surfaceTintColor: theme.colorScheme.surface,
-              title: Text(
-                'Edit:',
-                textAlign: TextAlign.center,
-                style: theme.textTheme.titleMedium,
-              ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ShakeableContainer(
-                    key: shakeableContainerKey,
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: 200),
-                      child: TextField(
-                        style: style,
-                        textAlign: TextAlign.center,
-                        onSubmitted: (notation) {
-                          try {
-                            widget.chord.update(notation);
-                            setState(() {});
-                          } on ArgumentError {
-                            shakeableContainerKey.currentState?.shake();
-                          }
-                        },
-                        controller: TextEditingController.fromValue(
-                          TextEditingValue(text: widget.chord.toString()),
-                        ),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
+                  // TODO: add an annotation field
+                  // TODO: add a reset button
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                    child: ShakeableContainer(
+                      key: shakeableContainerKey,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: 200),
+                        child: TextField(
+                          style: style,
+                          textAlign: TextAlign.center,
+                          onSubmitted: (notation) {
+                            try {
+                              widget.chord.update(notation);
+                              setState(() {});
+                            } on ArgumentError {
+                              shakeableContainerKey.currentState?.shake();
+                            }
+                          },
+                          controller: TextEditingController.fromValue(
+                            TextEditingValue(text: widget.chord.toString()),
+                          ),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 16.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      for (var cardColorScheme in ChordCard.cardColorSchemes)
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: MaterialButton(
-                            minWidth: 40.0,
-                            height: 48.0,
-                            onPressed: () {
-                              setState(() {
-                                colorScheme = cardColorScheme;
-                                color = cardColorScheme.surface;
-                              });
-                            },
-                            color: cardColorScheme.surface,
-                            shape: CircleBorder(),
+                  SizedBox(height: 4.0),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        for (var cardColorSchemeOption
+                            in ChordCard.cardColorSchemes)
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 8.0),
+                            child: MaterialButton(
+                              minWidth: 36.0,
+                              height: 36.0,
+                              onPressed: () {
+                                setState(() {
+                                  cardColorScheme = cardColorSchemeOption;
+                                  color = cardColorSchemeOption.surface;
+                                });
+                              },
+                              color: cardColorSchemeOption.surface,
+                              shape: CircleBorder(),
+                            ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -133,12 +136,11 @@ class _ChordCardState extends State<ChordCard> {
         onHover: (mouseEnter) {
           setState(() {
             color = mouseEnter
-                ? colorScheme?.surface.withAlpha(120)
-                : colorScheme?.surface;
+                ? cardColorScheme?.surface.withAlpha(120)
+                : cardColorScheme?.surface;
           });
         },
         child: Card(
-          // margin: EdgeInsets.symmetric(horizontal: 1.0),
           margin: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4.0)),
@@ -155,6 +157,7 @@ class _ChordCardState extends State<ChordCard> {
                 fit: BoxFit.scaleDown,
                 child: Row(
                   children: [
+                    // add constraints to this?
                     Text(
                       widget.chord.note.value.name,
                       style: style,
@@ -168,6 +171,7 @@ class _ChordCardState extends State<ChordCard> {
                           style: style,
                           textScaleFactor: 0.5,
                         ),
+                        // add constraints to this?
                         Text(
                           widget.chord.quality,
                           style: style,

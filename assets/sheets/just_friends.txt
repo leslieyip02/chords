@@ -1,0 +1,15 @@
+info:
+title: Just Friends
+composer: John Klenner
+-----
+section: A
+|| Cmaj7 | Cmaj7  | Cm7       | F7      |
+   Gmaj7 | Gmaj7  | Bbm7      | Eb7    ||
+-----
+section: B
+|| Am7   | D7     | Gmaj7     | Em7     |
+   A7    | A7     | Am7       | D7 G7  ||
+-----
+section: C
+|| Am7   | D7     | F#ø7 B7b9 | Em7     |
+   A7    | Am7 D7 | G6        | Dm7 G7 ||

@@ -5,6 +5,7 @@ import 'package:chords/models/note.dart';
 class Chord {
   Note note;
   String quality;
+  // String annotation;
   // final ChordQuality quality;
 
   Chord(this.note, this.quality);
@@ -38,4 +39,10 @@ class Chord {
   String toString() {
     return note.toString() + quality;
   }
+
+  @override
+  int get hashCode => Object.hash(note, quality);
+
+  @override
+  bool operator ==(Object other) => hashCode == other.hashCode;
 }

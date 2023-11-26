@@ -1,6 +1,8 @@
+import 'dart:math';
+
 import 'package:chords/widgets/sheet_row.dart';
 import 'package:flutter/material.dart';
-import 'package:chords/models/chord.dart';
+import 'package:chords/models/bar.dart';
 import 'package:chords/models/section.dart';
 import 'package:chords/screens/sheet_page.dart';
 
@@ -13,15 +15,15 @@ class SheetSection extends StatelessWidget {
   final Section section;
 
   /// assign either 1, 2 or 4 bars per row
-  List<List<List<Chord>>> distributeRows() {
+  List<List<Bar>> distributeRows() {
     // TODO: refactor spaghetti
-    List<List<List<Chord>>> rows = [];
-    List<List<Chord>> currentRow = [];
+    List<List<Bar>> rows = [];
+    List<Bar> currentRow = [];
     bool containsLongBar = false;
     for (var bar in section.bars) {
       // if the bar contains >= 3 chords,
       // spread bars out to prevent cramming
-      containsLongBar = containsLongBar || bar.length >= 3;
+      containsLongBar = containsLongBar || bar.chords.length >= 3;
       if (containsLongBar && currentRow.isNotEmpty) {
         if (currentRow.length == 1) {
           currentRow.add(bar);
@@ -33,7 +35,7 @@ class SheetSection extends StatelessWidget {
           currentRow.clear();
           currentRow.add(bar);
         } else if (currentRow.length == 3) {
-          List<Chord> previous = currentRow.removeLast();
+          Bar previous = currentRow.removeLast();
           rows.add(currentRow.sublist(0));
           rows.add([previous, bar]);
           currentRow.clear();
@@ -50,7 +52,7 @@ class SheetSection extends StatelessWidget {
     if (currentRow.isNotEmpty) {
       // split rows with a length of 3
       if (currentRow.length == 3) {
-        List<Chord> last = currentRow.removeLast();
+        Bar last = currentRow.removeLast();
         rows.add(currentRow.sublist(0));
         rows.add([last]);
       } else {
@@ -64,7 +66,14 @@ class SheetSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    List<List<List<Chord>>> rows = distributeRows();
+    List<List<Bar>> rows = distributeRows();
+    List<List<String>> dividers = [];
+    int sliceStart = 0;
+    for (int i = 0; i < rows.length; i++) {
+      dividers.add(section.dividers
+          .sublist(sliceStart, sliceStart + rows[i].length + 1));
+      sliceStart += rows[i].length;
+    }
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8.0),
@@ -85,7 +94,8 @@ class SheetSection extends StatelessWidget {
               ),
             ),
           SizedBox(height: 4.0),
-          for (var row in rows) SheetRow(bars: row),
+          for (int i = 0; i < rows.length; i++)
+            SheetRow(bars: rows[i], dividers: dividers[i])
         ],
       ),
     );
