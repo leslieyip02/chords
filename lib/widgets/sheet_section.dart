@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:chords/widgets/bar_line.dart';
 import 'package:chords/widgets/sheet_row.dart';
 import 'package:flutter/material.dart';
 import 'package:chords/models/bar.dart';
@@ -66,13 +65,17 @@ class SheetSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    List<List<Bar>> rows = distributeRows();
-    List<List<String>> dividers = [];
+    List<List<Bar>> allRows = distributeRows();
+    List<List<String>> allDividers = [];
     int sliceStart = 0;
-    for (int i = 0; i < rows.length; i++) {
-      dividers.add(section.dividers
-          .sublist(sliceStart, sliceStart + rows[i].length + 1));
-      sliceStart += rows[i].length;
+    for (int i = 0; i < allRows.length; i++) {
+      List<String> rowDividers = section.dividers
+          .sublist(sliceStart, sliceStart + allRows[i].length + 1);
+      if (rowDividers.first == BarLine.repeatEnd) {
+        rowDividers.first = BarLine.singleBarLine;
+      }
+      allDividers.add(rowDividers);
+      sliceStart += allRows[i].length;
     }
 
     return Container(
@@ -94,8 +97,8 @@ class SheetSection extends StatelessWidget {
               ),
             ),
           SizedBox(height: 4.0),
-          for (int i = 0; i < rows.length; i++)
-            SheetRow(bars: rows[i], dividers: dividers[i])
+          for (int i = 0; i < allRows.length; i++)
+            SheetRow(bars: allRows[i], dividers: allDividers[i])
         ],
       ),
     );

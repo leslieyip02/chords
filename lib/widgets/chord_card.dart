@@ -14,7 +14,7 @@ class ChordCard extends StatefulWidget {
     ColorScheme.dark(primary: Color(0xFF66A4EF), surface: Color(0xFF66A4EF)),
     ColorScheme.dark(primary: Color(0xFFAE81FF), surface: Color(0xFFAE81FF)),
   ];
-  static const double margin = 6.0;
+  static const double margin = 4.0;
 
   const ChordCard({
     super.key,

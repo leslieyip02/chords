@@ -1,10 +1,6 @@
 import 'package:chords/models/chord.dart';
 
 class Bar {
-  static const String singleBarLine = '|';
-  static const String doubleBarLine = '||';
-  static const String repeatBegin = '[:';
-  static const String repeatEnd = ':]';
   static const String firstTime = '1.';
   static const String secondTime = '2.';
 
@@ -13,11 +9,6 @@ class Bar {
   Bar(this.chords);
 
   factory Bar.fromString(String notation) {
-    // RegExp dividerParser = RegExp(r'(\|+)|(\[:)|(:\])');
-    // List<String> dividers =
-    //     notation.allMatches(notation).map((match) => match.toString()).toList();
-    // List<Chord> chords =
-    //     notation.split(dividerParser).map(Chord.fromString).toList();
     List<Chord> chords = notation
         .split(RegExp(r'[\s+]'))
         .map((splitNotation) => splitNotation.trim())

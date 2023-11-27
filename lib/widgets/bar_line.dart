@@ -1,18 +1,16 @@
 import 'package:chords/main.dart';
-import 'package:chords/models/bar.dart';
 import 'package:chords/widgets/chord_card.dart';
 import 'package:chords/widgets/sheet_row.dart';
 import 'package:flutter/material.dart';
 
 abstract class BarLine extends StatelessWidget {
-  static const containerWidth = 6.0;
-  static const barLineWidth = 2.0;
+  static const String singleBarLine = '|';
+  static const String doubleBarLine = '||';
+  static const String repeatBegin = '[:';
+  static const String repeatEnd = ':]';
+  static const barLineWidth = ChordCard.margin / 2;
+  static const containerWidth = BarLine.barLineWidth * 3;
 
-  // static Widget line = Container(
-  //   height: SheetRow.rowHeight,
-  //   width: BarLine.containerWidth,
-  //   color: App.colorScheme.outline,
-  // );
   static Widget line = SizedBox(
     height: SheetRow.rowHeight,
     width: BarLine.barLineWidth,
@@ -26,16 +24,13 @@ abstract class BarLine extends StatelessWidget {
   });
 
   factory BarLine.of(String notation) {
-    if (notation == Bar.singleBarLine) {
+    if (notation == BarLine.singleBarLine) {
       return SingleBarLine();
-    } else if (notation == Bar.doubleBarLine) {
+    } else if (notation == BarLine.doubleBarLine) {
       return DoubleBarLine();
-    } else if (notation == Bar.repeatBegin) {
-      // TODO: implement this
-      return DoubleBarLine();
-    } else if (notation == Bar.repeatEnd) {
-      // TODO: implement this
-      return DoubleBarLine();
+    } else if (notation == BarLine.repeatBegin ||
+        notation == BarLine.repeatEnd) {
+      return RepeatBarLine.fromString(notation);
     } else {
       throw ArgumentError('$notation is not a valid barline');
     }
@@ -51,7 +46,7 @@ class SingleBarLine extends BarLine {
   Widget build(BuildContext context) {
     return Container(
       width: BarLine.containerWidth,
-      margin: EdgeInsets.symmetric(horizontal: ChordCard.margin / 2),
+      margin: EdgeInsets.symmetric(horizontal: ChordCard.margin),
       child: Center(
         child: BarLine.line,
       ),
@@ -68,12 +63,82 @@ class DoubleBarLine extends BarLine {
   Widget build(BuildContext context) {
     return Container(
       width: BarLine.containerWidth,
-      margin: EdgeInsets.symmetric(horizontal: ChordCard.margin / 2),
-      child: Row(children: [
-        BarLine.line,
-        SizedBox(width: BarLine.barLineWidth),
-        BarLine.line,
-      ]),
+      margin: EdgeInsets.symmetric(horizontal: ChordCard.margin),
+      child: Row(
+        children: [
+          BarLine.line,
+          SizedBox(width: BarLine.barLineWidth),
+          BarLine.line,
+        ],
+      ),
+    );
+  }
+}
+
+class RepeatBarLine extends BarLine {
+  const RepeatBarLine({
+    super.key,
+    required this.alignment,
+  });
+
+  final CrossAxisAlignment alignment;
+
+  factory RepeatBarLine.fromString(String notation) {
+    return RepeatBarLine(
+        alignment: notation == BarLine.repeatBegin
+            ? CrossAxisAlignment.start
+            : CrossAxisAlignment.end);
+  }
+
+  static Widget dash = Container(
+    width: BarLine.containerWidth,
+    height: BarLine.barLineWidth,
+    color: App.colorScheme.outline,
+  );
+
+  static Widget stem = Container(
+    width: BarLine.barLineWidth,
+    height: BarLine.containerWidth * 4,
+    color: App.colorScheme.outline,
+  );
+
+  static Widget dot = Container(
+    width: BarLine.barLineWidth * 1.5,
+    height: BarLine.barLineWidth * 1.5,
+    color: App.colorScheme.outline,
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: BarLine.containerWidth,
+      margin: EdgeInsets.symmetric(horizontal: ChordCard.margin),
+      child: SizedBox(
+        height: SheetRow.rowHeight,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: alignment,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: alignment,
+              children: [RepeatBarLine.dash, RepeatBarLine.stem],
+            ),
+            Column(
+              children: [
+                RepeatBarLine.dot,
+                SizedBox(height: BarLine.barLineWidth * 2),
+                RepeatBarLine.dot
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: alignment,
+              children: [RepeatBarLine.stem, RepeatBarLine.dash],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

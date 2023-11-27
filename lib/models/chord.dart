@@ -5,7 +5,6 @@ import 'package:chords/models/note.dart';
 class Chord {
   Note note;
   String quality;
-  // String annotation;
   // final ChordQuality quality;
 
   Chord(this.note, this.quality);
