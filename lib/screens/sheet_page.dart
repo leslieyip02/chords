@@ -43,7 +43,8 @@ class _SheetPageState extends State<SheetPage> {
     final theme = Theme.of(context);
 
     if (sheet == null) {
-      return Text('woops');
+      // placeholder
+      return Container();
     }
 
     return LayoutBuilder(

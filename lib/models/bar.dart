@@ -1,20 +1,24 @@
 import 'package:chords/models/chord.dart';
 
 class Bar {
-  static const String firstTime = '1.';
-  static const String secondTime = '2.';
-
   final List<Chord> chords;
+  String? label;
 
-  Bar(this.chords);
+  Bar(this.chords, {this.label});
 
   factory Bar.fromString(String notation) {
+    // find text nested in brackets
+    RegExp bracket = RegExp(r'\{(.+?)\}');
+    RegExpMatch? match = bracket.firstMatch(notation.trim());
+    String? label = match?.group(1);
     List<Chord> chords = notation
+        .replaceAll(bracket, '')
         .split(RegExp(r'[\s+]'))
         .map((splitNotation) => splitNotation.trim())
+        .where((trimmed) => trimmed.isNotEmpty)
         .map(Chord.fromString)
         .toList();
-    return Bar(chords);
+    return Bar(chords, label: label);
   }
 
   Bar transpose(int steps) {

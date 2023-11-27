@@ -18,17 +18,23 @@ class BarContainer extends StatelessWidget {
       contents.add(ChordCard(chord: bar.chords[i]));
     }
 
+    final theme = Theme.of(context);
+
     return Expanded(
       flex: 1,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // WIP for annotations
-          // Container(
-          //   decoration: BoxDecoration(border: Border.all(color: Colors.red)),
-          //   height: 20,
-          //   child: Text("Placeholder"),
-          // ),
+          if (bar.label != null)
+            Container(
+              margin: EdgeInsets.symmetric(vertical: ChordCard.margin),
+              decoration: BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(color: theme.colorScheme.outline))),
+              child: Text(
+                bar.label as String,
+              ),
+            ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: contents,

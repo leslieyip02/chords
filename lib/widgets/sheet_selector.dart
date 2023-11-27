@@ -42,7 +42,8 @@ class _SheetSelectorState extends State<SheetSelector> {
       future: DefaultAssetBundle.of(context).loadString('AssetManifest.json'),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if (!snapshot.hasData) {
-          return Text('woops');
+          // placeholder
+          return Container();
         }
 
         Map<String, dynamic> pathMap = jsonDecode(snapshot.data as String);
