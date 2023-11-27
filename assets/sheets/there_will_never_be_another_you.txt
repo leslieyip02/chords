@@ -4,7 +4,7 @@ composer: Harry Warren
 -----
 section: A
 || Ebmaj7     | Ebmaj7 | Dø7     | G7b9     |
-   Am7        | Am7    | Bbm7    | Eb7     ||
+   Cm7        | Cm7    | Bbm7    | Eb7     ||
 -----
 section: B
 || Abmaj7     | Db7#11 | Ebmaj7  | Cm7      |
