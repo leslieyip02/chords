@@ -1,4 +1,5 @@
 import 'package:chords/models/chord.dart';
+import 'package:chords/widgets/bar_line.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:chords/models/bar.dart';
 import 'package:chords/models/section.dart';
@@ -9,7 +10,7 @@ void main() {
     Section section = Section.fromString(notation);
 
     for (String divider in section.dividers) {
-      expect(divider, Bar.singleBarLine);
+      expect(divider, BarLine.singleBarLine);
     }
 
     List<Bar> expectedBars = [
@@ -29,11 +30,11 @@ void main() {
     Section section = Section.fromString(notation);
 
     List<String> expectedDividers = [
-      Bar.singleBarLine,
-      Bar.singleBarLine,
-      Bar.doubleBarLine,
-      Bar.singleBarLine,
-      Bar.doubleBarLine,
+      BarLine.singleBarLine,
+      BarLine.singleBarLine,
+      BarLine.doubleBarLine,
+      BarLine.singleBarLine,
+      BarLine.doubleBarLine,
     ];
     expect(section.dividers.length, expectedDividers.length);
     for (int i = 0; i < section.dividers.length; i++) {
@@ -57,11 +58,11 @@ void main() {
     Section section = Section.fromString(notation);
 
     List<String> expectedDividers = [
-      Bar.repeatBegin,
-      Bar.singleBarLine,
-      Bar.repeatEnd,
-      Bar.singleBarLine,
-      Bar.doubleBarLine,
+      BarLine.repeatBegin,
+      BarLine.singleBarLine,
+      BarLine.repeatEnd,
+      BarLine.singleBarLine,
+      BarLine.doubleBarLine,
     ];
     expect(section.dividers.length, expectedDividers.length);
     for (int i = 0; i < section.dividers.length; i++) {
