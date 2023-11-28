@@ -1,11 +1,8 @@
 import 'package:chords/models/note.dart';
 
-// enum ChordQuality { major, dominant, minor, halfDiminished, diminished, other };
-
 class Chord {
   Note note;
   String quality;
-  // final ChordQuality quality;
 
   Chord(this.note, this.quality);
 
@@ -25,7 +22,7 @@ class Chord {
   }
 
   void update(String notation) {
-    RegExp parser = RegExp(r'([A-G][#b]?)(.*)?');
+    RegExp parser = RegExp(r'^([A-G][#b]?)(.*)?');
     RegExpMatch? match = parser.firstMatch(notation.trim());
     if (match?.group(1) == null) {
       throw ArgumentError('$notation is not a valid chord');

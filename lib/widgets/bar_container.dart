@@ -37,6 +37,7 @@ class BarContainer extends StatelessWidget {
             ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: contents,
           ),
         ],
