@@ -21,6 +21,11 @@ class Chord {
     return this;
   }
 
+  Chord toggleEnharmonic() {
+    note = note.toggleEnharmonic();
+    return this;
+  }
+
   void update(String notation) {
     RegExp parser = RegExp(r'^([A-G][#b]?)(.*)?');
     RegExpMatch? match = parser.firstMatch(notation.trim());

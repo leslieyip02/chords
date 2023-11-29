@@ -55,6 +55,12 @@ class _ChordCardState extends State<ChordCard> {
       accidental = 'b';
     }
 
+    if (notationBuffer.isEmpty) {
+      notationBuffer = widget.chord.toString();
+    }
+    final notationTextFieldController =
+        TextEditingController.fromValue(TextEditingValue(text: notationBuffer));
+
     return Expanded(
       flex: 1,
       child: Column(
@@ -78,52 +84,68 @@ class _ChordCardState extends State<ChordCard> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Chord:"),
+                      SizedBox(height: 8.0),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
-                        child: Expanded(
-                          child: ShakeableContainer(
-                            key: shakeableContainerKey,
-                            child: TextField(
-                              textAlign: TextAlign.center,
-                              onChanged: (notation) {
-                                // chord is not updated directly
-                                // because submit will trigger shake on invalid input
-                                setState(() => notationBuffer = notation);
-                              },
-                              onSubmitted: (notation) {
-                                try {
-                                  widget.chord.update(notation);
-                                  setState(() {});
-                                } on ArgumentError {
-                                  shakeableContainerKey.currentState?.shake();
-                                }
-                              },
-                              controller: TextEditingController.fromValue(
-                                TextEditingValue(text: widget.chord.toString()),
-                              ),
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text("Chord:"),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: ShakeableContainer(
+                          key: shakeableContainerKey,
+                          child: TextField(
+                            onChanged: (notation) {
+                              // chord is not updated directly
+                              // because submit will trigger shake on invalid input
+                              setState(() => notationBuffer = notation);
+                            },
+                            onSubmitted: (notation) {
+                              try {
+                                widget.chord.update(notation);
+                                setState(() {});
+                              } on ArgumentError {
+                                shakeableContainerKey.currentState?.shake();
+                              }
+                            },
+                            controller: notationTextFieldController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: IconButton(
+                                icon: Icon(Icons.swap_vert_circle),
+                                padding: EdgeInsets.all(16.0),
+                                tooltip: "Toggle Enharmonic",
+                                onPressed: () {
+                                  try {
+                                    Chord current =
+                                        Chord.fromString(notationBuffer);
+                                    Chord toggled = current.toggleEnharmonic();
+                                    notationBuffer = toggled.toString();
+                                    notationTextFieldController.value =
+                                        TextEditingValue(text: notationBuffer);
+                                  } on ArgumentError {
+                                    shakeableContainerKey.currentState?.shake();
+                                  }
+                                },
                               ),
                             ),
                           ),
                         ),
                       ),
-                      Text("Annotation:"),
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8.0),
-                        child: Expanded(
-                          child: TextField(
-                            textAlign: TextAlign.center,
-                            onChanged: (annotation) {
-                              setState(() => annotationBuffer = annotation);
-                            },
-                            controller: TextEditingController.fromValue(
-                              TextEditingValue(text: annotationBuffer),
-                            ),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                            ),
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text("Annotation:"),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: TextField(
+                          onChanged: (annotation) {
+                            setState(() => annotationBuffer = annotation);
+                          },
+                          controller: TextEditingController.fromValue(
+                            TextEditingValue(text: annotationBuffer),
+                          ),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
                           ),
                         ),
                       ),
@@ -140,14 +162,14 @@ class _ChordCardState extends State<ChordCard> {
                                 child: MaterialButton(
                                   minWidth: 36.0,
                                   height: 36.0,
+                                  shape: CircleBorder(),
+                                  color: cardColorSchemeOption.surface,
                                   onPressed: () {
                                     setState(() {
                                       cardColorScheme = cardColorSchemeOption;
                                       color = cardColorSchemeOption.surface;
                                     });
                                   },
-                                  color: cardColorSchemeOption.surface,
-                                  shape: CircleBorder(),
                                 ),
                               ),
                           ],
