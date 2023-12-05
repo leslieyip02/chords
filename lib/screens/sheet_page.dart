@@ -62,6 +62,19 @@ class _SheetPageState extends State<SheetPage> {
               );
             }),
             actions: [
+              IconButton(
+                icon: Icon(Icons.restart_alt),
+                tooltip: "Reset",
+                onPressed: () => setState(() {
+                  // hack
+                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) =>
+                              SheetPage(songPath: widget.songPath)));
+                }),
+              ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 child: IconButton(
