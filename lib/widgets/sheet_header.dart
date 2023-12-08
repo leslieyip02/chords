@@ -25,7 +25,7 @@ class SheetHeader extends StatelessWidget {
           children: [
             if (sheet.title != null)
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 4.0),
+                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32.0),
                 child: Text(
                   sheet.title as String,
                   style: titleStyle,

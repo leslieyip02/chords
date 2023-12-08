@@ -4,7 +4,9 @@ import 'package:chords/models/sheet.dart';
 import 'package:chords/widgets/sheet_container.dart';
 
 class SheetPage extends StatefulWidget {
-  static const int maxBarsPerRow = 4;
+  static const int maxBarsPerRowWide = 4;
+  static const int maxBarsPerRowNarrow = 2;
+  static const double narrowThreshold = 600;
   static const int navigateBack = 0;
   static const int navigateOptions = 1;
   static const int ebInstrument = -3;

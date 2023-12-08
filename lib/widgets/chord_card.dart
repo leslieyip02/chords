@@ -211,7 +211,8 @@ class _ChordCardState extends State<ChordCard> {
               });
             },
             child: Card(
-              margin: EdgeInsets.zero,
+              // margin: EdgeInsets.zero,
+              margin: EdgeInsets.all(ChordCard.margin / 2),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(4.0)),
               ),

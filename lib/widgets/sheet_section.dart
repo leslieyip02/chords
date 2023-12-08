@@ -14,8 +14,12 @@ class SheetSection extends StatelessWidget {
   final Section section;
 
   /// assign either 1, 2 or 4 bars per row
-  List<List<Bar>> distributeRows() {
-    // TODO: refactor spaghetti
+  List<List<Bar>> distributeRows(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    int maxBarsPerRow = width <= SheetPage.narrowThreshold
+        ? SheetPage.maxBarsPerRowNarrow
+        : SheetPage.maxBarsPerRowWide;
+
     List<List<Bar>> rows = [];
     List<Bar> currentRow = [];
     bool containsLongBar = false;
@@ -42,7 +46,7 @@ class SheetSection extends StatelessWidget {
         }
       } else {
         currentRow.add(bar);
-        if (currentRow.length == SheetPage.maxBarsPerRow) {
+        if (currentRow.length == maxBarsPerRow) {
           rows.add(currentRow.sublist(0));
           currentRow.clear();
         }
@@ -65,7 +69,7 @@ class SheetSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    List<List<Bar>> allRows = distributeRows();
+    List<List<Bar>> allRows = distributeRows(context);
     List<List<String>> allDividers = [];
     int sliceStart = 0;
     for (int i = 0; i < allRows.length; i++) {

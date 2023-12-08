@@ -25,7 +25,7 @@ class SheetRow extends StatelessWidget {
     }
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: ChordCard.margin / 2),
+      margin: EdgeInsets.symmetric(vertical: ChordCard.margin),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
