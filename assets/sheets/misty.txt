@@ -9,8 +9,8 @@ section: A
 -----
 section: B
 || Bbm7       | Eb7b9      | Abmaj7      | Abmaj7    |
-   Am7        | D7 F7      | Gø7 C7      | Fm7 Bb7   |
+   Am7        | D7 F7      | Gø7 C7      | Fm7 Bb7  ||
 -----
-section: C
+section: A
 || Ebmaj7     | Bbmaj7 Eb7 | Abmaj7      | Abm7 Db7  |
    Ebmaj7 Cm7 | Fm7 Bb7    | Eb6         | Fm7 Bb7  ||

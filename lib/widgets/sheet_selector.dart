@@ -29,6 +29,7 @@ class _SheetSelectorState extends State<SheetSelector> {
       if (!path.endsWith(SheetSelector.pathSuffix)) {
         path = path + SheetSelector.pathSuffix;
       }
+      print(path);
       if (paths.contains(path)) {
         appState.setSheetPath(path);
         Navigator.push(context,
@@ -84,9 +85,19 @@ class _SheetSelectorState extends State<SheetSelector> {
                       .replaceAll(SheetSelector.pathPrefix, '')
                       .replaceAll(SheetSelector.pathSuffix, '')
                       .split('_')
-                      .map((word) =>
-                          '${word[0].toUpperCase()}${word.substring(1)}')
-                      .join(' ');
+                      .map((word) {
+                    // check for abbreviations (i.e. Mr P.C.)
+                    var letters =
+                        word.split('.').where((letter) => letter.isNotEmpty);
+                    if (letters.length > 1) {
+                      return letters
+                          .map((letter) => '${letter.toUpperCase()}.')
+                          .join('');
+                    } else {
+                      // capitalise every word by default
+                      return '${word[0].toUpperCase()}${word.substring(1)}';
+                    }
+                  }).join(' ');
                   return ListTile(
                     leading: Icon(Icons.music_note),
                     title: Text(title),
