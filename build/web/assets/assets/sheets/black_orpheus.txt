@@ -1,0 +1,18 @@
+info:
+title: Black Orpheus
+composer: Luiz Bonfá / Antônio Maria
+-----
+section: A
+|| Cm  | Dø7 G7b9 | Cm        | Dø7 G7b9  |
+   Cm  | Fm7 Bb7  | Ebmaj7    | C7b9      |
+   Fm7 | Bb7      | Ebmaj7    | Abmaj7    |
+   Dø7 | G7b9     | Cm        | Dø7 G7b9 ||
+-----
+section: B
+|| Cm  | Dø7 G7b9 | Cm        | Cm        |
+   Gø7 | C7b9     | Fm        | Fm        |
+   Fm7 | Dø7 G7b9 | Cm Cm7/Bb | Abmaj7    |
+   Dø7 | G7b9     | Cm        | Dø7 G7b9 ||
+-----
+section: Coda
+| Cm   | Fm7 Cm7  | Fm7 Cm7   | Fm7 Gm7   | Cm ||

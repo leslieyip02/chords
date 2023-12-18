@@ -1,0 +1,15 @@
+info:
+title: On Green Dolphin Street
+composer: Bronislau Kaper
+-----
+section: A
+|| Ebmaj7     | Ebmaj7    | Ebm7       | Ebm7      |
+   F7/Eb      | Ebmaj7/Eb | Ebmaj7     | C7       ||
+-----
+section: B
+|| Fm7        | Bb7alt    | Ebmaj7     | Ebmaj7    |
+   Abm7       | Db7alt    | Gbmaj7     | Fm7 Bb7  ||
+-----
+section: C
+|| Fm7 Fm7/Eb | Dø7 G7b9  | Cm7 Cm7/Bb | Aø7 D7b9  |
+   Gm7 C7     | Fm7 Bb7   | Eb6        | Fm7 Bb7  ||

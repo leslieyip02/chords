@@ -1,0 +1,15 @@
+info:
+title: Autumn Leaves
+composer: Joseph Kosma
+-----
+section: A
+[: Cm7 | F7    | Bbmaj7  | Ebmaj7  |
+   Aø7 | D7b13 | Gm6     | Gm6    :]
+-----
+section: B
+|| Aø7 | D7b13 | Gm6     | Gm6     |
+   Cm7 | F7    | Bbmaj7  | Ebmaj7 ||
+-----
+section: C
+|| Aø7 | D7b13 | Gm7 Gb7 | Fm7 E7  |
+   Aø7 | D7b13 | Gm6     | Gm6    ||
