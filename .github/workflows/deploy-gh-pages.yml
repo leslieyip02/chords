@@ -9,6 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      contents: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v2
@@ -34,19 +38,7 @@ jobs:
           destination: ./_site
       - uses: actions/upload-pages-artifact@v2
 
-  deploy:
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      contents: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    needs: build
-    steps:
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: public
+          publish_dir: ./_site
