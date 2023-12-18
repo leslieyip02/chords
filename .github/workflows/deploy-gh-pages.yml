@@ -11,6 +11,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2 # Only works with v2
-      - uses: subosito/flutter-action@v1
-      - uses: erickzanardo/flutter-gh-pages@v6
+      - uses: actions/checkout@v2
+
+      - name: Build with Flutter
+        uses: subosito/flutter-action@v1
+        with:
+          channel: "stable"
+      - run: flutter build web
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./build/web
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
