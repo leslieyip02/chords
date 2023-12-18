@@ -1,0 +1,16 @@
+info:
+title: Corcovado
+composer: Antonio-Carlos Jobim
+-----
+section: A
+|| Am6 | Am6 | Abo7      | Abo7   |
+   Gm7 | C7  | Fo7 Fmaj7 | Fmaj7 ||
+-----
+section: B
+|| Fm7 | Bb7 | Em7       | A7b13  |
+   D7  | D7  | Dm7       | G7     |
+-----
+section: C
+|| Fm7 | Bb7 | Em7       | Am7    |
+   Dm7 | G7  | Em7       | A7     |
+   Dm7 | G7 || C6       ||

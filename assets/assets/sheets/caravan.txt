@@ -1,0 +1,15 @@
+info:
+title: Caravan
+composer: Duke Ellington
+-----
+section: A
+[: C7b9 | C7b9 | C7b9 | C7b9  |
+   C7b9 | C7b9 | C7b9 | C7b9  |
+   C7b9 | C7b9 | C7b9 | C7b9  |
+   Fm   | Fm   | Fm   | Fm   :]
+-----
+section: B
+|| F7   | F7   | F7   | F7    |
+   Bb7  | Bb7  | Bb7  | Bb7   |
+   Eb7  | Eb7  | Eb7  | Eb7   |
+   Ab6  | Ab6  | G7   | Db7  ||

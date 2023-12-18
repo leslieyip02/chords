@@ -1,0 +1,9 @@
+info:
+title: St. Thomas
+composer: Sonny Rollins
+-----
+section: A
+|| Cmaj7 F7   | Em7 A7     | Dm7 G7 | C6  |
+   Cmaj7 F7   | Em7 A7     | Dm7 G7 | C6  |
+   Eø7        | A7b9       | Dm7    | G7  |
+   Cmaj7 C7/F | Fmaj7 F#o7 | G7     | C6 ||
