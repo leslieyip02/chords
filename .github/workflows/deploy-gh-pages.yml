@@ -4,15 +4,14 @@ on:
   push:
     branches: [ main ]
 
+  # allow manual trigger
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      pages: write
       contents: write
-      id-token: write
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
 
@@ -23,6 +22,9 @@ jobs:
           flutter-version: 3.13.8
           channel: "stable"
 
+      # enable web
+      # remove widget_test which is based on the default app
+      # remove base href from index.html for gh-pages
       - name: Build with Flutter
         run: |
           flutter config --enable-web
@@ -32,6 +34,7 @@ jobs:
           flutter pub get
           flutter test
           flutter build web
+          sed -i '/base href/d' index.html
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
