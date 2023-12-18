@@ -1,8 +1,0 @@
-info:
-title: Mr P.C.
-composer: John Coltrane
------
-section: A
-|| Cm7 | Cm7   | Cm7 | Cm7  |
-   Fm7 | Fm7   | Cm7 | Cm7  |
-   Ab7 | G7b13 | Cm7 | Cm7 ||
