@@ -20,6 +20,7 @@ jobs:
       - run: flutter config --enable-web
       - run: flutter channel beta
       - run: flutter create .
+      - run: rm test/widget_test.dart
       - run: flutter pub get
       - run: flutter build web
       - run: flutter test
