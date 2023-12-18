@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     permissions:
       pages: write
       id-token: write 
@@ -21,17 +20,31 @@ jobs:
           flutter-version: 3.13.8
           channel: "stable"
 
-      - run: flutter config --enable-web
-      - run: flutter channel beta
-      - run: flutter create .
-      - run: rm test/widget_test.dart
-      - run: flutter pub get
-      - run: flutter build web
-      - run: flutter test
+      - name: Build with Flutter
+        run: |
+          flutter config --enable-web
+          flutter channel beta
+          flutter create .
+          rm test/widget_test.dart
+          flutter pub get
+          flutter test
+          flutter build web
 
       - uses: actions/configure-pages@v3
       - uses: actions/jekyll-build-pages@v1
         with:
           source: ./build/web
-      - uses: actions/upload-pages-artifact@v1
-      - uses: actions/deploy-pages@v3
+          destination: ./_site
+      - uses: actions/upload-pages-artifact@v2
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v3
