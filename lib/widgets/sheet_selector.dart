@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:chords/widgets/shakeable_container.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:chords/providers/app_state.dart';
 import 'package:chords/screens/sheet_page.dart';
 
 class SheetSelector extends StatefulWidget {
@@ -19,8 +17,6 @@ class _SheetSelectorState extends State<SheetSelector> {
 
   @override
   Widget build(BuildContext context) {
-    final appState = context.watch<AppState>();
-
     void selectSheet(String path) {
       path = path.toLowerCase().replaceAll(' ', '_');
       if (!path.startsWith(SheetSelector.pathPrefix)) {
@@ -29,9 +25,7 @@ class _SheetSelectorState extends State<SheetSelector> {
       if (!path.endsWith(SheetSelector.pathSuffix)) {
         path = path + SheetSelector.pathSuffix;
       }
-      print(path);
       if (paths.contains(path)) {
-        appState.setSheetPath(path);
         Navigator.push(context,
             MaterialPageRoute(builder: (_) => SheetPage(songPath: path)));
       } else {

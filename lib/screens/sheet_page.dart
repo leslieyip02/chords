@@ -68,7 +68,7 @@ class _SheetPageState extends State<SheetPage> {
                 icon: Icon(Icons.restart_alt),
                 tooltip: "Reset",
                 onPressed: () => setState(() {
-                  // hack
+                  // hack to reload the current sheet to resets
                   Navigator.pop(context);
                   Navigator.push(
                       context,
