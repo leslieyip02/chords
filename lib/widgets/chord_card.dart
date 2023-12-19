@@ -222,7 +222,7 @@ class _ChordCardState extends State<ChordCard> {
                 margin: EdgeInsets.symmetric(horizontal: 8.0),
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
-                    minHeight: SheetRow.rowHeight,
+                    minHeight: SheetRow.getRowHeight(context),
                   ),
                   child: FittedBox(
                     alignment: Alignment.centerLeft,

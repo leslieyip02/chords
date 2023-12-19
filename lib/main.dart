@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:chords/providers/app_state.dart';
 import 'package:chords/screens/home_page.dart';
+import 'package:chords/screens/sheet_page.dart';
 
 void main() {
   runApp(App());
@@ -21,6 +22,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double? fontSize = width <= SheetPage.narrowThreshold ? 32 : null;
+
     return ChangeNotifierProvider(
       create: (context) => AppState(),
       child: MaterialApp(
@@ -28,6 +32,9 @@ class App extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: colorScheme,
+          textTheme: TextTheme(
+            displayMedium: TextStyle(fontSize: fontSize),
+          ),
         ),
         home: HomePage(),
         debugShowCheckedModeBanner: false,

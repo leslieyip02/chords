@@ -11,14 +11,6 @@ abstract class BarLine extends StatelessWidget {
   static const barLineWidth = ChordCard.margin / 2;
   static const containerWidth = BarLine.barLineWidth * 3;
 
-  static Widget line = SizedBox(
-    height: SheetRow.rowHeight,
-    width: BarLine.barLineWidth,
-    child: Container(
-      color: App.colorScheme.outline,
-    ),
-  );
-
   const BarLine({
     super.key,
   });
@@ -35,6 +27,16 @@ abstract class BarLine extends StatelessWidget {
       throw ArgumentError('$notation is not a valid barline');
     }
   }
+
+  static Widget line(BuildContext context) {
+    return SizedBox(
+      height: SheetRow.getRowHeight(context),
+      width: BarLine.barLineWidth,
+      child: Container(
+        color: App.colorScheme.outline,
+      ),
+    );
+  }
 }
 
 class SingleBarLine extends BarLine {
@@ -48,7 +50,7 @@ class SingleBarLine extends BarLine {
       width: BarLine.containerWidth,
       margin: EdgeInsets.symmetric(horizontal: ChordCard.margin),
       child: Center(
-        child: BarLine.line,
+        child: BarLine.line(context),
       ),
     );
   }
@@ -66,9 +68,9 @@ class DoubleBarLine extends BarLine {
       margin: EdgeInsets.symmetric(horizontal: ChordCard.margin),
       child: Row(
         children: [
-          BarLine.line,
+          BarLine.line(context),
           SizedBox(width: BarLine.barLineWidth),
-          BarLine.line,
+          BarLine.line(context),
         ],
       ),
     );
@@ -98,7 +100,7 @@ class RepeatBarLine extends BarLine {
 
   static Widget stem = Container(
     width: BarLine.barLineWidth,
-    height: BarLine.containerWidth * 4,
+    height: BarLine.containerWidth * 3,
     color: App.colorScheme.outline,
   );
 
@@ -114,7 +116,7 @@ class RepeatBarLine extends BarLine {
       width: BarLine.containerWidth,
       margin: EdgeInsets.symmetric(horizontal: ChordCard.margin),
       child: SizedBox(
-        height: SheetRow.rowHeight,
+        height: SheetRow.getRowHeight(context),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: alignment,

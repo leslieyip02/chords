@@ -3,10 +3,9 @@ import 'package:chords/widgets/chord_card.dart';
 import 'package:flutter/material.dart';
 import 'package:chords/widgets/bar_container.dart';
 import 'package:chords/widgets/bar_line.dart';
+import 'package:chords/screens/sheet_page.dart';
 
 class SheetRow extends StatelessWidget {
-  static const double rowHeight = 80.0;
-
   const SheetRow({
     super.key,
     required this.bars,
@@ -15,6 +14,11 @@ class SheetRow extends StatelessWidget {
 
   final List<Bar> bars;
   final List<String> dividers;
+
+  static double getRowHeight(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    return width <= SheetPage.narrowThreshold ? 60.0 : 80.0;
+  }
 
   @override
   Widget build(BuildContext context) {
