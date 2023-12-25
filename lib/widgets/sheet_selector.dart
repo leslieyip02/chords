@@ -74,30 +74,35 @@ class _SheetSelectorState extends State<SheetSelector> {
               },
               suggestionsBuilder:
                   (BuildContext context, SearchController controller) {
-                return paths.map((path) {
-                  String title = path
-                      .replaceAll(SheetSelector.pathPrefix, '')
-                      .replaceAll(SheetSelector.pathSuffix, '')
-                      .split('_')
-                      .map((word) {
-                    // check for abbreviations (i.e. Mr P.C.)
-                    var letters =
-                        word.split('.').where((letter) => letter.isNotEmpty);
-                    if (letters.length > 1) {
-                      return letters
-                          .map((letter) => '${letter.toUpperCase()}.')
-                          .join('');
-                    } else {
-                      // capitalise every word by default
-                      return '${word[0].toUpperCase()}${word.substring(1)}';
-                    }
-                  }).join(' ');
-                  return ListTile(
-                    leading: Icon(Icons.music_note),
-                    title: Text(title),
-                    onTap: () => controller.closeView(title),
-                  );
-                });
+                return paths
+                    .map((path) {
+                      return path
+                          .replaceAll(SheetSelector.pathPrefix, '')
+                          .replaceAll(SheetSelector.pathSuffix, '')
+                          .split('_')
+                          .map((word) {
+                        // check for abbreviations (i.e. Mr P.C.)
+                        var letters = word
+                            .split('.')
+                            .where((letter) => letter.isNotEmpty);
+                        if (letters.length > 1) {
+                          return letters
+                              .map((letter) => '${letter.toUpperCase()}.')
+                              .join('');
+                        } else {
+                          // capitalise every word by default
+                          return '${word[0].toUpperCase()}${word.substring(1)}';
+                        }
+                      }).join(' ');
+                    })
+                    .where((title) => title
+                        .toLowerCase()
+                        .startsWith(controller.value.text.toLowerCase()))
+                    .map((title) => ListTile(
+                          leading: Icon(Icons.music_note),
+                          title: Text(title),
+                          onTap: () => controller.closeView(title),
+                        ));
               },
             ),
           ),
