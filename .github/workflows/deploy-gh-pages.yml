@@ -31,6 +31,7 @@ jobs:
           flutter channel beta
           flutter create .
           rm test/widget_test.dart
+          cp assets/favicon.png web/favicon.png
           flutter pub get
           flutter test
           flutter build web --release
