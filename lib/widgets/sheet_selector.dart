@@ -33,6 +33,9 @@ class _SheetSelectorState extends State<SheetSelector> {
       }
     }
 
+    double width = MediaQuery.of(context).size.width;
+    double margin = width <= SheetPage.narrowThreshold ? 24.0 : 64.0;
+
     return FutureBuilder<String>(
       future: DefaultAssetBundle.of(context).loadString('AssetManifest.json'),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -49,7 +52,7 @@ class _SheetSelectorState extends State<SheetSelector> {
         return ShakeableContainer(
           key: shakeableContainerKey,
           child: Container(
-            margin: EdgeInsets.all(64.0),
+            margin: EdgeInsets.all(margin),
             child: SearchAnchor(
               viewConstraints: BoxConstraints(maxHeight: 300.0),
               builder: (BuildContext context, SearchController controller) {
