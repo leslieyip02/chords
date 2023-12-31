@@ -1,0 +1,15 @@
+info:
+title: Fly Me To The Moon
+composer: Bart Howard
+-----
+section: A
+|| Am7   | Dm7 | G7       | Cmaj7     |
+   Fmaj7 | Bø7 | E7b9     | Am7 A7    |
+   Dm7   | G7  | Cmaj7 F7 | Em7 A7    |
+   Dm7   | G7  | Cmaj7    | Bø7 E7b9 ||
+-----
+section: B
+|| Am7   | Dm7 | G7       | Cmaj7     |
+   Fmaj7 | Bø7 | E7b9     | Am7 A7    |
+   Dm7   | G7  | Em7      | A7        |
+   Dm7   | G7  | Cmaj7    | Bø7 E7b9 ||

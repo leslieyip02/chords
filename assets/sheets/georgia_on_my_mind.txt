@@ -1,0 +1,16 @@
+info:
+title: Georgia On My Mind
+composer: Hoagy Carmichael
+-----
+section: A
+[: Fmaj7   | Eø7 A7b9 | Dm Dm/C     | G/B Bbm7 Eb7 |
+   Am7 D7  | Gm7 C7   | {1.} Am7 D7 | Gm7 C7#5    :]
+                        {2.} F6     | Eø7 A7b9    ||
+-----
+section: B
+|| Dm A7b9 | Dm Bb7   | Dm A7b9     | Dm G/B       |
+   Dm A7b9 | Dm Bø E7 | Am7 D7      | Gm7 C7#5    ||
+-----
+section: A
+|| Fmaj7   | Eø7 A7b9 | Dm Dm/C     | G/B Bbm7 Eb7 |
+   Am7 D7  | Gm7 C7   | F6          | Gm7 C7      ||
