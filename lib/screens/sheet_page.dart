@@ -77,8 +77,8 @@ class _SheetPageState extends State<SheetPage> {
                               SheetPage(songPath: widget.songPath)));
                 }),
               ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.0),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: IconButton(
                   icon: Icon(Icons.more_vert),
                   tooltip: "Transpose",

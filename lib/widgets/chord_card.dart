@@ -160,8 +160,8 @@ class _ChordCardState extends State<ChordCard> {
                           children: [
                             for (var cardColorSchemeOption
                                 in ChordCard.cardColorSchemes)
-                              Container(
-                                margin: EdgeInsets.symmetric(horizontal: 8.0),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 8.0),
                                 child: MaterialButton(
                                   minWidth: 36.0,
                                   height: 36.0,

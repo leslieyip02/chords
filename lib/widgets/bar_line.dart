@@ -112,10 +112,10 @@ class RepeatBarLine extends BarLine {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: BarLine.containerWidth,
-      margin: EdgeInsets.symmetric(horizontal: ChordCard.margin),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: ChordCard.margin),
       child: SizedBox(
+        width: BarLine.containerWidth,
         height: SheetRow.getRowHeight(context),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

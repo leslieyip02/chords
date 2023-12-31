@@ -13,14 +13,15 @@ class SheetContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> sections = sheet.sections
-        .map((section) => SheetSection(section: section))
-        .toList();
+    List<Widget> sections = [SizedBox(height: 8.0)];
+    for (var section in sheet.sections) {
+      sections.add(SheetSection(section: section));
+      sections.add(SizedBox(height: 8.0));
+    }
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Container(
-          height: double.infinity,
+        return Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: SingleChildScrollView(
             child: Column(

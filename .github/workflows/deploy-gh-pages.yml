@@ -33,7 +33,7 @@ jobs:
           rm test/widget_test.dart
           flutter pub get
           flutter test
-          flutter build web
+          flutter build web --release
           sed -i '/base href/d' ./build/web/index.html
 
       - name: Deploy

@@ -82,29 +82,26 @@ class SheetSection extends StatelessWidget {
       sliceStart += allRows[i].length;
     }
 
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (section.label != null)
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: theme.colorScheme.outline),
-                borderRadius: BorderRadius.all(Radius.circular(4.0)),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-              child: Text(
-                section.label as String,
-                style: TextStyle(color: theme.colorScheme.onSurface),
-                textAlign: TextAlign.center,
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (section.label != null)
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: theme.colorScheme.outline),
+              borderRadius: BorderRadius.all(Radius.circular(4.0)),
             ),
-          SizedBox(height: 4.0),
-          for (int i = 0; i < allRows.length; i++)
-            SheetRow(bars: allRows[i], dividers: allDividers[i])
-        ],
-      ),
+            padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+            child: Text(
+              section.label as String,
+              style: TextStyle(color: theme.colorScheme.onSurface),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        SizedBox(height: 4.0),
+        for (int i = 0; i < allRows.length; i++)
+          SheetRow(bars: allRows[i], dividers: allDividers[i])
+      ],
     );
   }
 }

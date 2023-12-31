@@ -28,8 +28,8 @@ class SheetRow extends StatelessWidget {
       contents.add(BarLine.of(dividers[i + 1]));
     }
 
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: ChordCard.margin),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: ChordCard.margin),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
