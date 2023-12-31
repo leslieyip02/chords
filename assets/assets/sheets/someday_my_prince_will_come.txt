@@ -1,0 +1,19 @@
+info:
+title: Someday My Prince Will Come
+composer: Frank Churchill
+-----
+section: A
+|| Bbmaj7   | D7#5 | Ebmaj7 | G7b9  |
+   Cm7      | G7b9 | Cm7    | F7   ||
+-----
+section: B
+|| Dm7      | C#o7 | Cm7    | F7    |
+   Dm7      | C#o7 | Cm7    | F7   ||
+-----
+section: A
+|| Bbmaj7   | D7#5 | Ebmaj7 | G7b9  |
+   Cm7      | G7b9 | Cm7    | F7   ||
+-----
+section: C
+|| Fm7      | Bb7  | Ebmaj7 | Eo7   |
+   Bbmaj7/F | G7   | Cm7    | F7   ||
