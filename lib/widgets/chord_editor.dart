@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:chords/models/chord.dart';
 import 'package:chords/widgets/chord_card.dart';
 import 'package:chords/widgets/shakeable_container.dart';
+import 'package:flutter/material.dart';
 
 class ChordEditor extends StatefulWidget {
   static const double margin = 8.0;
