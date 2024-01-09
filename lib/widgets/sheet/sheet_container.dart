@@ -28,7 +28,7 @@ class SheetContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> sections = [SizedBox(height: 8.0)];
+    List<Widget> sections = [SheetHeader(sheet: sheet), SizedBox(height: 8.0)];
     for (final section in sheet.sections) {
       sections.add(SheetSection(section: section));
       sections.add(SizedBox(height: 8.0));
@@ -38,13 +38,11 @@ class SheetContainer extends StatelessWidget {
       builder: (context, constraints) {
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SheetHeader(sheet: sheet),
-                ...sections,
-              ],
-            ),
+          child: ListView.builder(
+            itemCount: sections.length,
+            itemBuilder: (context, index) {
+              return sections[index];
+            },
           ),
         );
       },

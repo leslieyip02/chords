@@ -34,7 +34,7 @@ jobs:
           cp assets/favicon.png web/favicon.png
           flutter pub get
           flutter test
-          flutter build web --release
+          flutter build web --web-renderer canvaskit --release
           sed -i '/base href/d' ./build/web/index.html
 
       - name: Deploy

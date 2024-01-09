@@ -1,6 +1,5 @@
 import 'package:chords/main.dart';
 import 'package:chords/models/chord.dart';
-import 'package:chords/widgets/shakeable_container.dart';
 import 'package:chords/widgets/sheet/sheet_container.dart';
 import 'package:chords/widgets/sheet/sheet_row.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +30,6 @@ class ChordCard extends StatefulWidget {
 }
 
 class _ChordCardState extends State<ChordCard> {
-  final shakeableContainerKey = GlobalKey<ShakeableContainerState>();
   late ColorScheme cardColorScheme;
   late Color color;
 
