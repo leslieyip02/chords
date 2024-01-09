@@ -1,6 +1,6 @@
 import 'package:chords/main.dart';
-import 'package:chords/widgets/chord_card.dart';
-import 'package:chords/widgets/sheet_row.dart';
+import 'package:chords/widgets/chord/chord_card.dart';
+import 'package:chords/widgets/sheet/sheet_row.dart';
 import 'package:flutter/material.dart';
 
 abstract class BarLine extends StatelessWidget {
@@ -32,9 +32,7 @@ abstract class BarLine extends StatelessWidget {
     return SizedBox(
       height: SheetRow.getRowHeight(context),
       width: BarLine.barLineWidth,
-      child: Container(
-        color: App.colorScheme.outline,
-      ),
+      child: Container(color: App.colorScheme.outline),
     );
   }
 }
@@ -49,9 +47,7 @@ class SingleBarLine extends BarLine {
     return Container(
       width: BarLine.containerWidth,
       margin: EdgeInsets.symmetric(horizontal: ChordCard.margin),
-      child: Center(
-        child: BarLine.line(context),
-      ),
+      child: Center(child: BarLine.line(context)),
     );
   }
 }
@@ -87,9 +83,10 @@ class RepeatBarLine extends BarLine {
 
   factory RepeatBarLine.fromString(String notation) {
     return RepeatBarLine(
-        alignment: notation == BarLine.repeatBegin
-            ? CrossAxisAlignment.start
-            : CrossAxisAlignment.end);
+      alignment: notation == BarLine.repeatBegin
+          ? CrossAxisAlignment.start
+          : CrossAxisAlignment.end,
+    );
   }
 
   static Widget dash = Container(

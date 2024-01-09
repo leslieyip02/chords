@@ -1,6 +1,6 @@
 import 'package:chords/models/sheet.dart';
-import 'package:chords/widgets/sheet_container.dart';
-import 'package:chords/widgets/sheet_transposer.dart';
+import 'package:chords/widgets/sheet/sheet_container.dart';
+import 'package:chords/widgets/sheet/sheet_transposer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 

@@ -1,11 +1,14 @@
 import 'package:chords/models/note.dart';
 
 class Chord {
+  Chord(
+    this.note,
+    this.quality,
+  );
+
   Note note;
   String quality;
   String? annotation;
-
-  Chord(this.note, this.quality);
 
   factory Chord.fromString(String notation) {
     RegExp parser = RegExp(r'([A-G][#b]?)(.*)?');

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:chords/models/sheet.dart';
+import 'package:flutter/material.dart';
 
 class SheetHeader extends StatelessWidget {
   const SheetHeader({
@@ -33,10 +33,7 @@ class SheetHeader extends StatelessWidget {
                 ),
               ),
             if (sheet.composer != null)
-              Text(
-                sheet.composer as String,
-                style: subtitleStyle,
-              ),
+              Text(sheet.composer as String, style: subtitleStyle),
           ],
         );
       },

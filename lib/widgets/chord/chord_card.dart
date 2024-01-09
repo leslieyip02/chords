@@ -1,10 +1,10 @@
 import 'package:chords/main.dart';
-import 'package:chords/widgets/sheet_container.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:chords/models/chord.dart';
 import 'package:chords/widgets/shakeable_container.dart';
-import 'package:chords/widgets/sheet_row.dart';
+import 'package:chords/widgets/sheet/sheet_container.dart';
+import 'package:chords/widgets/sheet/sheet_row.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ChordCard extends StatefulWidget {
   static List<ColorScheme> cardColorSchemes = [
@@ -35,9 +35,10 @@ class _ChordCardState extends State<ChordCard> {
   late Color color;
 
   void updateColorScheme(ColorScheme colorScheme) {
-    cardColorScheme = colorScheme;
-    color = cardColorScheme.surface;
-    setState(() {});
+    setState(() {
+      cardColorScheme = colorScheme;
+      color = cardColorScheme.surface;
+    });
   }
 
   @override
@@ -77,8 +78,10 @@ class _ChordCardState extends State<ChordCard> {
           InkWell(
             onTap: () {
               SheetContainer.showEditingWindow(
-                      context, widget.chord, updateColorScheme)
-                  .then((_) => setState(() {}));
+                context,
+                widget.chord,
+                updateColorScheme,
+              ).then((_) => setState(() {}));
             },
             onHover: (mouseEnter) {
               setState(() {
@@ -106,10 +109,7 @@ class _ChordCardState extends State<ChordCard> {
                     child: Row(
                       children: [
                         // TODO: add constraints to this?
-                        Text(
-                          widget.chord.note.value.name,
-                          style: style,
-                        ),
+                        Text(widget.chord.note.value.name, style: style),
                         SizedBox(width: 2.0),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

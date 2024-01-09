@@ -1,15 +1,15 @@
-import 'package:chords/models/chord.dart';
-import 'package:chords/widgets/bar_line.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:chords/models/bar.dart';
+import 'package:chords/models/chord.dart';
 import 'package:chords/models/section.dart';
+import 'package:chords/widgets/bar/bar_line.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('Parse single bar lines', () {
     String notation = "| Am7 | D7 F7 | Gø7 C7 | Fm7 Bb7 |";
     Section section = Section.fromString(notation);
 
-    for (String divider in section.dividers) {
+    for (final divider in section.dividers) {
       expect(divider, BarLine.singleBarLine);
     }
 

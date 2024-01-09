@@ -1,5 +1,5 @@
 import 'package:chords/models/chord.dart';
-import 'package:chords/widgets/chord_card.dart';
+import 'package:chords/widgets/chord/chord_card.dart';
 import 'package:chords/widgets/shakeable_container.dart';
 import 'package:flutter/material.dart';
 
@@ -29,9 +29,11 @@ class _ChordEditorState extends State<ChordEditor> {
     super.initState();
 
     notationEditor = TextEditingController.fromValue(
-        TextEditingValue(text: widget.chord.toString()));
+      TextEditingValue(text: widget.chord.toString()),
+    );
     annotationEditor = TextEditingController.fromValue(
-        TextEditingValue(text: widget.chord.annotation ?? ''));
+      TextEditingValue(text: widget.chord.annotation ?? ''),
+    );
   }
 
   @override
@@ -68,11 +70,11 @@ class _ChordEditorState extends State<ChordEditor> {
                     tooltip: "Toggle Enharmonic",
                     onPressed: () {
                       try {
-                        Chord toggled =
-                            Chord.fromString(notationEditor.value.text)
-                                .toggleEnharmonic();
-                        notationEditor.value =
-                            TextEditingValue(text: toggled.toString());
+                        notationEditor.value = TextEditingValue(
+                          text: Chord.fromString(notationEditor.value.text)
+                              .toggleEnharmonic()
+                              .toString(),
+                        );
                       } on ArgumentError {
                         shakeableContainerKey.currentState?.shake();
                       }
@@ -102,7 +104,7 @@ class _ChordEditorState extends State<ChordEditor> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                for (var cardColorSchemeOption in ChordCard.cardColorSchemes)
+                for (final cardColorSchemeOption in ChordCard.cardColorSchemes)
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: ChordCard.margin),
                     child: MaterialButton(

@@ -1,9 +1,9 @@
 import 'package:chords/models/bar.dart';
-import 'package:chords/widgets/chord_card.dart';
-import 'package:flutter/material.dart';
-import 'package:chords/widgets/bar_container.dart';
-import 'package:chords/widgets/bar_line.dart';
 import 'package:chords/screens/sheet_page.dart';
+import 'package:chords/widgets/bar/bar_container.dart';
+import 'package:chords/widgets/bar/bar_line.dart';
+import 'package:chords/widgets/chord/chord_card.dart';
+import 'package:flutter/material.dart';
 
 class SheetRow extends StatelessWidget {
   const SheetRow({

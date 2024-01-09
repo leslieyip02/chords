@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:chords/models/note.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('Transpose up', () {
@@ -28,7 +28,7 @@ void main() {
       'F#',
       'G',
       'G#',
-      'A'
+      'A',
     ];
 
     for (final (steps, notation) in notations.indexed) {

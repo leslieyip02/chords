@@ -5,6 +5,14 @@ import 'package:flutter/material.dart';
 
 class SheetEditor extends StatefulWidget {
   static const double margin = 8.0;
+  static final String hintText = [
+    'info:',
+    'title:',
+    'composer:',
+    '-----',
+    'section: A',
+    '|| your | chords | here ||'
+  ].join('\n');
 
   const SheetEditor({
     super.key,
@@ -40,17 +48,11 @@ class _SheetEditorState extends State<SheetEditor> {
                 controller: customSheetEditor,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: [
-                    'info:',
-                    'title:',
-                    'composer:',
-                    '-----',
-                    'section: A',
-                    '|| your | chords | here ||'
-                  ].join('\n'),
+                  hintText: SheetEditor.hintText,
                   hintStyle: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.normal),
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
               ),
             ),
@@ -66,8 +68,10 @@ class _SheetEditorState extends State<SheetEditor> {
           onPressed: () {
             try {
               Sheet sheet = Sheet.fromString(customSheetEditor.text);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => SheetPage(sheet: sheet)));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => SheetPage(sheet: sheet)),
+              );
             } on ArgumentError {
               shakeableContainerKey.currentState?.shake();
             }

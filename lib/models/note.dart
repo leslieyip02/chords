@@ -1,11 +1,15 @@
 enum NoteValue { A, B, C, D, E, F, G }
 
 class Note {
+  const Note(
+    this.value,
+    this.isSharp,
+    this.isFlat,
+  );
+
   final NoteValue value;
   final bool isSharp;
   final bool isFlat;
-
-  Note(this.value, this.isSharp, this.isFlat);
 
   factory Note.fromString(String notation) {
     int index = notation.codeUnitAt(0) - 65;

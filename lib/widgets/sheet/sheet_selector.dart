@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:chords/widgets/shakeable_container.dart';
 import 'package:flutter/material.dart';
 import 'package:chords/screens/sheet_page.dart';
+import 'package:chords/widgets/shakeable_container.dart';
 
 class SheetSelector extends StatefulWidget {
   static const String pathPrefix = 'assets/sheets/';
@@ -15,26 +15,44 @@ class _SheetSelectorState extends State<SheetSelector> {
   final shakeableContainerKey = GlobalKey<ShakeableContainerState>();
   late List<String> paths;
 
+  void selectSheet(String path) {
+    path = path.toLowerCase().replaceAll(' ', '_');
+    if (!path.startsWith(SheetSelector.pathPrefix)) {
+      path = SheetSelector.pathPrefix + path;
+    }
+    if (!path.endsWith(SheetSelector.pathSuffix)) {
+      path = path + SheetSelector.pathSuffix;
+    }
+    if (paths.contains(path)) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (_) => SheetPage(songPath: path)));
+    } else {
+      shakeableContainerKey.currentState?.shake();
+    }
+  }
+
+  String cleanPath(String path) {
+    final Iterable<String> words = path
+        .replaceAll(SheetSelector.pathPrefix, '')
+        .replaceAll(SheetSelector.pathSuffix, '')
+        .split('_');
+
+    return words.map((word) {
+      // check for abbreviations (i.e. Mr P.C.)
+      final letters = word.split('.').where((letter) => letter.isNotEmpty);
+      if (letters.length > 1) {
+        return letters.map((letter) => '${letter.toUpperCase()}.').join('');
+      } else {
+        // capitalise every word by default
+        return '${word[0].toUpperCase()}${word.substring(1)}';
+      }
+    }).join(' ');
+  }
+
   @override
   Widget build(BuildContext context) {
-    void selectSheet(String path) {
-      path = path.toLowerCase().replaceAll(' ', '_');
-      if (!path.startsWith(SheetSelector.pathPrefix)) {
-        path = SheetSelector.pathPrefix + path;
-      }
-      if (!path.endsWith(SheetSelector.pathSuffix)) {
-        path = path + SheetSelector.pathSuffix;
-      }
-      if (paths.contains(path)) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (_) => SheetPage(songPath: path)));
-      } else {
-        shakeableContainerKey.currentState?.shake();
-      }
-    }
-
-    double width = MediaQuery.of(context).size.width;
-    double margin = width <= SheetPage.narrowThreshold ? 24.0 : 64.0;
+    final double width = MediaQuery.of(context).size.width;
+    final double margin = width <= SheetPage.narrowThreshold ? 24.0 : 64.0;
 
     return FutureBuilder<String>(
       future: DefaultAssetBundle.of(context).loadString('AssetManifest.json'),
@@ -59,7 +77,8 @@ class _SheetSelectorState extends State<SheetSelector> {
                 return SearchBar(
                   controller: controller,
                   padding: MaterialStatePropertyAll<EdgeInsets>(
-                      EdgeInsets.symmetric(horizontal: 16.0)),
+                    EdgeInsets.symmetric(horizontal: 16.0),
+                  ),
                   onTap: () => controller.openView(),
                   onChanged: (_) => controller.openView(),
                   onSubmitted: (selectedPath) => selectSheet(selectedPath),
@@ -75,29 +94,12 @@ class _SheetSelectorState extends State<SheetSelector> {
                   ],
                 );
               },
-              suggestionsBuilder:
-                  (BuildContext context, SearchController controller) {
+              suggestionsBuilder: (
+                BuildContext context,
+                SearchController controller,
+              ) {
                 return paths
-                    .map((path) {
-                      return path
-                          .replaceAll(SheetSelector.pathPrefix, '')
-                          .replaceAll(SheetSelector.pathSuffix, '')
-                          .split('_')
-                          .map((word) {
-                        // check for abbreviations (i.e. Mr P.C.)
-                        var letters = word
-                            .split('.')
-                            .where((letter) => letter.isNotEmpty);
-                        if (letters.length > 1) {
-                          return letters
-                              .map((letter) => '${letter.toUpperCase()}.')
-                              .join('');
-                        } else {
-                          // capitalise every word by default
-                          return '${word[0].toUpperCase()}${word.substring(1)}';
-                        }
-                      }).join(' ');
-                    })
+                    .map(cleanPath)
                     .where((title) => title
                         .toLowerCase()
                         .startsWith(controller.value.text.toLowerCase()))

@@ -1,9 +1,9 @@
-import 'package:chords/widgets/bar_line.dart';
-import 'package:chords/widgets/sheet_row.dart';
-import 'package:flutter/material.dart';
 import 'package:chords/models/bar.dart';
 import 'package:chords/models/section.dart';
 import 'package:chords/screens/sheet_page.dart';
+import 'package:chords/widgets/bar/bar_line.dart';
+import 'package:chords/widgets/sheet/sheet_row.dart';
+import 'package:flutter/material.dart';
 
 class SheetSection extends StatelessWidget {
   const SheetSection({
@@ -23,7 +23,7 @@ class SheetSection extends StatelessWidget {
     List<List<Bar>> rows = [];
     List<Bar> currentRow = [];
     bool containsLongBar = false;
-    for (var bar in section.bars) {
+    for (final bar in section.bars) {
       // if the bar contains >= 3 chords,
       // spread bars out to prevent cramming
       containsLongBar = containsLongBar || bar.chords.length >= 3;

@@ -3,11 +3,15 @@ import 'package:chords/models/bar.dart';
 class Section {
   static const String labelLabel = 'section:';
 
+  const Section(
+    this.label,
+    this.bars,
+    this.dividers,
+  );
+
   final String? label;
   final List<Bar> bars;
   final List<String> dividers;
-
-  Section(this.label, this.bars, this.dividers);
 
   factory Section.fromString(String notation) {
     String? label;
@@ -36,7 +40,7 @@ class Section {
   }
 
   Section transpose(int steps) {
-    for (var bar in bars) {
+    for (final bar in bars) {
       bar.transpose(steps);
     }
     return this;

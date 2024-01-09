@@ -6,11 +6,15 @@ class Sheet {
   static const String titleLabel = 'title:';
   static const String composerLabel = 'composer:';
 
+  const Sheet(
+    this.title,
+    this.composer,
+    this.sections,
+  );
+
   final String? title;
   final String? composer;
   final List<Section> sections;
-
-  const Sheet(this.title, this.composer, this.sections);
 
   factory Sheet.fromString(String contents) {
     String? title;
@@ -36,7 +40,7 @@ class Sheet {
   }
 
   Sheet transpose(int steps) {
-    for (var section in sections) {
+    for (final section in sections) {
       section.transpose(steps);
     }
     return this;

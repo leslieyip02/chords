@@ -1,10 +1,13 @@
 import 'package:chords/models/chord.dart';
 
 class Bar {
-  final List<Chord> chords;
-  String? label;
+  const Bar(
+    this.chords, {
+    this.label,
+  });
 
-  Bar(this.chords, {this.label});
+  final List<Chord> chords;
+  final String? label;
 
   factory Bar.fromString(String notation) {
     // find text nested in brackets
@@ -22,7 +25,7 @@ class Bar {
   }
 
   Bar transpose(int steps) {
-    for (var chord in chords) {
+    for (final chord in chords) {
       chord.transpose(steps);
     }
     return this;
