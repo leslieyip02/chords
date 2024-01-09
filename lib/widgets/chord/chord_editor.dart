@@ -1,3 +1,4 @@
+import 'package:chords/main.dart';
 import 'package:chords/models/chord.dart';
 import 'package:chords/widgets/chord/chord_card.dart';
 import 'package:chords/widgets/shakeable_container.dart';
@@ -43,7 +44,6 @@ class _ChordEditorState extends State<ChordEditor> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // TODO: add a reset button
           SizedBox(height: ChordEditor.margin),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: ChordEditor.margin),
@@ -128,6 +128,16 @@ class _ChordEditorState extends State<ChordEditor> {
         TextButton(
           onPressed: () => Navigator.pop(context, 'Cancel'),
           child: Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () {
+            setState(() {
+              widget.chord.reset();
+              widget.updateColorScheme(App.colorScheme);
+            });
+            Navigator.pop(context, 'OK');
+          },
+          child: Text('Reset'),
         ),
         TextButton(
           onPressed: () {

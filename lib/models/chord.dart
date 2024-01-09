@@ -4,10 +4,12 @@ class Chord {
   Chord(
     this.note,
     this.quality,
+    this.originalNotation,
   );
 
   Note note;
   String quality;
+  String originalNotation;
   String? annotation;
 
   factory Chord.fromString(String notation) {
@@ -17,7 +19,7 @@ class Chord {
       throw ArgumentError('$notation is not a valid chord');
     }
     Note note = Note.fromString(match?.group(1) as String);
-    return Chord(note, match?.group(2) ?? '');
+    return Chord(note, match?.group(2) ?? '', notation);
   }
 
   Chord transpose(int steps) {
@@ -38,6 +40,11 @@ class Chord {
     }
     note = Note.fromString(match?.group(1) as String);
     quality = match?.group(2) ?? '';
+  }
+
+  void reset() {
+    update(originalNotation);
+    annotation = null;
   }
 
   @override
