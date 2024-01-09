@@ -3,6 +3,7 @@ import 'package:chords/models/note.dart';
 class Chord {
   Note note;
   String quality;
+  String? annotation;
 
   Chord(this.note, this.quality);
 
