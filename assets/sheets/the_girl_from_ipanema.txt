@@ -1,0 +1,18 @@
+info:
+title: The Girl From Ipanema
+composer: Antonio-Carlos Jobim
+-----
+section: A
+[: Fmaj7  | Fmaj7  | G7#11      | G7#11    |
+   Gm7    | Gb7#11 | {1.} Fmaj7 | Gb7     :] 
+                     {2.} Fmaj7 | Fmaj7   ||
+-----
+section: B
+|| F#maj7 | F#maj7 | B7         | B7       |
+   F#m7   | F#m7   | D7         | D7       |
+   Gm7    | Gm7    | Eb7        | Eb7      |
+   Am7    | D7b5b9 | Gm7        | C7b5b9  ||
+-----
+section: A
+|| Fmaj7  | Fmaj7  | G7#11      | G7#11    |
+   Gm7    | Gb7#11 |  Fmaj7     | Gb7     || 

@@ -1,0 +1,7 @@
+info:
+title: C-Jam Blues
+composer: Duke Ellington
+-----
+[: C7  | C7 | C7 | C7  |
+   F7  | F7 | C7 | C7  |
+   Dm7 | G7 | C7 | C7 :]

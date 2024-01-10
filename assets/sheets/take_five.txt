@@ -1,0 +1,15 @@
+info:
+title: Take Five
+composer: Paul Desmond
+-----
+section: A
+|| Ebm Bbm7   | Ebm Bbm7  | Ebm Bbm7 | Ebm Bbm7   |
+   Ebm Bbm7   | Ebm Bbm7  | Ebm Bbm7 | Ebm Bbm7  ||
+-----
+section: B
+|| Bmaj7 Abm6 | Bbm7 Ebm7 | Abm7 Db7 | Gbmaj7     |
+   Bmaj7 Abm6 | Bbm7 Ebm7 | Abm7 Db7 | Fø7 Bb7b9 ||
+-----
+section: A
+|| Ebm Bbm7   | Ebm Bbm7  | Ebm Bbm7 | Ebm Bbm7   |
+   Ebm Bbm7   | Ebm Bbm7  | Ebm Bbm7 | Ebm Bbm7  ||
