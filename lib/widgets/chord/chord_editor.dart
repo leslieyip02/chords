@@ -40,89 +40,93 @@ class _ChordEditorState extends State<ChordEditor> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: ChordEditor.margin),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: ChordEditor.margin),
-            child: Text("Chord:"),
-          ),
-          Padding(
-            padding: EdgeInsets.all(ChordEditor.margin),
-            child: ShakeableContainer(
-              key: shakeableContainerKey,
-              child: TextField(
-                onSubmitted: (input) {
-                  try {
-                    setState(() => widget.chord.update(input));
-                  } on ArgumentError {
-                    shakeableContainerKey.currentState?.shake();
-                  }
-                },
-                controller: notationEditor,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.swap_vert_circle),
-                    padding: EdgeInsets.all(ChordCard.margin * 2),
-                    tooltip: "Toggle Enharmonic",
-                    onPressed: () {
-                      try {
-                        notationEditor.value = TextEditingValue(
-                          text: Chord.fromString(notationEditor.value.text)
-                              .toggleEnharmonic()
-                              .toString(),
-                        );
-                      } on ArgumentError {
-                        shakeableContainerKey.currentState?.shake();
-                      }
-                    },
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: ChordEditor.margin),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: ChordEditor.margin),
+              child: Text("Chord:"),
+            ),
+            Padding(
+              padding: EdgeInsets.all(ChordEditor.margin),
+              child: ShakeableContainer(
+                key: shakeableContainerKey,
+                child: TextField(
+                  onSubmitted: (input) {
+                    try {
+                      setState(() => widget.chord.update(input));
+                    } on ArgumentError {
+                      shakeableContainerKey.currentState?.shake();
+                    }
+                  },
+                  controller: notationEditor,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.swap_vert_circle),
+                      padding: EdgeInsets.all(ChordCard.margin * 2),
+                      tooltip: "Toggle Enharmonic",
+                      onPressed: () {
+                        try {
+                          notationEditor.value = TextEditingValue(
+                            text: Chord.fromString(notationEditor.value.text)
+                                .toggleEnharmonic()
+                                .toString(),
+                          );
+                        } on ArgumentError {
+                          shakeableContainerKey.currentState?.shake();
+                        }
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: ChordCard.margin),
-            child: Text("Annotation:"),
-          ),
-          Padding(
-            padding: EdgeInsets.all(ChordCard.margin),
-            child: TextField(
-              onSubmitted: (input) {
-                setState(() => widget.chord.annotation = input);
-              },
-              controller: annotationEditor,
-              decoration: InputDecoration(border: OutlineInputBorder()),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: ChordCard.margin),
+              child: Text("Annotation:"),
             ),
-          ),
-          SizedBox(height: ChordCard.margin * 2),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                for (final cardColorSchemeOption in ChordCard.cardColorSchemes)
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: ChordCard.margin),
-                    child: MaterialButton(
-                      minWidth: 36.0,
-                      height: 36.0,
-                      shape: CircleBorder(),
-                      color: cardColorSchemeOption.surface,
-                      onPressed: () {
-                        setState(() {
-                          widget.updateColorScheme(cardColorSchemeOption);
-                        });
-                      },
+            Padding(
+              padding: EdgeInsets.all(ChordCard.margin),
+              child: TextField(
+                onSubmitted: (input) {
+                  setState(() => widget.chord.annotation = input);
+                },
+                controller: annotationEditor,
+                decoration: InputDecoration(border: OutlineInputBorder()),
+              ),
+            ),
+            SizedBox(height: ChordCard.margin * 2),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  for (final cardColorSchemeOption
+                      in ChordCard.cardColorSchemes)
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: ChordCard.margin),
+                      child: MaterialButton(
+                        minWidth: 36.0,
+                        height: 36.0,
+                        shape: CircleBorder(),
+                        color: cardColorSchemeOption.surface,
+                        onPressed: () {
+                          setState(() {
+                            widget.updateColorScheme(cardColorSchemeOption);
+                          });
+                        },
+                      ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       actions: [
         TextButton(
