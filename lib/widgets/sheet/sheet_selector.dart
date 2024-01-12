@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:chords/screens/sheet_page.dart';
 import 'package:chords/widgets/shakeable_container.dart';
+import 'package:flutter/material.dart';
 
 class SheetSelector extends StatefulWidget {
   static const String pathPrefix = 'assets/sheets/';
@@ -62,7 +62,7 @@ class _SheetSelectorState extends State<SheetSelector> {
           return Container();
         }
 
-        Map<String, dynamic> pathMap = jsonDecode(snapshot.data as String);
+        Map<String, dynamic> pathMap = jsonDecode(snapshot.data!);
         paths = pathMap.keys
             .where((path) => path.startsWith(SheetSelector.pathPrefix))
             .toList();

@@ -62,7 +62,7 @@ class _SheetPageState extends State<SheetPage> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
-          body: SheetContainer(sheet: sheet as Sheet),
+          body: SheetContainer(sheet: sheet!),
           appBar: AppBar(
             backgroundColor: theme.colorScheme.background,
             leading: LayoutBuilder(
@@ -78,30 +78,13 @@ class _SheetPageState extends State<SheetPage> {
               IconButton(
                 icon: Icon(Icons.restart_alt),
                 tooltip: 'Reset',
-                onPressed: () => setState(() {
-                  // hack to reload the current sheet to resets
-                  Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => SheetPage(sheet: sheet),
-                    ),
-                  );
-                }),
+                onPressed: () => setState(() => sheet?.reset()),
               ),
               SizedBox(width: 16.0),
               IconButton(
                 icon: Icon(Icons.edit_note),
                 tooltip: 'Annotate',
-                onPressed: () => setState(() {
-                  for (final section in sheet!.sections) {
-                    for (final bar in section.bars) {
-                      for (final chord in bar.chords) {
-                        chord.autoAnnoate();
-                      }
-                    }
-                  }
-                }),
+                onPressed: () => setState(() => sheet!.autoAnnotate()),
               ),
               SizedBox(width: 16.0),
               IconButton(

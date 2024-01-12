@@ -10,11 +10,13 @@ class Sheet {
     this.title,
     this.composer,
     this.sections,
+    this.originalContents,
   );
 
   final String? title;
   final String? composer;
   final List<Section> sections;
+  final String originalContents;
 
   factory Sheet.fromString(String contents) {
     String? title;
@@ -36,12 +38,27 @@ class Sheet {
     }
 
     List<Section> sections = divided.map(Section.fromString).toList();
-    return Sheet(title, composer, sections);
+    return Sheet(title, composer, sections, contents);
+  }
+
+  Sheet reset() {
+    List<Section> resetSections = Sheet.fromString(originalContents).sections;
+    for (int i = 0; i < resetSections.length; i++) {
+      sections[i] = resetSections[i];
+    }
+    return this;
   }
 
   Sheet transpose(int steps) {
     for (final section in sections) {
       section.transpose(steps);
+    }
+    return this;
+  }
+
+  Sheet autoAnnotate() {
+    for (final section in sections) {
+      section.autoAnnotate();
     }
     return this;
   }

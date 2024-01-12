@@ -31,6 +31,13 @@ class Bar {
     return this;
   }
 
+  Bar autoAnnotate() {
+    for (final chord in chords) {
+      chord.autoAnnoate();
+    }
+    return this;
+  }
+
   @override
   int get hashCode => chords.hashCode;
 

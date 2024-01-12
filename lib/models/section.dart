@@ -45,4 +45,11 @@ class Section {
     }
     return this;
   }
+
+  Section autoAnnotate() {
+    for (final bar in bars) {
+      bar.autoAnnotate();
+    }
+    return this;
+  }
 }

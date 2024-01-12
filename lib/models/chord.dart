@@ -39,6 +39,7 @@ class Chord {
   String quality;
   String originalNotation;
   String? annotation;
+  int transposedSteps = 0;
 
   factory Chord.fromString(String notation) {
     RegExp parser = RegExp(r'([A-G][#b]?)(.*)?');
@@ -51,19 +52,25 @@ class Chord {
     return Chord(note, quality, notation);
   }
 
-  void update(String notation) {
+  Chord update(String notation) {
     Chord updated = Chord.fromString(notation);
     note = updated.note;
     quality = updated.quality;
+    return this;
   }
 
-  void reset() {
+  Chord reset() {
     update(originalNotation);
+    // resets of individual chords should respect transposition
+    note = note.transpose(transposedSteps);
     annotation = null;
+    return this;
   }
 
   Chord transpose(int steps) {
     note = note.transpose(steps);
+    transposedSteps += steps;
+    transposedSteps %= 12;
     return this;
   }
 
@@ -73,7 +80,6 @@ class Chord {
   }
 
   List<Note> arpeggiate() {
-    // TODO: finish this
     List<Note> chordTones = [];
     List<int> displacements = [];
     String qualityPrefix = '';
@@ -106,10 +112,12 @@ class Chord {
       RegExpMatch? match = digitMatcher.firstMatch(digits);
       if (match != null) {
         int? degree = int.tryParse(match.group(0) ?? '');
-        print(degree);
         if (degree != null) {
           if (degree > 7) {
             degree -= 7;
+          }
+          if (!degreeDisplacements.containsKey(degree)) {
+            break;
           }
           int degreeIndex = displacements.indexOf(degreeDisplacements[degree]!);
           if (degreeIndex == -1) {
@@ -129,7 +137,6 @@ class Chord {
       suffixIndex++;
     }
 
-    // TODO: prefer flats over sharps (but only sometimes)
     bool preferFlat = !Chord.preferSharpKeys.contains(note);
     for (final displacement in displacements) {
       Note chordTone = note.transpose(displacement);
@@ -139,13 +146,12 @@ class Chord {
       chordTones.add(chordTone);
     }
     return chordTones;
-
-    // TODO: make tests for loading all sheets
   }
 
-  void autoAnnoate() {
+  Chord autoAnnoate() {
     final chordTones = arpeggiate();
     annotation = chordTones.map((note) => note.toString()).join('-');
+    return this;
   }
 
   @override
