@@ -91,6 +91,20 @@ class _SheetPageState extends State<SheetPage> {
               ),
               SizedBox(width: 16.0),
               IconButton(
+                icon: Icon(Icons.edit_note),
+                tooltip: "Annotate",
+                onPressed: () => setState(() {
+                  for (final section in sheet!.sections) {
+                    for (final bar in section.bars) {
+                      for (final chord in bar.chords) {
+                        chord.autoAnnoate();
+                      }
+                    }
+                  }
+                }),
+              ),
+              SizedBox(width: 16.0),
+              IconButton(
                 icon: Icon(Icons.more_vert),
                 tooltip: "Transpose",
                 onPressed: () => {
