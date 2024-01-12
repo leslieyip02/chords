@@ -1,5 +1,5 @@
 info:
-title: C-Jam Blues
+title: C Jam Blues
 composer: Duke Ellington
 -----
 [: C7  | C7 | C7 | C7  |
