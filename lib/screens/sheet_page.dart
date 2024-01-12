@@ -78,7 +78,16 @@ class _SheetPageState extends State<SheetPage> {
               IconButton(
                 icon: Icon(Icons.restart_alt),
                 tooltip: 'Reset',
-                onPressed: () => setState(() => sheet?.reset()),
+                onPressed: () => setState(() {
+                  // hack to reload the current sheet to resets
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => SheetPage(sheet: sheet?.reset()),
+                    ),
+                  );
+                }),
               ),
               SizedBox(width: 16.0),
               IconButton(
