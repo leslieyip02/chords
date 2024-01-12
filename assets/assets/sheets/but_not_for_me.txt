@@ -1,0 +1,19 @@
+info:
+title: But Not For Me
+composer: George Gershwin
+-----
+section: A
+|| F7     | Bb7 | Ebmaj7 Ab7 | Gm7 C7    |
+   F7     | Bb7 | Ebmaj7     | Bbm7 Eb7 ||
+-----
+section: B
+|| Abmaj7 | Db7 | Ebmaj7     | Cm7       |
+   Fm7    | Fm7 | Fm7        | Bb7      ||
+-----
+section: A
+|| F7     | Bb7 | Ebmaj7 Ab7 | Gm7 C7    |
+   F7     | Bb7 | Ebmaj7     | Bbm7 Eb7 ||
+-----
+section: C
+|| Abmaj7 | Db7 | Ebmaj7 Ab7 | Gm7 C7    |
+   Fm7    | Bb7 | Eb6        | Eb6      ||
