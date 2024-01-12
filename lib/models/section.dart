@@ -28,7 +28,7 @@ class Section {
         .expand((match) => match
             .groups([1, 2, 3])
             .where((divider) => divider != null)
-            .map((divider) => divider as String))
+            .map((divider) => divider!))
         .toList();
     List<Bar> bars = notation
         .split(dividerParser)

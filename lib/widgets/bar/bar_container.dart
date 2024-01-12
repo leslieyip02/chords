@@ -33,7 +33,7 @@ class BarContainer extends StatelessWidget {
                   bottom: BorderSide(color: theme.colorScheme.outline),
                 ),
               ),
-              child: Text(bar.label as String),
+              child: Text(bar.label!),
             ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,

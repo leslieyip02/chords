@@ -27,13 +27,13 @@ class SheetHeader extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 32.0),
                 child: Text(
-                  sheet.title as String,
+                  sheet.title!,
                   style: titleStyle,
                   textAlign: TextAlign.center,
                 ),
               ),
             if (sheet.composer != null)
-              Text(sheet.composer as String, style: subtitleStyle),
+              Text(sheet.composer!, style: subtitleStyle),
           ],
         );
       },

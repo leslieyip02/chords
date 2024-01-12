@@ -93,7 +93,7 @@ class SheetSection extends StatelessWidget {
             ),
             padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
             child: Text(
-              section.label as String,
+              section.label!,
               style: TextStyle(color: theme.colorScheme.onSurface),
               textAlign: TextAlign.center,
             ),

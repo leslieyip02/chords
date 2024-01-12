@@ -47,7 +47,7 @@ class Chord {
     if (match?.group(1) == null) {
       throw ArgumentError('$notation is not a valid chord');
     }
-    Note note = Note.fromString(match?.group(1) as String);
+    Note note = Note.fromString(match?.group(1) ?? 'H');
     String quality = match?.group(2) ?? '';
     return Chord(note, quality, notation);
   }
