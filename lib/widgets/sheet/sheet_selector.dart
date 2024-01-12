@@ -106,7 +106,10 @@ class _SheetSelectorState extends State<SheetSelector> {
                     .map((title) => ListTile(
                           leading: Icon(Icons.music_note),
                           title: Text(title),
-                          onTap: () => controller.closeView(title),
+                          onTap: () {
+                            controller.closeView(title);
+                            selectSheet(controller.value.text);
+                          },
                         ));
               },
             ),
