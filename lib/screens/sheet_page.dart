@@ -69,7 +69,7 @@ class _SheetPageState extends State<SheetPage> {
               builder: (BuildContext context, BoxConstraints constraints) {
                 return IconButton(
                   icon: Icon(Icons.arrow_back),
-                  tooltip: "Back",
+                  tooltip: 'Back',
                   onPressed: () => Navigator.pop(context),
                 );
               },
@@ -77,7 +77,7 @@ class _SheetPageState extends State<SheetPage> {
             actions: [
               IconButton(
                 icon: Icon(Icons.restart_alt),
-                tooltip: "Reset",
+                tooltip: 'Reset',
                 onPressed: () => setState(() {
                   // hack to reload the current sheet to resets
                   Navigator.pop(context);
@@ -92,7 +92,7 @@ class _SheetPageState extends State<SheetPage> {
               SizedBox(width: 16.0),
               IconButton(
                 icon: Icon(Icons.edit_note),
-                tooltip: "Annotate",
+                tooltip: 'Annotate',
                 onPressed: () => setState(() {
                   for (final section in sheet!.sections) {
                     for (final bar in section.bars) {
@@ -106,7 +106,7 @@ class _SheetPageState extends State<SheetPage> {
               SizedBox(width: 16.0),
               IconButton(
                 icon: Icon(Icons.more_vert),
-                tooltip: "Transpose",
+                tooltip: 'Transpose',
                 onPressed: () => {
                   showModalBottomSheet(
                     context: context,

@@ -48,7 +48,7 @@ class _ChordEditorState extends State<ChordEditor> {
             SizedBox(height: ChordEditor.margin),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: ChordEditor.margin),
-              child: Text("Chord:"),
+              child: Text('Chord:'),
             ),
             Padding(
               padding: EdgeInsets.all(ChordEditor.margin),
@@ -68,7 +68,7 @@ class _ChordEditorState extends State<ChordEditor> {
                     suffixIcon: IconButton(
                       icon: Icon(Icons.swap_vert_circle),
                       padding: EdgeInsets.all(ChordCard.margin * 2),
-                      tooltip: "Toggle Enharmonic",
+                      tooltip: 'Toggle Enharmonic',
                       onPressed: () {
                         try {
                           notationEditor.value = TextEditingValue(
@@ -87,7 +87,7 @@ class _ChordEditorState extends State<ChordEditor> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: ChordCard.margin),
-              child: Text("Annotation:"),
+              child: Text('Annotation:'),
             ),
             Padding(
               padding: EdgeInsets.all(ChordCard.margin),

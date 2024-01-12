@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('Parse single bar lines', () {
-    String notation = "| Am7 | D7 F7 | Gø7 C7 | Fm7 Bb7 |";
+    String notation = '| Am7 | D7 F7 | Gø7 C7 | Fm7 Bb7 |';
     Section section = Section.fromString(notation);
 
     for (final divider in section.dividers) {
@@ -14,10 +14,10 @@ void main() {
     }
 
     List<Bar> expectedBars = [
-      Bar([Chord.fromString("Am7")]),
-      Bar([Chord.fromString("D7"), Chord.fromString("F7")]),
-      Bar([Chord.fromString("Gø7"), Chord.fromString("C7")]),
-      Bar([Chord.fromString("Fm7"), Chord.fromString("Bb7")]),
+      Bar([Chord.fromString('Am7')]),
+      Bar([Chord.fromString('D7'), Chord.fromString('F7')]),
+      Bar([Chord.fromString('Gø7'), Chord.fromString('C7')]),
+      Bar([Chord.fromString('Fm7'), Chord.fromString('Bb7')]),
     ];
     expect(section.bars.length, expectedBars.length);
     for (int i = 0; i < section.bars.length; i++) {
@@ -26,7 +26,7 @@ void main() {
   });
 
   test('Parse double bar lines', () {
-    String notation = "| Am7 | D7 F7 || Gø7 C7 | Fm7 Bb7 ||";
+    String notation = '| Am7 | D7 F7 || Gø7 C7 | Fm7 Bb7 ||';
     Section section = Section.fromString(notation);
 
     List<String> expectedDividers = [
@@ -42,10 +42,10 @@ void main() {
     }
 
     List<Bar> expectedBars = [
-      Bar([Chord.fromString("Am7")]),
-      Bar([Chord.fromString("D7"), Chord.fromString("F7")]),
-      Bar([Chord.fromString("Gø7"), Chord.fromString("C7")]),
-      Bar([Chord.fromString("Fm7"), Chord.fromString("Bb7")]),
+      Bar([Chord.fromString('Am7')]),
+      Bar([Chord.fromString('D7'), Chord.fromString('F7')]),
+      Bar([Chord.fromString('Gø7'), Chord.fromString('C7')]),
+      Bar([Chord.fromString('Fm7'), Chord.fromString('Bb7')]),
     ];
     expect(section.bars.length, expectedBars.length);
     for (int i = 0; i < section.bars.length; i++) {
@@ -54,7 +54,7 @@ void main() {
   });
 
   test('Parse repeat lines', () {
-    String notation = "[: Am7 | D7 F7 :] Gø7 C7 | Fm7 Bb7 ||";
+    String notation = '[: Am7 | D7 F7 :] Gø7 C7 | Fm7 Bb7 ||';
     Section section = Section.fromString(notation);
 
     List<String> expectedDividers = [
@@ -70,10 +70,10 @@ void main() {
     }
 
     List<Bar> expectedBars = [
-      Bar([Chord.fromString("Am7")]),
-      Bar([Chord.fromString("D7"), Chord.fromString("F7")]),
-      Bar([Chord.fromString("Gø7"), Chord.fromString("C7")]),
-      Bar([Chord.fromString("Fm7"), Chord.fromString("Bb7")]),
+      Bar([Chord.fromString('Am7')]),
+      Bar([Chord.fromString('D7'), Chord.fromString('F7')]),
+      Bar([Chord.fromString('Gø7'), Chord.fromString('C7')]),
+      Bar([Chord.fromString('Fm7'), Chord.fromString('Bb7')]),
     ];
     expect(section.bars.length, expectedBars.length);
     for (int i = 0; i < section.bars.length; i++) {

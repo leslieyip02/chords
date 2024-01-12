@@ -36,7 +36,7 @@ class _SheetEditorState extends State<SheetEditor> {
           SizedBox(height: SheetEditor.margin),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: SheetEditor.margin),
-            child: Text("Custom Sheet:"),
+            child: Text('Custom Sheet:'),
           ),
           Padding(
             padding: EdgeInsets.all(SheetEditor.margin),

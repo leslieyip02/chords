@@ -20,7 +20,7 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: 3.13.8
-          channel: "stable"
+          channel: 'stable'
 
       # enable web
       # remove widget_test which is based on the default app

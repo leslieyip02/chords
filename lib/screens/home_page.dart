@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
             actions: [
               IconButton(
                 icon: Icon(Icons.dashboard_customize),
-                tooltip: "Custom",
+                tooltip: 'Custom',
                 onPressed: () => showDialog(
                   context: context,
                   builder: (BuildContext context) => SheetEditor(),
