@@ -1,6 +1,6 @@
 info:
 title: Bags' Groove
-composer: Antonio-Carlos Jobim
+composer: Miles Davis
 -----
 || F7  | Bb7 | F7    | F7      |
    Bb7 | Bb7 | F7    | Am7 D7  |
