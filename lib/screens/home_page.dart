@@ -4,6 +4,8 @@ import 'package:chords/widgets/sheet/sheet_selector.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  static const String iconPath = 'assets/favicon.png';
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -21,7 +23,10 @@ class _HomePageState extends State<HomePage> {
           body: Center(child: SheetSelector()),
           appBar: AppBar(
             backgroundColor: theme.colorScheme.background,
-            leading: Icon(Icons.music_note_outlined),
+            leading: Transform.scale(
+              scale: 0.5,
+              child: ImageIcon(AssetImage(HomePage.iconPath)),
+            ),
             actions: [
               IconButton(
                 icon: Icon(Icons.dashboard_customize),
