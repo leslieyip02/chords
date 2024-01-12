@@ -104,13 +104,9 @@ class _SheetSelectorState extends State<SheetSelector> {
                         .toLowerCase()
                         .startsWith(controller.value.text.toLowerCase()))
                     .map((title) => ListTile(
-                          leading: Icon(Icons.music_note),
-                          title: Text(title),
-                          onTap: () {
-                            controller.closeView(title);
-                            selectSheet(controller.value.text);
-                          },
-                        ));
+                        leading: Icon(Icons.music_note),
+                        title: Text(title),
+                        onTap: () => controller.closeView(title)));
               },
             ),
           ),
