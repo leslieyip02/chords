@@ -1,0 +1,16 @@
+info:
+title: Softly, As In A Morning Sunrise
+composer: Sigmund Romberg
+-----
+section: A
+[: Cm7    | Dø7 G7b9 | Cm7      | Dø7 G7b9  |
+   Cm7    | Dø7 G7b9 | {1.} Cm7 | Dø7 G7b9 :]
+                       {2.} Cm7 | Fm7 Bb7  ||
+-----
+section: B
+|| Ebmaj7 | Ebmaj7   | C7b9     | C7b9      |
+   Fm7    | F#o7     | Dø7      | G7b9     ||
+-----
+section: A
+|| Cm7    | Dø7 G7b9 | Cm7      | Dø7 G7b9  |
+   Cm7    | Dø7 G7b9 | Cm7      | Dø7 G7b9 ||

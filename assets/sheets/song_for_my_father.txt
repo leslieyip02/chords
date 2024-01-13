@@ -1,0 +1,11 @@
+info:
+title: Song For My Father
+composer: Horace Silver
+-----
+section: A
+[: Fm7     | Fm7   | Eb7 | Eb7  |
+   Db7     | C7sus | Fm7 | Fm7 :]
+-----
+section: B
+|| Eb7     | Eb7   | Fm7 | Fm7  |
+   Eb7 Db7 | C7    | Fm7 | Fm7 ||

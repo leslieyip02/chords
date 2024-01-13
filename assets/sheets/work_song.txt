@@ -1,0 +1,8 @@
+info:
+title: Work Song
+composer: Nat Adderlty
+-----
+|| Fm | F-  | F-    | Fm |
+   Fm | Fm  | C7    | C7 |
+   Fm | Fm  | Fm    | Fm |
+   F7 | Bb7 | G7 C7 | Fm |
