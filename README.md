@@ -1,5 +1,13 @@
-# chords
+# Chord Visualizer
 
-_Work in progress_
+![colors](assets/demo/colors.png)
 
-An app for visualising the chord changes in jazz standards.
+This is an app for visualizing chord changes in jazz standards. Visit the web deployment [here](https://leslieyip02.github.io/chords/).
+
+### Features
+- Transpose chords
+- Edit and annotate chords
+- Color-code chords
+- Customize sheets
+
+![transposing](assets/demo/transpose.png)
