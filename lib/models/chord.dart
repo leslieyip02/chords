@@ -93,9 +93,13 @@ class Chord {
     String qualitySuffix = quality.substring(qualityPrefix.length);
     bool sharpened = false;
     bool flattened = false;
+    bool suspended = false;
     RegExp digitMatcher = RegExp(r'\d+');
     int suffixIndex = 0;
     while (suffixIndex < qualitySuffix.length) {
+      if (qualitySuffix.startsWith('sus')) {
+        suspended = true;
+      }
       if (qualitySuffix[suffixIndex] == '#') {
         sharpened = true;
         suffixIndex += 1;
@@ -110,20 +114,28 @@ class Chord {
 
       String digits = qualitySuffix.substring(suffixIndex);
       RegExpMatch? match = digitMatcher.firstMatch(digits);
-      if (match != null) {
-        int? degree = int.tryParse(match.group(0) ?? '');
-        if (degree != null) {
-          if (degree > 7) {
-            degree -= 7;
-          }
-          if (!degreeDisplacements.containsKey(degree)) {
-            break;
-          }
+      int? degree = int.tryParse(match?.group(0) ?? '');
+      // default to sus4
+      if (degree == null && suspended) {
+        degree = 4;
+      }
+      if (degree != null) {
+        if (degree > 7) {
+          degree -= 7;
+        }
+        if (!degreeDisplacements.containsKey(degree)) {
+          break;
+        }
+
+        if (suspended) {
+          displacements[1] = degreeDisplacements[degree]!;
+        } else {
           int degreeIndex = displacements.indexOf(degreeDisplacements[degree]!);
           if (degreeIndex == -1) {
             displacements.add(degreeDisplacements[degree]!);
             degreeIndex = displacements.length - 1;
           }
+
           if (sharpened) {
             displacements[degreeIndex]++;
             sharpened = false;
@@ -132,8 +144,8 @@ class Chord {
             flattened = false;
           }
         }
-        suffixIndex = match.end;
       }
+      suffixIndex = match?.end ?? suffixIndex;
       suffixIndex++;
     }
 
