@@ -21,13 +21,17 @@ class Sheet {
   factory Sheet.fromString(String contents) {
     String? title;
     String? composer;
-    List<String> divided = contents.split(Sheet.divider);
+    List<String> divided = contents
+        .split(Sheet.divider)
+        .map((division) => division.trim())
+        .toList();
     if (divided.isEmpty) {
       throw ArgumentError('$contents is not a valid sheet');
     }
 
     if (divided[0].startsWith(Sheet.infoLabel)) {
       divided[0].split('\n').forEach((line) {
+        line = line.trim();
         if (line.startsWith(Sheet.titleLabel)) {
           title = line.substring(Sheet.titleLabel.length).trim();
         } else if (line.startsWith(Sheet.composerLabel)) {
