@@ -1,0 +1,16 @@
+info:
+title: Everything Happens To Me
+composer: Matt Dennis
+-----
+section: A
+[: Cm7 F7         | Dm7 Dbo7  | Cm7 F7    | Dø7 G7      |
+   Cm7 Ebm7 Ab7b9 | Dm7 G7    | Cm7 F7    | {1.} Bb G7 :]
+                                            {2.} Bb    ||
+-----
+section: B
+|| Fm7 Bb7#9      | Ebmaj7 C7 | Fm7 Bb7#9 | Ebmaj7      |
+   Em7 A7#9       | Dmaj7 Bm7 | Gm7 C7    | Cm7 F7     ||
+-----
+section: A
+|| Cm7 F7         | Dm7 Dbo7 | Cm7 F7 | Dø7 G7          |
+   Cm7 Ebm7 Ab7b9 | Dm7 G7   | Cm7 F7 | Bb             ||

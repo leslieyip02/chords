@@ -1,0 +1,19 @@
+info:
+title: If I Were A Bell
+composer: Frank Loesser
+-----
+section: A
+|| G7        | C7      | Fmaj7    | Fmaj7   |
+   Aø7       | D7      | G7       | C7     ||
+-----
+section: B
+|| F6 F7/A   | Bb6 C7  | F6       | Eø7 A7  |
+   Dm7 Dm7/C | Bø7 E7  | Amaj7    | Gm7 C7 ||
+-----
+section: A
+|| G7        | C7      | Fmaj7    | Fmaj7   |
+   Aø7       | D7      | G7       | C7     ||
+-----
+section: C
+|| F6 F7/A   | Bb6 Bo7 | F6/C Bb7 | Aø7 D7  |
+   Gm7       | C7      | F6       | Aø7 D7 ||
