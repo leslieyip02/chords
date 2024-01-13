@@ -11,13 +11,18 @@ class Chord {
   };
   static const Map<String, List<int>> chordToneDisplacements = {
     '': [0, 4, 7],
+    'maj': [0, 4, 7],
+    '-': [0, 3, 7],
     'm': [0, 3, 7],
+    'min': [0, 3, 7],
     'maj7': [0, 4, 7, 11],
     '7': [0, 4, 7, 10],
+    '-7': [0, 3, 7, 10],
     'm7': [0, 3, 7, 10],
     'min7': [0, 3, 7, 10],
     'ø7': [0, 3, 6, 10],
-    'm7b5': [0, 3, 6, 10],
+    'o': [0, 3, 6],
+    'dim': [0, 3, 6],
     'o7': [0, 3, 6, 9],
     'dim7': [0, 3, 6, 9],
   };
@@ -97,22 +102,32 @@ class Chord {
     RegExp digitMatcher = RegExp(r'\d+');
     int suffixIndex = 0;
     while (suffixIndex < qualitySuffix.length) {
-      if (qualitySuffix.startsWith('sus')) {
+      if (qualitySuffix.substring(suffixIndex).startsWith('sus')) {
         suspended = true;
-      }
-      if (qualitySuffix[suffixIndex] == '#') {
-        sharpened = true;
-        suffixIndex += 1;
-      } else if (qualitySuffix[suffixIndex] == 'b') {
-        flattened = true;
-        suffixIndex += 1;
-      } else if (qualitySuffix[suffixIndex] == '/') {
-        String bass = qualitySuffix.substring(suffixIndex + 1);
-        chordTones.add(Note.fromString(bass));
-        break;
+        suffixIndex += 3;
       }
 
-      String digits = qualitySuffix.substring(suffixIndex);
+      String digits = '';
+      if (suffixIndex < qualitySuffix.length) {
+        if (qualitySuffix[suffixIndex] == '#') {
+          sharpened = true;
+          suffixIndex += 1;
+        } else if (qualitySuffix[suffixIndex] == 'b') {
+          flattened = true;
+          suffixIndex += 1;
+        } else if (qualitySuffix[suffixIndex] == '/') {
+          String bass = qualitySuffix.substring(suffixIndex + 1);
+          try {
+            // check if the suffix is a note
+            chordTones.add(Note.fromString(bass));
+            break;
+          } on ArgumentError {
+            // if there's no note, then it's a 6/9 chord
+          }
+        }
+        digits = qualitySuffix.substring(suffixIndex);
+      }
+
       RegExpMatch? match = digitMatcher.firstMatch(digits);
       int? degree = int.tryParse(match?.group(0) ?? '');
       // default to sus4
@@ -129,6 +144,7 @@ class Chord {
 
         if (suspended) {
           displacements[1] = degreeDisplacements[degree]!;
+          suspended = false;
         } else {
           int degreeIndex = displacements.indexOf(degreeDisplacements[degree]!);
           if (degreeIndex == -1) {
@@ -145,7 +161,9 @@ class Chord {
           }
         }
       }
-      suffixIndex = match?.end ?? suffixIndex;
+      if (match != null) {
+        suffixIndex += match.end - 1;
+      }
       suffixIndex++;
     }
 

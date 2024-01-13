@@ -158,5 +158,11 @@ class Note {
   int get hashCode => Object.hash(value, isSharp, isFlat);
 
   @override
-  bool operator ==(Object other) => hashCode == other.hashCode;
+  bool operator ==(Object other) {
+    if (other is! Note) {
+      return false;
+    }
+    return hashCode == other.hashCode ||
+        hashCode == other.toggleEnharmonic().hashCode;
+  }
 }
