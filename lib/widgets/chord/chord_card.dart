@@ -109,7 +109,6 @@ class _ChordCardState extends State<ChordCard> {
                     fit: BoxFit.scaleDown,
                     child: Row(
                       children: [
-                        // TODO: add constraints to this?
                         Text(widget.chord.note.value.name, style: style),
                         SizedBox(width: 2.0),
                         Column(

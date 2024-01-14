@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:chords/models/sheet.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

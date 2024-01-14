@@ -9,20 +9,21 @@ environment:
   sdk: ^3.1.1
 
 dependencies:
+  dart_melty_soundfont: ^1.1.11
   flutter:
     sdk: flutter
-
   google_fonts: ^6.1.0
+  just_audio: ^0.9.36
   provider: ^6.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
   flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
   assets:
-    - assets/sheets/
     - assets/favicon.png
+    - assets/soundfonts/
+    - assets/sheets/

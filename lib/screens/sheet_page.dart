@@ -1,6 +1,10 @@
+import 'dart:io';
+import 'package:chords/audio/sheet_player.dart';
 import 'package:chords/models/sheet.dart';
+import 'package:chords/widgets/sheet/sheet_audio_editor.dart';
 import 'package:chords/widgets/sheet/sheet_container.dart';
 import 'package:chords/widgets/sheet/sheet_transposer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -23,8 +27,11 @@ class SheetPage extends StatefulWidget {
 }
 
 class _SheetPageState extends State<SheetPage> {
-  int currentTranspose = 0;
   Sheet? sheet;
+  int currentTranspose = 0;
+  bool audioSupported = kIsWeb || Platform.isAndroid || Platform.isIOS;
+  bool playingAudio = false;
+  SheetPlayer sheetPlayer = SheetPlayer();
 
   void transposeSheet(int steps) {
     setState(() {
@@ -48,6 +55,12 @@ class _SheetPageState extends State<SheetPage> {
     } else {
       throw ArgumentError('SheetPage requires either a sheet or a songPath');
     }
+  }
+
+  @override
+  void dispose() {
+    sheetPlayer.pause();
+    super.dispose();
   }
 
   @override
@@ -89,17 +102,63 @@ class _SheetPageState extends State<SheetPage> {
                   );
                 }),
               ),
-              SizedBox(width: 16.0),
+              SizedBox(width: 8.0),
               IconButton(
                 icon: Icon(Icons.edit_note),
                 tooltip: 'Annotate',
                 onPressed: () => setState(() => sheet!.autoAnnotate()),
               ),
-              SizedBox(width: 16.0),
+              SizedBox(width: 8.0),
+              sheetPlayer.ready && audioSupported
+                  ? playingAudio
+                      ? IconButton(
+                          icon: Icon(Icons.pause),
+                          tooltip: 'Pause',
+                          onPressed: () {
+                            setState(() => playingAudio = false);
+                            sheetPlayer.pause();
+                          },
+                        )
+                      : IconButton(
+                          icon: Icon(Icons.play_arrow),
+                          tooltip: 'Play',
+                          onPressed: () {
+                            setState(() => playingAudio = true);
+                            sheetPlayer.play();
+                          },
+                        )
+                  : IconButton(
+                      icon: Icon(Icons.play_disabled),
+                      tooltip: 'Audio not configured',
+                      onPressed: null,
+                    ),
+              SizedBox(width: 8.0),
+              audioSupported
+                  ? IconButton(
+                      icon: Icon(Icons.audio_file),
+                      tooltip: 'Configure audio',
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SheetAudioEditor(
+                              sheetPlayer: sheetPlayer,
+                              sheet: sheet!,
+                            );
+                          },
+                        ).then((_) => setState(() {}));
+                      },
+                    )
+                  : IconButton(
+                      icon: Icon(Icons.audio_file),
+                      tooltip: 'Audio is unavailable',
+                      onPressed: null,
+                    ),
+              SizedBox(width: 8.0),
               IconButton(
-                icon: Icon(Icons.more_vert),
+                icon: Icon(Icons.swap_vert),
                 tooltip: 'Transpose',
-                onPressed: () => {
+                onPressed: () {
                   showModalBottomSheet(
                     context: context,
                     builder: (BuildContext context) {
@@ -108,7 +167,7 @@ class _SheetPageState extends State<SheetPage> {
                         transposeSheet: transposeSheet,
                       );
                     },
-                  ),
+                  );
                 },
               ),
               SizedBox(width: 16.0),
