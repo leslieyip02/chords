@@ -21,9 +21,11 @@ class ChordCard extends StatefulWidget {
   const ChordCard({
     super.key,
     required this.chord,
+    this.flex = 1,
   });
 
   final Chord chord;
+  final int flex;
 
   @override
   State<ChordCard> createState() => _ChordCardState();
@@ -62,7 +64,7 @@ class _ChordCardState extends State<ChordCard> {
     }
 
     return Expanded(
-      flex: 1,
+      flex: widget.flex,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

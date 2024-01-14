@@ -14,10 +14,21 @@ class BarContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    List<Widget> contents = [ChordCard(chord: bar.chords[0])];
-    for (int i = 1; i < bar.chords.length; i++) {
-      contents.add(SizedBox(width: ChordCard.margin));
-      contents.add(ChordCard(chord: bar.chords[i]));
+    List<Widget> contents = [];
+    int index = 0;
+    while (index < bar.chords.length) {
+      if (index + 1 < bar.chords.length) {
+        if (bar.chords[index] == bar.chords[index + 1]) {
+          contents.add(ChordCard(chord: bar.chords[index], flex: 2));
+          index++;
+        } else {
+          contents.add(ChordCard(chord: bar.chords[index]));
+        }
+        contents.add(SizedBox(width: ChordCard.margin));
+      } else {
+        contents.add(ChordCard(chord: bar.chords[index]));
+      }
+      index++;
     }
 
     return Expanded(
