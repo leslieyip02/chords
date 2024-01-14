@@ -7,7 +7,8 @@ import 'package:chords/widgets/bar/bar_line.dart';
 import 'package:just_audio/just_audio.dart';
 
 class SheetPlayer {
-  static const String defaultSoundFontPath = 'assets/soundfonts/organ.sf2';
+  static const String defaultChordSoundFontPath = 'assets/soundfonts/organ.sf2';
+  static const String defaultDrumsSoundFontPath = 'assets/soundfonts/drums.sf2';
   static const Map<String, int> noteToSoundFontKey = {
     'C': 60,
     'Db': 61,
@@ -30,35 +31,50 @@ class SheetPlayer {
 
   Future<SheetPlayer> updateSheet(
     Sheet sheet, {
-    int tempo = 200,
+    int tempo = 120,
     int beatsPerBar = 4,
-    bool loop = false,
-    String path = defaultSoundFontPath,
+    String chordSoundFontPath = SheetPlayer.defaultChordSoundFontPath,
+    String drumsSoundFontPath = SheetPlayer.defaultDrumsSoundFontPath,
   }) async {
     // TODO: accomodate different time signatures
     double barDuration = beatsPerBar.toDouble() / (tempo.toDouble() / 60.0);
 
-    SoundFontSource source = await SoundFontSource.fromPath(path);
+    SoundFontSource source = await SoundFontSource.fromPaths(
+      chordSoundFontPath,
+      drumsSoundFontPath,
+    );
     for (Section section in sheet.sections) {
       int repeatIndex = -1;
       bool repeated = false;
-      int index = 0;
-      while (index < section.bars.length) {
-        if (section.dividers[index] == BarLine.repeatBegin && !repeated) {
-          repeatIndex = index;
+      int barIndex = 0;
+      while (barIndex < section.bars.length) {
+        if (section.dividers[barIndex] == BarLine.repeatBegin && !repeated) {
+          repeatIndex = barIndex;
         }
 
-        Bar bar = section.bars[index];
+        Bar bar = section.bars[barIndex];
         // skip to second time
         if (bar.label == '1.' && repeated) {
           do {
-            index++;
-          } while (section.bars[index].label != '2.');
-          bar = section.bars[index];
+            barIndex++;
+          } while (section.bars[barIndex].label != '2.');
+          bar = section.bars[barIndex];
         }
 
-        double durationPerChord = barDuration / bar.chords.length.toDouble();
-        for (Chord chord in bar.chords) {
+        // this doesn't handle offbeats
+        int chordIndex = 0;
+        int beatsPerChord = beatsPerBar ~/ bar.chords.length;
+        double durationPerBeat = barDuration / beatsPerBar;
+        while (chordIndex < bar.chords.length) {
+          Chord chord = bar.chords[chordIndex];
+          int beats = beatsPerChord;
+          while (chordIndex + 1 < bar.chords.length &&
+              chord == bar.chords[chordIndex + 1]) {
+            chordIndex++;
+            beats++;
+          }
+          double duration = beats * durationPerBeat;
+
           int highest = -1;
           Iterable<SoundFontNote> notes = chord.arpeggiate().map((note) {
             String noteString = note.toString();
@@ -75,14 +91,16 @@ class SheetPlayer {
             }
             return SoundFontNote(key, 120);
           });
-          source.appendNotes(notes, durationPerChord);
+          source.appendNotes(notes, duration, beats: beats);
+
+          chordIndex++;
         }
 
-        index++;
-        if (section.dividers[index] == BarLine.repeatEnd &&
+        barIndex++;
+        if (section.dividers[barIndex] == BarLine.repeatEnd &&
             repeatIndex != -1 &&
             !repeated) {
-          index = repeatIndex;
+          barIndex = repeatIndex;
           repeatIndex = -1;
           repeated = true;
         }
@@ -91,7 +109,7 @@ class SheetPlayer {
 
     audioPlayer = AudioPlayer();
     await audioPlayer!.setAudioSource(source, preload: false);
-    await audioPlayer!.setLoopMode(loop ? LoopMode.all : LoopMode.off);
+    await audioPlayer!.setLoopMode(LoopMode.all);
     ready = true;
     return this;
   }

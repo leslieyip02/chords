@@ -90,7 +90,6 @@ class _SheetAudioEditorState extends State<SheetAudioEditor> {
                           widget.sheet,
                           // TODO: actually take in tempo
                           tempo: 120,
-                          // TODO: check if loop
                         )
                         .then((_) => Navigator.pop(context));
                   },

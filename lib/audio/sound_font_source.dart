@@ -22,26 +22,39 @@ class SoundFontSource extends StreamAudioSource {
   static const int compression = 220;
 
   SoundFontSource(
-    this.synthesizer,
+    this.chordSynthesizer,
+    this.drumsSynthesizer,
     this.sourceData,
   );
 
-  final Synthesizer synthesizer;
+  final Synthesizer chordSynthesizer;
+  final Synthesizer drumsSynthesizer;
   List<int> sourceData;
 
-  static Future<SoundFontSource> fromPath(String path) async {
-    String path = 'assets/soundfonts/organ.sf2';
-    ByteData bytes = await rootBundle.load(path);
-    Synthesizer synthesizer = Synthesizer.loadByteData(
-      bytes,
-      SynthesizerSettings(
-        sampleRate: sampleRate,
-        blockSize: 64,
-        maximumPolyphony: 64,
-        enableReverbAndChorus: true,
-      ),
-    );
-    return SoundFontSource(synthesizer, []);
+  static Future<Synthesizer> loadSynthesizer(String path) async {
+    return rootBundle.load(path).then(
+          (byteData) => Synthesizer.loadByteData(
+            byteData,
+            SynthesizerSettings(
+              sampleRate: sampleRate,
+              blockSize: 64,
+              maximumPolyphony: 64,
+              enableReverbAndChorus: true,
+            ),
+          ),
+        );
+  }
+
+  static Future<SoundFontSource> fromPaths(
+    String chordSoundFontPath,
+    String drumsSoundFontPath,
+  ) async {
+    Synthesizer chordSynthesizer =
+        await SoundFontSource.loadSynthesizer(chordSoundFontPath);
+    Synthesizer drumsSynthesizer =
+        await SoundFontSource.loadSynthesizer(drumsSoundFontPath);
+    drumsSynthesizer.masterVolume = 0.8;
+    return SoundFontSource(chordSynthesizer, drumsSynthesizer, []);
   }
 
   void appendWavHeader() {
@@ -68,41 +81,83 @@ class SoundFontSource extends StreamAudioSource {
     Iterable<SoundFontNote> notes,
     double duration, {
     int channel = 0,
-    int preset = 0,
+    int chordPreset = 0,
+    int drumsPreset = 0,
+    int beats = 0,
+    int beatLength = 512,
   }) {
     if (sourceData.isEmpty) {
       appendWavHeader();
     }
 
+    // chords
     // time in seconds
     int length = (duration * sampleRate).round();
     Uint8List uint8Buffer = Uint8List(length);
-    synthesizer.selectPreset(channel: channel, preset: preset);
+
+    List<double> chordBuffer = List.filled(length * 2, 0);
+    chordSynthesizer.selectPreset(channel: channel, preset: chordPreset);
     for (final note in notes) {
-      synthesizer.noteOn(
+      chordSynthesizer.noteOn(
         channel: channel,
         key: note.key,
         velocity: note.velocity,
       );
     }
+    chordSynthesizer.renderMono(chordBuffer);
+    chordSynthesizer.noteOffAll();
 
-    List<double> doubleBuffer = List.filled(length * 2, 0);
-    synthesizer.renderMono(doubleBuffer);
-    synthesizer.noteOffAll();
-
-    double minFrequency = double.infinity;
-    double maxFrequency = -double.infinity;
+    double minValue, valueRange;
+    [minValue, valueRange] = amplitudeRange(chordBuffer);
     for (int i = 0; i < length; i++) {
-      minFrequency = min(doubleBuffer[i], minFrequency);
-      maxFrequency = max(doubleBuffer[i], maxFrequency);
-    }
-
-    double frequencyRange = maxFrequency - minFrequency;
-    for (int i = 0; i < length; i++) {
-      double sample = (doubleBuffer[i] + minFrequency) / frequencyRange;
+      double sample = (chordBuffer[i] + minValue) / valueRange;
       uint8Buffer[i] = (sample * compression).toInt();
     }
+
+    // drums
+    if (beats != 0) {
+      int interval = length ~/ beats;
+
+      // downbeat
+      List<double> beatBuffer = List.filled(beatLength * 2, 0);
+      drumsSynthesizer.selectPreset(channel: channel, preset: drumsPreset);
+      drumsSynthesizer.noteOn(channel: channel, key: 60, velocity: 100);
+      drumsSynthesizer.renderMono(beatBuffer);
+      drumsSynthesizer.noteOffAll();
+
+      [minValue, valueRange] = amplitudeRange(beatBuffer);
+      for (int i = 0; i < beatLength; i++) {
+        double sample = (beatBuffer[i] + minValue) / valueRange;
+        uint8Buffer[i] = (sample * compression).toInt();
+      }
+
+      // other beats
+      drumsSynthesizer.noteOn(channel: channel, key: 48, velocity: 100);
+      drumsSynthesizer.renderMono(beatBuffer);
+      drumsSynthesizer.noteOffAll();
+
+      [minValue, valueRange] = amplitudeRange(beatBuffer);
+      for (int i = 0; i < beatLength; i++) {
+        double sample = (beatBuffer[i] + minValue) / valueRange;
+        int value = (sample * compression).toInt();
+        for (int j = 1; j < beats; j++) {
+          uint8Buffer[interval * j + i] = value;
+        }
+      }
+    }
+
     sourceData.addAll(uint8Buffer);
+  }
+
+  List<double> amplitudeRange(List<double> buffer) {
+    double minFrequency = double.infinity;
+    double maxFrequency = -double.infinity;
+    for (int i = 0; i < buffer.length; i++) {
+      minFrequency = min(buffer[i], minFrequency);
+      maxFrequency = max(buffer[i], maxFrequency);
+    }
+    double frequencyRange = maxFrequency - minFrequency;
+    return [minFrequency, frequencyRange];
   }
 
   @override

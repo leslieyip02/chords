@@ -30,7 +30,6 @@ class _SheetPageState extends State<SheetPage> {
   Sheet? sheet;
   int currentTranspose = 0;
   bool audioSupported = kIsWeb || Platform.isAndroid || Platform.isIOS;
-  bool playingAudio = false;
   SheetPlayer sheetPlayer = SheetPlayer();
 
   void transposeSheet(int steps) {
@@ -110,21 +109,23 @@ class _SheetPageState extends State<SheetPage> {
               ),
               SizedBox(width: 8.0),
               sheetPlayer.ready && audioSupported
-                  ? playingAudio
+                  ? sheetPlayer.audioPlayer!.playing
                       ? IconButton(
                           icon: Icon(Icons.pause),
                           tooltip: 'Pause',
                           onPressed: () {
-                            setState(() => playingAudio = false);
-                            sheetPlayer.pause();
+                            setState(() {
+                              sheetPlayer.pause();
+                            });
                           },
                         )
                       : IconButton(
                           icon: Icon(Icons.play_arrow),
                           tooltip: 'Play',
                           onPressed: () {
-                            setState(() => playingAudio = true);
-                            sheetPlayer.play();
+                            setState(() {
+                              sheetPlayer.play();
+                            });
                           },
                         )
                   : IconButton(
