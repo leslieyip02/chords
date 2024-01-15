@@ -82,7 +82,7 @@ class _SheetTransposerState extends State<SheetTransposer> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'Transpose',
+                    'Transpose: $sliderLabel',
                     textAlign: TextAlign.center,
                     style: theme.textTheme.titleMedium,
                   ),

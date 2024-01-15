@@ -110,7 +110,7 @@ class _SheetAudioEditorState extends State<SheetAudioEditor>
                         Align(
                           alignment: Alignment.center,
                           child: Text(
-                            'Tempo',
+                            'Tempo: $currentSlider',
                             textAlign: TextAlign.center,
                             style: theme.textTheme.titleMedium,
                           ),
@@ -231,8 +231,7 @@ class _SheetAudioEditorState extends State<SheetAudioEditor>
                                 SheetUpdateData(
                                   widget.sheet,
                                   chordSettings,
-                                  // TODO: actually take in tempo
-                                  tempo: 120,
+                                  tempo: currentSlider,
                                 ),
                               ).then((_) => Navigator.pop(context));
                             },
