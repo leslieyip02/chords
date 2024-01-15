@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:chords/audio/sheet_player.dart';
 import 'package:dart_melty_soundfont/dart_melty_soundfont.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:just_audio/just_audio.dart';
@@ -23,12 +24,12 @@ class SoundFontSource extends StreamAudioSource {
 
   SoundFontSource(
     this.chordSynthesizer,
-    this.drumsSynthesizer,
+    this.metronomeSynthesizer,
     this.sourceData,
   );
 
   final Synthesizer chordSynthesizer;
-  final Synthesizer drumsSynthesizer;
+  final Synthesizer metronomeSynthesizer;
   List<int> sourceData;
 
   static Future<Synthesizer> loadSynthesizer(String path) async {
@@ -45,16 +46,17 @@ class SoundFontSource extends StreamAudioSource {
         );
   }
 
-  static Future<SoundFontSource> fromPaths(
-    String chordSoundFontPath,
-    String drumsSoundFontPath,
+  static Future<SoundFontSource> fromSettings(
+    SoundFontSettings chordSettings,
   ) async {
-    Synthesizer chordSynthesizer =
-        await SoundFontSource.loadSynthesizer(chordSoundFontPath);
-    Synthesizer drumsSynthesizer =
-        await SoundFontSource.loadSynthesizer(drumsSoundFontPath);
-    drumsSynthesizer.masterVolume = 0.8;
-    return SoundFontSource(chordSynthesizer, drumsSynthesizer, []);
+    Synthesizer chordSynthesizer = await SoundFontSource.loadSynthesizer(
+      chordSettings.path,
+    );
+    Synthesizer metronomeSynthesizer = await SoundFontSource.loadSynthesizer(
+      SheetPlayer.metronomePath,
+    );
+    metronomeSynthesizer.masterVolume = 0.7;
+    return SoundFontSource(chordSynthesizer, metronomeSynthesizer, []);
   }
 
   void appendWavHeader() {
@@ -80,9 +82,7 @@ class SoundFontSource extends StreamAudioSource {
   void appendNotes(
     Iterable<SoundFontNote> notes,
     double duration, {
-    int channel = 0,
-    int chordPreset = 0,
-    int drumsPreset = 0,
+    required SoundFontSettings chordSettings,
     int beats = 0,
     int beatLength = 512,
   }) {
@@ -96,10 +96,13 @@ class SoundFontSource extends StreamAudioSource {
     Uint8List uint8Buffer = Uint8List(length);
 
     List<double> chordBuffer = List.filled(length * 2, 0);
-    chordSynthesizer.selectPreset(channel: channel, preset: chordPreset);
+    chordSynthesizer.selectPreset(
+      channel: chordSettings.channel,
+      preset: chordSettings.preset,
+    );
     for (final note in notes) {
       chordSynthesizer.noteOn(
-        channel: channel,
+        channel: chordSettings.channel,
         key: note.key,
         velocity: note.velocity,
       );
@@ -114,16 +117,18 @@ class SoundFontSource extends StreamAudioSource {
       uint8Buffer[i] = (sample * compression).toInt();
     }
 
-    // drums
+    // metronome
+    // magic numbers come from here:
+    // https://www.polyphone-soundfonts.com/documents/22-unpitched-percussion/560-metronom
     if (beats != 0) {
       int interval = length ~/ beats;
 
       // downbeat
       List<double> beatBuffer = List.filled(beatLength * 2, 0);
-      drumsSynthesizer.selectPreset(channel: channel, preset: drumsPreset);
-      drumsSynthesizer.noteOn(channel: channel, key: 60, velocity: 100);
-      drumsSynthesizer.renderMono(beatBuffer);
-      drumsSynthesizer.noteOffAll();
+      metronomeSynthesizer.selectPreset(channel: 0, preset: 0);
+      metronomeSynthesizer.noteOn(channel: 0, key: 76, velocity: 127);
+      metronomeSynthesizer.renderMono(beatBuffer);
+      metronomeSynthesizer.noteOffAll();
 
       [minValue, valueRange] = amplitudeRange(beatBuffer);
       for (int i = 0; i < beatLength; i++) {
@@ -132,9 +137,9 @@ class SoundFontSource extends StreamAudioSource {
       }
 
       // other beats
-      drumsSynthesizer.noteOn(channel: channel, key: 48, velocity: 100);
-      drumsSynthesizer.renderMono(beatBuffer);
-      drumsSynthesizer.noteOffAll();
+      metronomeSynthesizer.noteOn(channel: 0, key: 77, velocity: 80);
+      metronomeSynthesizer.renderMono(beatBuffer);
+      metronomeSynthesizer.noteOffAll();
 
       [minValue, valueRange] = amplitudeRange(beatBuffer);
       for (int i = 0; i < beatLength; i++) {
@@ -184,4 +189,16 @@ class SoundFontNote {
   // concert C is 60
   final int key;
   final int velocity;
+}
+
+class SoundFontSettings {
+  SoundFontSettings(
+    this.path, {
+    this.channel = 0,
+    this.preset = 0,
+  });
+
+  String path;
+  int channel;
+  int preset;
 }

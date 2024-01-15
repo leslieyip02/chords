@@ -31,7 +31,7 @@ class _SheetSelectorState extends State<SheetSelector> {
     }
   }
 
-  String cleanPath(String path) {
+  String truncatePath(String path) {
     final Iterable<String> words = path
         .replaceAll(SheetSelector.pathPrefix, '')
         .replaceAll(SheetSelector.pathSuffix, '')
@@ -99,7 +99,7 @@ class _SheetSelectorState extends State<SheetSelector> {
                 SearchController controller,
               ) {
                 return paths
-                    .map(cleanPath)
+                    .map(truncatePath)
                     .where((title) => title
                         .toLowerCase()
                         .startsWith(controller.value.text.toLowerCase()))

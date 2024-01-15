@@ -40,6 +40,7 @@ class _SheetTransposerState extends State<SheetTransposer> {
   @override
   void initState() {
     super.initState();
+
     currentTranspose = widget.currentTranspose;
     currentSlider = widget.currentTranspose;
   }

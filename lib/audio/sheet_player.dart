@@ -4,11 +4,10 @@ import 'package:chords/models/chord.dart';
 import 'package:chords/models/section.dart';
 import 'package:chords/models/sheet.dart';
 import 'package:chords/widgets/bar/bar_line.dart';
+import 'package:chords/widgets/sheet/sheet_audio_editor.dart';
 import 'package:just_audio/just_audio.dart';
 
 class SheetPlayer {
-  static const String defaultChordSoundFontPath = 'assets/soundfonts/organ.sf2';
-  static const String defaultDrumsSoundFontPath = 'assets/soundfonts/drums.sf2';
   static const Map<String, int> noteToSoundFontKey = {
     'C': 60,
     'Db': 61,
@@ -23,6 +22,7 @@ class SheetPlayer {
     'Bb': 70,
     'B': 71,
   };
+  static const String metronomePath = 'assets/soundfonts/metronome.sf2';
 
   SheetPlayer();
 
@@ -31,18 +31,14 @@ class SheetPlayer {
 
   Future<SheetPlayer> updateSheet(
     Sheet sheet, {
-    int tempo = 120,
+    required SoundFontSettings chordSettings,
     int beatsPerBar = 4,
-    String chordSoundFontPath = SheetPlayer.defaultChordSoundFontPath,
-    String drumsSoundFontPath = SheetPlayer.defaultDrumsSoundFontPath,
+    int tempo = SheetAudioEditor.defaultTempo,
   }) async {
     // TODO: accomodate different time signatures
     double barDuration = beatsPerBar.toDouble() / (tempo.toDouble() / 60.0);
 
-    SoundFontSource source = await SoundFontSource.fromPaths(
-      chordSoundFontPath,
-      drumsSoundFontPath,
-    );
+    SoundFontSource source = await SoundFontSource.fromSettings(chordSettings);
     for (Section section in sheet.sections) {
       int repeatIndex = -1;
       bool repeated = false;
@@ -91,7 +87,17 @@ class SheetPlayer {
             }
             return SoundFontNote(key, 120);
           });
-          source.appendNotes(notes, duration, beats: beats);
+
+          try {
+            source.appendNotes(
+              notes,
+              duration,
+              chordSettings: chordSettings,
+              beats: beats,
+            );
+          } catch (_) {
+            throw ArgumentError('Invalid settings');
+          }
 
           chordIndex++;
         }

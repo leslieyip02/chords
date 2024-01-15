@@ -45,6 +45,7 @@ class _ChordCardState extends State<ChordCard> {
   @override
   void initState() {
     super.initState();
+
     updateColorScheme(App.colorScheme);
   }
 

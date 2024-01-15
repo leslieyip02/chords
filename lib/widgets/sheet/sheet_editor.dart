@@ -42,6 +42,7 @@ class _SheetEditorState extends State<SheetEditor> {
             padding: EdgeInsets.all(SheetEditor.margin),
             child: ShakeableContainer(
               key: shakeableContainerKey,
+              // TODO: make this scrollable
               child: TextField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
