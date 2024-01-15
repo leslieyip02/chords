@@ -59,11 +59,9 @@ class _SheetTransposerState extends State<SheetTransposer> {
       } else if (currentSlider == SheetTransposer.bbInstrument) {
         sliderLabel += ' (Bb)';
       }
-      // hack to add spacing
-      sliderLabel = '   $sliderLabel   ';
 
       return Container(
-        height: 200,
+        height: 160.0,
         color: theme.cardColor,
         padding: EdgeInsets.symmetric(horizontal: 32.0),
         child: Column(
@@ -100,14 +98,14 @@ class _SheetTransposerState extends State<SheetTransposer> {
                 ),
               ],
             ),
-            SizedBox(height: 32),
+            SizedBox(height: 16.0),
             Slider(
               value: currentSlider.toDouble(),
               min: SheetTransposer.minSlider,
               max: SheetTransposer.maxSlider,
               divisions: SheetTransposer.divisions,
               inactiveColor: theme.colorScheme.outline,
-              label: sliderLabel,
+              label: '   $sliderLabel   ',
               onChanged: (sliderValue) {
                 setState(() => currentSlider = sliderValue.round());
               },

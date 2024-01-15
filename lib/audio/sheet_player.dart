@@ -29,12 +29,12 @@ class SheetPlayer {
   AudioPlayer? audioPlayer;
   bool ready = false;
 
-  Future<SheetPlayer> updateSheet(
-    Sheet sheet, {
-    required SoundFontSettings chordSettings,
-    int beatsPerBar = 4,
-    int tempo = SheetAudioEditor.defaultTempo,
-  }) async {
+  Future<SheetPlayer> updateSheet(SheetUpdateData updateData) async {
+    Sheet sheet = updateData.sheet;
+    SoundFontSettings chordSettings = updateData.chordSettings;
+    int beatsPerBar = updateData.beatsPerBar;
+    int tempo = updateData.tempo;
+
     // TODO: accomodate different time signatures
     double barDuration = beatsPerBar.toDouble() / (tempo.toDouble() / 60.0);
 
@@ -88,16 +88,13 @@ class SheetPlayer {
             return SoundFontNote(key, 120);
           });
 
-          try {
-            source.appendNotes(
-              notes,
-              duration,
-              chordSettings: chordSettings,
-              beats: beats,
-            );
-          } catch (_) {
-            throw ArgumentError('Invalid settings');
-          }
+          SoundFontChord data = SoundFontChord(
+            notes,
+            duration,
+            chordSettings,
+            beats: beats,
+          );
+          source.appendChord(data);
 
           chordIndex++;
         }
@@ -139,4 +136,19 @@ class SheetPlayer {
   //   await audioPlayer.pause();
   //   await audioPlayer.seek(Duration.zero);
   // }
+}
+
+class SheetUpdateData {
+  SheetUpdateData(
+    this.sheet,
+    this.chordSettings, {
+    this.beatsPerBar = 4,
+    this.tempo = SheetAudioEditor.defaultTempo,
+  });
+
+  // wrapper so that the update can be called in compute
+  final Sheet sheet;
+  final SoundFontSettings chordSettings;
+  final int beatsPerBar;
+  final int tempo;
 }

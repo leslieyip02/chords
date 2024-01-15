@@ -139,6 +139,7 @@ class _SheetPageState extends State<SheetPage> {
                       icon: Icon(Icons.audio_file),
                       tooltip: 'Configure audio',
                       onPressed: () {
+                        sheetPlayer.pause().then((_) => setState(() {}));
                         showModalBottomSheet(
                           context: context,
                           builder: (BuildContext context) {

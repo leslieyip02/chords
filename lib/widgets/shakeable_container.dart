@@ -27,6 +27,7 @@ class ShakeableContainerState extends State<ShakeableContainer>
   @override
   void initState() {
     super.initState();
+
     controller = AnimationController(
       duration: widget.shakeDuration,
       vsync: this,
@@ -41,6 +42,8 @@ class ShakeableContainerState extends State<ShakeableContainer>
   @override
   void dispose() {
     controller.removeStatusListener(updateAnimationStatus);
+    controller.dispose();
+
     super.dispose();
   }
 

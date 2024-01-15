@@ -79,13 +79,13 @@ class SoundFontSource extends StreamAudioSource {
     sourceData = List.from(uint8Buffer);
   }
 
-  void appendNotes(
-    Iterable<SoundFontNote> notes,
-    double duration, {
-    required SoundFontSettings chordSettings,
-    int beats = 0,
-    int beatLength = 512,
-  }) {
+  void appendChord(SoundFontChord chordData) {
+    Iterable<SoundFontNote> notes = chordData.notes;
+    double duration = chordData.duration;
+    SoundFontSettings chordSettings = chordData.chordSettings;
+    int beats = chordData.beats;
+    int beatLength = chordData.beatLength;
+
     if (sourceData.isEmpty) {
       appendWavHeader();
     }
@@ -189,6 +189,22 @@ class SoundFontNote {
   // concert C is 60
   final int key;
   final int velocity;
+}
+
+class SoundFontChord {
+  SoundFontChord(
+    this.notes,
+    this.duration,
+    this.chordSettings, {
+    this.beats = 0,
+    this.beatLength = 512,
+  });
+
+  final Iterable<SoundFontNote> notes;
+  final double duration;
+  final SoundFontSettings chordSettings;
+  final int beats;
+  final int beatLength;
 }
 
 class SoundFontSettings {
