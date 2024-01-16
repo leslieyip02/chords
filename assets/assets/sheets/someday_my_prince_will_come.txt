@@ -1,6 +1,7 @@
 info:
 title: Someday My Prince Will Come
 composer: Frank Churchill
+time: 3/4
 -----
 section: A
 || Bbmaj7   | D7#5 | Ebmaj7 | G7b9  |
