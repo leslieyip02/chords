@@ -7,13 +7,15 @@ class Section {
     this.label,
     this.bars,
     this.dividers,
+    this.beatsPerBar,
   );
 
   final String? label;
   final List<Bar> bars;
   final List<String> dividers;
+  final int beatsPerBar;
 
-  factory Section.fromString(String notation) {
+  factory Section.fromString(String notation, {int beatsPerBar = 4}) {
     String? label;
     List<String> lines = notation.trim().split('\n');
     if (lines[0].startsWith(Section.labelLabel)) {
@@ -34,9 +36,9 @@ class Section {
         .split(dividerParser)
         .map((divided) => divided.trim())
         .where((trimmed) => trimmed.isNotEmpty)
-        .map(Bar.fromString)
+        .map((chunk) => Bar.fromString(chunk, beatsPerBar: beatsPerBar))
         .toList();
-    return Section(label, bars, dividers);
+    return Section(label, bars, dividers, beatsPerBar);
   }
 
   Section transpose(int steps) {

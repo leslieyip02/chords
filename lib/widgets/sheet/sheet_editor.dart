@@ -29,6 +29,9 @@ class _SheetEditorState extends State<SheetEditor> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(SheetEditor.margin * 2)),
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,10 +45,9 @@ class _SheetEditorState extends State<SheetEditor> {
             padding: EdgeInsets.all(SheetEditor.margin),
             child: ShakeableContainer(
               key: shakeableContainerKey,
-              // TODO: make this scrollable
               child: TextField(
                 keyboardType: TextInputType.multiline,
-                maxLines: null,
+                maxLines: 6,
                 controller: customSheetEditor,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),

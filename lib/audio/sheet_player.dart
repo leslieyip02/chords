@@ -32,10 +32,9 @@ class SheetPlayer {
   Future<SheetPlayer> updateSheet(SheetUpdateData updateData) async {
     Sheet sheet = updateData.sheet;
     SoundFontSettings chordSettings = updateData.chordSettings;
-    int beatsPerBar = updateData.beatsPerBar;
-    int tempo = updateData.tempo;
 
-    // TODO: accomodate different time signatures
+    int beatsPerBar = sheet.beatsPerBar;
+    int tempo = updateData.tempo;
     double barDuration = beatsPerBar.toDouble() / (tempo.toDouble() / 60.0);
 
     SoundFontSource source = await SoundFontSource.fromSettings(chordSettings);
@@ -142,13 +141,11 @@ class SheetUpdateData {
   SheetUpdateData(
     this.sheet,
     this.chordSettings, {
-    this.beatsPerBar = 4,
     this.tempo = SheetAudioEditor.defaultTempo,
   });
 
   // wrapper so that the update can be called in compute
   final Sheet sheet;
   final SoundFontSettings chordSettings;
-  final int beatsPerBar;
   final int tempo;
 }

@@ -1,5 +1,4 @@
 import 'package:chords/models/bar.dart';
-import 'package:chords/models/chord.dart';
 import 'package:chords/models/section.dart';
 import 'package:chords/widgets/bar/bar_line.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -14,10 +13,10 @@ void main() {
     }
 
     List<Bar> expectedBars = [
-      Bar([Chord.fromString('Am7')]),
-      Bar([Chord.fromString('D7'), Chord.fromString('F7')]),
-      Bar([Chord.fromString('Gø7'), Chord.fromString('C7')]),
-      Bar([Chord.fromString('Fm7'), Chord.fromString('Bb7')]),
+      Bar.fromString('Am7'),
+      Bar.fromString('D7 F7'),
+      Bar.fromString('Gø7 C7'),
+      Bar.fromString('Fm7 Bb7'),
     ];
     expect(section.bars.length, expectedBars.length);
     for (int i = 0; i < section.bars.length; i++) {
@@ -42,10 +41,10 @@ void main() {
     }
 
     List<Bar> expectedBars = [
-      Bar([Chord.fromString('Am7')]),
-      Bar([Chord.fromString('D7'), Chord.fromString('F7')]),
-      Bar([Chord.fromString('Gø7'), Chord.fromString('C7')]),
-      Bar([Chord.fromString('Fm7'), Chord.fromString('Bb7')]),
+      Bar.fromString('Am7'),
+      Bar.fromString('D7 F7'),
+      Bar.fromString('Gø7 C7'),
+      Bar.fromString('Fm7 Bb7'),
     ];
     expect(section.bars.length, expectedBars.length);
     for (int i = 0; i < section.bars.length; i++) {
@@ -70,10 +69,10 @@ void main() {
     }
 
     List<Bar> expectedBars = [
-      Bar([Chord.fromString('Am7')]),
-      Bar([Chord.fromString('D7'), Chord.fromString('F7')]),
-      Bar([Chord.fromString('Gø7'), Chord.fromString('C7')]),
-      Bar([Chord.fromString('Fm7'), Chord.fromString('Bb7')]),
+      Bar.fromString('Am7'),
+      Bar.fromString('D7 F7'),
+      Bar.fromString('Gø7 C7'),
+      Bar.fromString('Fm7 Bb7'),
     ];
     expect(section.bars.length, expectedBars.length);
     for (int i = 0; i < section.bars.length; i++) {

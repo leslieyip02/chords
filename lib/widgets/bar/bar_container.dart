@@ -17,18 +17,16 @@ class BarContainer extends StatelessWidget {
     List<Widget> contents = [];
     int index = 0;
     while (index < bar.chords.length) {
-      if (index + 1 < bar.chords.length) {
-        if (bar.chords[index] == bar.chords[index + 1]) {
-          contents.add(ChordCard(chord: bar.chords[index], flex: 2));
-          index++;
-        } else {
-          contents.add(ChordCard(chord: bar.chords[index]));
-        }
-        contents.add(SizedBox(width: ChordCard.margin));
-      } else {
-        contents.add(ChordCard(chord: bar.chords[index]));
+      int flex = 1;
+      while (index + flex < bar.chords.length &&
+          bar.chords[index] == bar.chords[index + flex]) {
+        flex++;
       }
-      index++;
+      contents.add(ChordCard(chord: bar.chords[index], flex: flex));
+      index += flex;
+      if (index < bar.chords.length) {
+        contents.add(SizedBox(width: ChordCard.margin));
+      }
     }
 
     return Expanded(

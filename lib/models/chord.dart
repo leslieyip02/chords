@@ -184,6 +184,10 @@ class Chord {
     return this;
   }
 
+  Chord copy() {
+    return Chord.fromString(originalNotation);
+  }
+
   @override
   String toString() {
     return note.toString() + quality;
