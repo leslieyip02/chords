@@ -1,0 +1,9 @@
+info:
+title: Groove Merchant
+composer: Jerome Richardson
+-----
+section: A
+|| Ab        | Db7     | Ab7     | Ab7     | 
+   Ab7 C7/G  | Fm7 Bb7 | Eb7 Bb7 | Eb7     |
+   Ab7       | Ab7     | Db7     | Do7     |
+   Ab/Eb Eo7 | Fm7 B7  | Bb7 Eb7 | Ab Eb7 ||
