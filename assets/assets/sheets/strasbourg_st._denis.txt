@@ -1,0 +1,11 @@
+info:
+title: Strasbourg St. Denis
+composer: Roy Hargrove
+-----
+section: A
+|| Bbm7 Cm7 | Dbmaj7       | Bbm7 Cm7 | Dbmaj7  |
+   Bbm7 Cm7 | Dbmaj7 Ebsus | Abmaj7   | F7b9   ||
+-----
+section: A
+[: Bbm7 Cm7 | Dbmaj7       | Bbm7 Cm7 | Dbmaj7  |
+   Bbm7 Cm7 | Dbmaj7 Ebsus | Abmaj7   | F7b9   :]

@@ -1,0 +1,21 @@
+info:
+title: After You've Gone
+composer: Turner Layton
+-----
+section: A
+|| Ebmaj7 | Ebmaj7 | Ebm6      | Ab7           |
+   Bbmaj7 | Bbmaj7 | Dm7       | G7           ||
+-----
+section: B
+|| C7     | C7     | F7        | F7            |
+   Bb6    | Bb6    | Fm7       | Bb7          ||
+-----
+section: A
+|| Ebmaj7 | Ebmaj7 | Ebm6      | Ab7           |
+   Bbmaj7 | Bbmaj7 | Dm7       | G7           ||
+-----
+section: C
+|| C7     | G7     | Cm7       | Ebm(maj7) Ab7 |
+   Bmaj7  | Am7 D7 | Gm7 Gm7/F | Eo7           |
+   Bb6/F  | G7     | Cm7       | F7            |
+   Bb6    | Bb6    | Fm7       | Bb7          ||

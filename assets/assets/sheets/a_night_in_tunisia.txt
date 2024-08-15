@@ -1,0 +1,20 @@
+info:
+title: A Night in Tunisia
+composer: Dizzy Gillespie
+-----
+section: A
+[: Eb7      | Dm   | Eb7      | Dm         |
+   Eb7      | Dm   | Eø7 A7b9 | Dm        :]
+-----
+section: B
+|| Aø7      | D7b9 | Gm7      | Gm7        |
+   Gø7      | C7b9 | Fmaj7    | Eø7 A7b9  ||
+-----
+section: A
+|| Eb7      | Dm   | Eb7      | Dm         |
+   Eb7      | Dm   | Eø7 A7b9 | {Coda} Dm ||
+-----
+section: Coda
+|| Eø7      | Eø7  | Eb7#11   | Eb7#11     |
+   Dm7      | Dm7  | G7#11    | G7#11      |
+   Gm(maj7) | Gm7  | Gb7#9    | Gb7#9     ||
